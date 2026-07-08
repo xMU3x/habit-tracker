@@ -306,6 +306,23 @@ textarea.finp{resize:vertical;min-height:70px;line-height:1.6}
       </div>
       <div class="fast-days-grid" id="fast-days-list"></div>
     </div>
+
+    <div class="fast-block">
+      <div class="fast-title">📅 التقويم الهجري — أيام الصيام المتاحة هذا الشهر</div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:8px">
+        <button class="btn-ghost" style="width:auto;padding:6px 14px;border-color:var(--border2)" onclick="shiftHijriMonth(-1)">‹ السابق</button>
+        <div id="hijri-cal-title" style="font-size:13px;font-weight:900;color:var(--gold);text-align:center;flex:1"></div>
+        <button class="btn-ghost" style="width:auto;padding:6px 14px;border-color:var(--border2)" onclick="shiftHijriMonth(1)">التالي ›</button>
+      </div>
+      <div id="hijri-cal-summary" style="font-size:11px;color:var(--muted);margin-bottom:12px;text-align:center"></div>
+      <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:4px">
+        ${['أحد','اثنين','ثلاثاء','أربعاء','خميس','جمعة','سبت'].map(d=>`<div style="text-align:center;font-size:10px;color:var(--muted);font-weight:700">${d}</div>`).join('')}
+      </div>
+      <div id="hijri-cal-grid" style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px"></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;font-size:10px;color:var(--muted)">
+        <span>🟢 يوم صيام مُسجَّل (تم)</span><span>🟡 يوم صيام مُتاح</span><span>⚪ يوم عادي</span>
+      </div>
+    </div>
   </div>
 
   <div id="tab-quran" style="display:none">
@@ -335,12 +352,12 @@ textarea.finp{resize:vertical;min-height:70px;line-height:1.6}
         <button class="btn-primary" style="width:auto;padding:9px 18px" onclick="checkAdminPass()">دخول</button>
       </div>
     </div>
-    <div id="admin-content" style="display:none">
-      <div class="admin-section">
-        <div class="admin-sec-title"><div class="asicon asicon-gold">📜</div><span style="color:var(--gold)">السجل الكامل</span></div>
-        <div id="admin-history-list"><div class="lempty">لا توجد سجلات بعد</div></div>
-      </div>
+    <div class="admin-section">
+      <div class="admin-sec-title"><div class="asicon asicon-gold">📜</div><span style="color:var(--gold)">السجل الكامل</span></div>
+      <div id="admin-history-list"><div class="lempty">لا توجد سجلات بعد</div></div>
+    </div>
 
+    <div id="admin-content" style="display:none">
       <div class="admin-section">
         <div class="admin-sec-title"><div class="asicon asicon-gold">✦</div><span style="color:var(--gold)">إضافة عادة جديدة</span></div>
         <div class="frow">
@@ -395,16 +412,28 @@ textarea.finp{resize:vertical;min-height:70px;line-height:1.6}
         <div class="admin-sec-title"><div class="asicon asicon-gold">🎓</div><span style="color:var(--gold)">إدارة المحاضرات</span></div>
         <div class="frow">
           <input class="finp" id="course-name" placeholder="اسم الكورس الجديد" style="flex:2"/>
-          <button class="btn-primary" style="width:auto;padding:9px 16px" onclick="addCourse()">+ كورس</button>
+          <select class="fsel" id="course-user" style="flex:1">
+            <option value="كلاهما">كلاهما</option>
+            <option value="محمد">محمد فقط</option>
+            <option value="نيرة">نيرة فقط</option>
+          </select>
         </div>
+        <button class="btn-primary" style="margin-bottom:12px" onclick="addCourse()">+ إضافة الكورس</button>
         <div id="admin-courses-list"></div>
       </div>
 
       <div class="admin-section">
         <div class="admin-sec-title"><div class="asicon asicon-gold">💾</div><span style="color:var(--gold)">النسخ الاحتياطي</span></div>
         <button class="btn-primary" style="margin-bottom:8px" onclick="exportAllData()">⬇️ تصدير كل البيانات</button>
-        <button class="btn-ghost" onclick="triggerImportFile()">⬆️ استرداد البيانات من ملف</button>
+        <button class="btn-ghost" style="margin-bottom:8px" onclick="triggerImportFile()">⬆️ استرداد البيانات من ملف</button>
         <input type="file" id="import-file-input" accept="application/json" style="display:none" onchange="importAllData(event)"/>
+      </div>
+
+      <div class="admin-section">
+        <div class="admin-sec-title"><div class="asicon asicon-red">🔧</div><span style="color:var(--red)">تشخيص الاتصال بالسيرفر</span></div>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:10px">لو ظاهر "فشل الحفظ على السيرفر"، اضغط الزر ده عشان نعرف السبب بالظبط.</div>
+        <button class="btn-ghost" onclick="runHealthCheck()">🩺 فحص الاتصال بـ Supabase</button>
+        <div id="health-result" style="margin-top:10px;font-size:11px;white-space:pre-wrap;line-height:1.8"></div>
       </div>
 
       <div class="admin-section">
@@ -530,7 +559,7 @@ function sbShow(s){
 async function apiGet(key){
   try{
     const r=await fetch(`/api/data?key=${encodeURIComponent(key)}`);
-    if(!r.ok){console.warn('GET failed',key,r.status);return null;}
+    if(!r.ok){const body=await r.text().catch(()=>'');console.warn('GET failed',key,r.status,body);return null;}
     return await r.json();
   }catch(e){console.warn('apiGet',key,e.message);return null;}
 }
@@ -626,7 +655,8 @@ function switchUser(u){currentUser=u;document.getElementById('btn-m').classList.
 async function setTab(tab,el){
   currentTab=tab;document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');
   ['today','fasting','quran','lectures','admin'].forEach(t=>document.getElementById('tab-'+t).style.display=t===tab?'':'none');
-  if(tab==='fasting')renderFasting();if(tab==='quran')renderQuranTab();if(tab==='lectures')renderLectures();if(tab==='admin'&&adminUnlocked)renderAdmin();
+  if(tab==='fasting')renderFasting();if(tab==='quran')renderQuranTab();if(tab==='lectures')renderLectures();
+  if(tab==='admin'){await renderHistory();if(adminUnlocked)renderAdmin();}
 }
 
 async function toggleHabit(hid){
@@ -760,11 +790,79 @@ function renderFasting(){
   document.getElementById('fast-summary').textContent=total?`${done} من ${total} يوم (${pct}%)`:'أضف أيام الصيام من لوحة الإدارة';
   const el=document.getElementById('fast-days-list');
   el.innerHTML=total?fastDays.map(fastDayHTML).join(''):'<div class="lempty">لا توجد أيام — اذهب لـ «⚙ إدارة»</div>';
+  renderFastCalendar();
 }
 function renderAdminFasting(){
   const el=document.getElementById('admin-fast-list');
   if(!fastDays.length){el.innerHTML='<div class="lempty">لا توجد أيام مضافة</div>';return;}
   el.innerHTML=`<div style="font-size:11px;color:var(--muted);margin-bottom:6px">${fastDays.length} يوم مسجل</div>`+fastDays.map(fastDayHTML).join('');
+}
+
+// ── التقويم الهجري لأيام الصيام ──
+let hijriCalBase=new Date();
+function hijriParts(d){
+  try{
+    const parts=new Intl.DateTimeFormat('en-u-ca-islamic-umalqura',{year:'numeric',month:'numeric',day:'numeric'}).formatToParts(d);
+    const o={};parts.forEach(p=>{if(p.type!=='literal')o[p.type]=parseInt(p.value,10);});
+    if(o.year&&o.month&&o.day)return o;
+  }catch(e){}
+  return null;
+}
+function hijriMonthName(d){
+  try{return d.toLocaleDateString('ar-SA-u-ca-islamic',{month:'long',year:'numeric'});}catch(e){return '';}
+}
+function buildHijriMonthGrid(baseDate){
+  let d=new Date(baseDate);d.setHours(12,0,0,0);
+  let hp=hijriParts(d);
+  if(!hp)return null;
+  // ارجع لأول يوم في الشهر الهجري
+  let guard=0;
+  while(hp.day>1&&guard<35){d.setDate(d.getDate()-1);hp=hijriParts(d);guard++;}
+  const monthNum=hp.month,yearNum=hp.year;
+  const monthStart=new Date(d);
+  const days=[];let cur=new Date(monthStart);guard=0;
+  while(guard<35){
+    const p=hijriParts(cur);
+    if(!p||p.month!==monthNum||p.year!==yearNum)break;
+    days.push({greg:new Date(cur),hijriDay:p.day});
+    cur.setDate(cur.getDate()+1);guard++;
+  }
+  return {year:yearNum,month:monthNum,monthStart,days};
+}
+function localDateStr(d){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
+function shiftHijriMonth(dir){
+  const grid=buildHijriMonthGrid(hijriCalBase);
+  if(!grid)return;
+  if(dir<0){hijriCalBase=new Date(grid.monthStart);hijriCalBase.setDate(hijriCalBase.getDate()-1);}
+  else{hijriCalBase=new Date(grid.days[grid.days.length-1].greg);hijriCalBase.setDate(hijriCalBase.getDate()+1);}
+  renderFastCalendar();
+}
+function renderFastCalendar(){
+  const titleEl=document.getElementById('hijri-cal-title'),sumEl=document.getElementById('hijri-cal-summary'),gridEl=document.getElementById('hijri-cal-grid');
+  if(!gridEl)return;
+  const grid=buildHijriMonthGrid(hijriCalBase);
+  if(!grid){gridEl.innerHTML='<div class="lempty">التقويم الهجري غير مدعوم على هذا الجهاز</div>';return;}
+  titleEl.textContent=hijriMonthName(grid.monthStart);
+  const todayStr=TODAY();
+  let availableCount=0,doneCount=0;
+  const cells=[];
+  const leadBlank=grid.days.length?grid.days[0].greg.getDay():0;
+  for(let i=0;i<leadBlank;i++)cells.push('<div></div>');
+  grid.days.forEach(({greg,hijriDay})=>{
+    const ds=localDateStr(greg);
+    const fd=fastDays.find(f=>f.date===ds);
+    const isToday=ds===todayStr;
+    let bg='var(--surface)',border='var(--border)',color='var(--text2)';
+    if(fd){
+      availableCount++;
+      const cb=Array.isArray(fd.checkedBy)?fd.checkedBy:(fd.checked?['محمد']:[]);
+      if(cb.length){doneCount++;bg='var(--green-dim)';border='var(--green)';color='var(--green)';}
+      else{bg='var(--gold-dim)';border='var(--gold)';color='var(--gold)';}
+    }
+    cells.push(`<div title="${greg.toLocaleDateString('ar-EG',{month:'short',day:'numeric'})}" style="aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:8px;background:${bg};border:1.5px solid ${border};${isToday?'box-shadow:0 0 0 2px var(--gold) inset;':''}font-size:12px;font-weight:700;color:${color};cursor:${fd?'pointer':'default'}" ${fd?`onclick="toggleFastDay('${ds}')"`:''}>${hijriDay}</div>`);
+  });
+  gridEl.innerHTML=cells.join('');
+  sumEl.textContent=`${availableCount} يوم صيام متاح هذا الشهر — ${doneCount} تم صيامه، ${availableCount-doneCount} متبقي`;
 }
 
 async function clearActivityLog(){activityLog=[];await saveLog();renderLog();}
@@ -810,7 +908,7 @@ async function renderHistory(){
   }).join('');
 }
 
-async function renderAdmin(){renderAdminHabits();renderAdminFasting();renderAdminCourses();await renderHistory();}
+async function renderAdmin(){renderAdminHabits();renderAdminFasting();renderAdminCourses();}
 function renderAdminHabits(){
   const el=document.getElementById('admin-habit-list');if(!habits.length){el.innerHTML='<div class="lempty">لا توجد عادات</div>';return;}
   const cats=[...new Set(habits.map(h=>h.cat))];
@@ -876,15 +974,20 @@ function renderHabits(){
   }).join('');
 }
 
-function render(){renderHabits();renderProgress();renderLog();if(currentTab==='admin'&&adminUnlocked)renderAdmin();if(currentTab==='quran')renderQuranTab();if(currentTab==='fasting')renderFasting();if(currentTab==='lectures')renderLectures();}
+function render(){renderHabits();renderProgress();renderLog();if(currentTab==='admin'){renderHistory();if(adminUnlocked)renderAdmin();}if(currentTab==='quran')renderQuranTab();if(currentTab==='fasting')renderFasting();if(currentTab==='lectures')renderLectures();}
 
 // ── محاضرات / كورسات ──
 async function addCourse(){
   const inp=document.getElementById('course-name');const name=inp.value.trim();
   if(!name)return toast('أدخل اسم الكورس','err');
-  courses.push({id:uid(),name,lectures:[]});
-  inp.value='';
+  const userSel=document.getElementById('course-user');const user=userSel?userSel.value:'كلاهما';
+  courses.push({id:uid(),name,user,lectures:[]});
+  inp.value='';if(userSel)userSel.value='كلاهما';
   await saveCourses();renderAdmin();renderLectures();toast('✓ تمت إضافة الكورس');
+}
+async function setCourseUser(courseId,user){
+  const c=courses.find(x=>x.id===courseId);if(!c)return;
+  c.user=user;await saveCourses();renderLectures();toast('✓ تم التحديث');
 }
 async function deleteCourse(id){
   if(!confirm('حذف هذا الكورس وكل محاضراته؟'))return;
@@ -924,6 +1027,13 @@ function renderAdminCourses(){
       <button class="admin-del" onclick="deleteCourse('${c.id}')">×</button>
     </div>
     <div class="frow" style="margin-bottom:8px">
+      <select class="fsel" style="flex:1" onchange="setCourseUser('${c.id}',this.value)">
+        <option value="كلاهما" ${(!c.user||c.user==='كلاهما')?'selected':''}>كلاهما</option>
+        <option value="محمد" ${c.user==='محمد'?'selected':''}>محمد فقط</option>
+        <option value="نيرة" ${c.user==='نيرة'?'selected':''}>نيرة فقط</option>
+      </select>
+    </div>
+    <div class="frow" style="margin-bottom:8px">
       <input class="finp" id="lec-name-${c.id}" placeholder="اسم المحاضرة الجديدة" style="flex:1"/>
       <button class="btn-ghost" style="width:auto;padding:8px 14px;border-color:var(--border2)" onclick="addLecture('${c.id}')">+ إضافة</button>
     </div>
@@ -932,12 +1042,13 @@ function renderAdminCourses(){
 }
 function renderLectures(){
   const el=document.getElementById('courses-list');if(!el)return;
-  if(!courses.length){el.innerHTML='<div class="lempty">لا توجد كورسات — اذهب لـ «⚙ إدارة»</div>';return;}
-  el.innerHTML=courses.map(c=>{
+  const my=courses.filter(c=>!c.user||c.user==='كلاهما'||c.user===currentUser);
+  if(!my.length){el.innerHTML='<div class="lempty">لا توجد كورسات — اذهب لـ «⚙ إدارة»</div>';return;}
+  el.innerHTML=my.map(c=>{
     const total=c.lectures.length;const done=c.lectures.filter(l=>isLectureDone(l.id)).length;
     const pct=total?Math.round(done/total*100):0;
     return `<div class="course-block">
-      <div class="course-hdr"><div class="course-title">🎓 ${escHtml(c.name)}</div><div class="course-stats">${done}/${total} (${pct}%)</div></div>
+      <div class="course-hdr"><div class="course-title">🎓 ${escHtml(c.name)}${c.user&&c.user!=='كلاهما'?` <span class="tag" style="font-size:10px">${c.user}</span>`:''}</div><div class="course-stats">${done}/${total} (${pct}%)</div></div>
       <div class="course-prog"><div class="course-prog-bar" style="width:${pct}%"></div></div>
       ${total?c.lectures.map(l=>{const d=isLectureDone(l.id);return `<div class="lecture-row ${d?'done':''}"><button class="lecture-chk" onclick="toggleLecture('${l.id}')">${d?'✓':''}</button><span class="lecture-name">${escHtml(l.name)}</span></div>`;}).join(''):'<div class="lempty">لا توجد محاضرات في هذا الكورس بعد</div>'}
     </div>`;
@@ -974,6 +1085,28 @@ async function importAllData(evt){
     setTimeout(()=>location.reload(),1200);
   }catch(e){toast('⚠ فشل الاسترداد: '+e.message,'err');}
   evt.target.value='';
+}
+
+async function runHealthCheck(){
+  const el=document.getElementById('health-result');
+  el.textContent='⏳ جاري الفحص...';
+  try{
+    const r=await fetch('/api/health');
+    const j=await r.json();
+    const lines=[];
+    lines.push('متغيرات البيئة:');
+    lines.push(`  SUPABASE_URL: ${j.envVars.SUPABASE_URL?'✓ موجود':'✗ غير موجود'}`);
+    lines.push(`  SUPABASE_SECRET_KEY: ${j.envVars.SUPABASE_SECRET_KEY?'✓ موجود':'✗ غير موجود'}`);
+    if(j.supabaseUrlValue)lines.push(`  القيمة: ${j.supabaseUrlValue}`);
+    if(j.table){
+      lines.push('');
+      lines.push(`جدول kv_store: ${j.table.reachable?'✓ متاح':'✗ غير متاح'} ${j.table.status?`(status ${j.table.status})`:''}`);
+      if(j.table.detail)lines.push(`  التفاصيل: ${j.table.detail}`);
+    }
+    lines.push('');
+    lines.push('📋 الخلاصة: '+(j.diagnosis||'غير معروف'));
+    el.textContent=lines.join('\n');
+  }catch(e){el.textContent='⚠ تعذّر تشغيل الفحص: '+e.message;}
 }
 
 let toastTimer;
