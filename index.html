@@ -43,7 +43,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 1
 .datebar{padding:7px 20px;background:var(--bg);border-bottom:1px solid var(--border);font-size:11px;color:var(--muted);display:flex;justify-content:space-between;align-items:center}
 .datebar b{color:var(--gold2);font-weight:700}
 
-#save-badge{position:fixed;top:66px;right:16px;z-index:200;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;border:1px solid;display:none;align-items:center;gap:5px}
+#save-badge{position:fixed;bottom:78px;left:50%;transform:translateX(-50%);z-index:200;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;border:1px solid;display:none;align-items:center;gap:5px}
 #save-badge.saving{display:flex;background:rgba(201,168,76,.12);border-color:rgba(201,168,76,.3);color:var(--gold)}
 #save-badge.saved{display:flex;background:var(--green-dim);border-color:rgba(76,175,125,.3);color:var(--green)}
 #save-badge.err{display:flex;background:var(--red-dim);border-color:rgba(224,92,92,.3);color:var(--red)}
@@ -315,9 +315,7 @@ textarea.finp{resize:vertical;min-height:70px;line-height:1.6}
         <button class="btn-ghost" style="width:auto;padding:6px 14px;border-color:var(--border2)" onclick="shiftHijriMonth(1)">التالي ›</button>
       </div>
       <div id="hijri-cal-summary" style="font-size:11px;color:var(--muted);margin-bottom:12px;text-align:center"></div>
-      <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:4px">
-        ${['أحد','اثنين','ثلاثاء','أربعاء','خميس','جمعة','سبت'].map(d=>`<div style="text-align:center;font-size:10px;color:var(--muted);font-weight:700">${d}</div>`).join('')}
-      </div>
+      <div id="hijri-weekday-header" style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:4px"></div>
       <div id="hijri-cal-grid" style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px"></div>
       <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;font-size:10px;color:var(--muted)">
         <span>🟢 يوم صيام مُسجَّل (تم)</span><span>🟡 يوم صيام مُتاح</span><span>⚪ يوم عادي</span>
@@ -352,12 +350,22 @@ textarea.finp{resize:vertical;min-height:70px;line-height:1.6}
         <button class="btn-primary" style="width:auto;padding:9px 18px" onclick="checkAdminPass()">دخول</button>
       </div>
     </div>
-    <div class="admin-section">
-      <div class="admin-sec-title"><div class="asicon asicon-gold">📜</div><span style="color:var(--gold)">السجل الكامل</span></div>
-      <div id="admin-history-list"><div class="lempty">لا توجد سجلات بعد</div></div>
-    </div>
 
     <div id="admin-content" style="display:none">
+      <div class="admin-section">
+        <div class="admin-sec-title"><div class="asicon asicon-gold">📜</div><span style="color:var(--gold)">السجل الكامل</span></div>
+        <div id="admin-history-list"><div class="lempty">لا توجد سجلات بعد</div></div>
+      </div>
+
+      <div class="admin-section">
+        <div class="admin-sec-title"><div class="asicon asicon-gold">🔑</div><span style="color:var(--gold)">كلمة مرور لوحة الإدارة</span><button class="ptitle-btn" style="margin-right:auto" onclick="lockAdminPanel()">🔒 قفل</button></div>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:8px">كلمة المرور من رقمين فقط. بعد الدخول مرة، مش هتتطلب منك تاني إلا لو ضغطت «قفل».</div>
+        <div class="frow">
+          <input class="finp" id="new-admin-pass" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="2" placeholder="كلمة مرور جديدة (رقمين)" style="flex:1;text-align:center;letter-spacing:6px"/>
+          <button class="btn-primary" style="width:auto;padding:9px 18px" onclick="changeAdminPass()">حفظ</button>
+        </div>
+      </div>
+
       <div class="admin-section">
         <div class="admin-sec-title"><div class="asicon asicon-gold">✦</div><span style="color:var(--gold)">إضافة عادة جديدة</span></div>
         <div class="frow">
@@ -402,6 +410,12 @@ textarea.finp{resize:vertical;min-height:70px;line-height:1.6}
         <div class="date-row">
           <input type="date" class="finp" id="fast-from"/>
           <input type="date" class="finp" id="fast-to"/>
+        </div>
+        <div class="frow">
+          <select class="fsel" id="fast-type" style="flex:1">
+            <option value="نافلة">🌙 نافلة</option>
+            <option value="قضاء">🔁 قضاء</option>
+          </select>
         </div>
         <button class="btn-primary" onclick="addFastingPeriod()" style="margin-bottom:12px">إضافة أيام الصيام</button>
         <div id="admin-fast-list" style="display:grid;gap:6px"></div>
@@ -510,7 +524,6 @@ textarea.finp{resize:vertical;min-height:70px;line-height:1.6}
 </div>
 
 <script>
-const ADMIN_PASS='admin123';
 const PRAYERS=['الفجر','الظهر','العصر','المغرب','العشاء'];
 const CAT_ICONS={أذكار:'📿',قرآن:'📖',صلاة:'🕌',صوم:'🌙',أخرى:'⭐'};
 const JUZ_COUNT=30;
@@ -643,10 +656,32 @@ function pushLog(type,desc,done){
 function escHtml(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function daysDiff(a,b){return Math.round((new Date(b+'T12:00:00')-new Date(a+'T12:00:00'))/864e5);}
 
+// ── كلمة مرور لوحة الإدارة: رقمان فقط، قابلة للتغيير، ولا تُطلب في كل مرة ──
+function getAdminPass(){return localStorage.getItem('werd_admin_pass')||'98';}
+function isAdminRemembered(){return localStorage.getItem('werd_admin_unlocked')==='1';}
+function unlockAdminUI(){
+  adminUnlocked=true;
+  document.getElementById('admin-lock').style.display='none';
+  document.getElementById('admin-content').style.display='';
+  localStorage.setItem('werd_admin_unlocked','1');
+  renderHistory();renderAdmin();
+}
 function checkAdminPass(){
-  if(document.getElementById('admin-pass-inp').value===ADMIN_PASS){
-    adminUnlocked=true;document.getElementById('admin-lock').style.display='none';document.getElementById('admin-content').style.display='';renderAdmin();toast('✓ تم الدخول');
+  if(document.getElementById('admin-pass-inp').value===getAdminPass()){
+    unlockAdminUI();toast('✓ تم الدخول');
   }else{toast('كلمة المرور غير صحيحة','err');document.getElementById('admin-pass-inp').value='';}
+}
+function lockAdminPanel(){
+  adminUnlocked=false;localStorage.removeItem('werd_admin_unlocked');
+  document.getElementById('admin-lock').style.display='';document.getElementById('admin-content').style.display='none';
+  document.getElementById('admin-pass-inp').value='';toast('🔒 تم قفل لوحة الإدارة','info');
+}
+function changeAdminPass(){
+  const v=document.getElementById('new-admin-pass').value.trim();
+  if(!/^\d{2}$/.test(v))return toast('كلمة المرور لازم تكون رقمين بالظبط','err');
+  localStorage.setItem('werd_admin_pass',v);
+  document.getElementById('new-admin-pass').value='';
+  toast('✓ تم تغيير كلمة مرور لوحة الإدارة');
 }
 function toggleUrlField(btn){urlFieldOpen=!urlFieldOpen;btn.classList.toggle('on',urlFieldOpen);document.getElementById('url-field').style.display=urlFieldOpen?'block':'none';}
 
@@ -656,7 +691,10 @@ async function setTab(tab,el){
   currentTab=tab;document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');
   ['today','fasting','quran','lectures','admin'].forEach(t=>document.getElementById('tab-'+t).style.display=t===tab?'':'none');
   if(tab==='fasting')renderFasting();if(tab==='quran')renderQuranTab();if(tab==='lectures')renderLectures();
-  if(tab==='admin'){await renderHistory();if(adminUnlocked)renderAdmin();}
+  if(tab==='admin'){
+    if(!adminUnlocked&&isAdminRemembered())unlockAdminUI();
+    if(adminUnlocked){await renderHistory();renderAdmin();}
+  }
 }
 
 async function toggleHabit(hid){
@@ -734,7 +772,18 @@ async function clearAllHabits(){if(!confirm('حذف كل شيء؟'))return;habit
 
 async function toggleJuz(j){
   if(!quranData[currentUser])quranData[currentUser]={};const was=!!quranData[currentUser][j];quranData[currentUser][j]=!was;
-  pushLog('quran','الجزء '+j,!was);await Promise.all([saveQuran(),saveLog()]);renderQuranTab();renderLog();
+  pushLog('quran','الجزء '+j,!was);
+  // ربط ورد القرآن بشاشة القرآن: عند إتمام جزء جديد، يتعلّم تلقائياً في عادة «ورد القرآن» لليوم
+  if(!was){
+    const werdHabit=habits.find(h=>h.cat==='قرآن');
+    if(werdHabit){
+      const rec=getRec(werdHabit.id,currentUser);
+      if(rec){if(!rec.done){rec.done=true;rec.ts=Date.now();}}
+      else records.push({date:TODAY(),user:currentUser,habitId:werdHabit.id,done:true,ts:Date.now()});
+      await saveRecords();renderHabits();renderProgress();
+    }
+  }
+  await Promise.all([saveQuran(),saveLog()]);renderQuranTab();renderLog();
 }
 async function resetQuran(){if(!confirm('إعادة تعيين القرآن لـ '+currentUser+'؟'))return;quranData[currentUser]={};await saveQuran();renderQuranTab();toast('✓ تم','info');}
 function renderQuranTab(){
@@ -746,12 +795,13 @@ function renderQuranTab(){
 
 async function addFastingPeriod(){
   const from=document.getElementById('fast-from').value,to=document.getElementById('fast-to').value;
+  const typeSel=document.getElementById('fast-type');const type=typeSel?typeSel.value:'نافلة';
   if(!from||!to)return toast('حدد البداية والنهاية','err');if(from>to)return toast('البداية قبل النهاية','err');
   let count=0;const end=new Date(to+'T12:00:00');
-  for(let d=new Date(from+'T12:00:00');d<=end;d.setDate(d.getDate()+1)){const ds=d.toISOString().split('T')[0];if(!fastDays.find(x=>x.date===ds)){fastDays.push({date:ds,checkedBy:[]});count++;}}
+  for(let d=new Date(from+'T12:00:00');d<=end;d.setDate(d.getDate()+1)){const ds=d.toISOString().split('T')[0];if(!fastDays.find(x=>x.date===ds)){fastDays.push({date:ds,checkedBy:[],type});count++;}}
   fastDays.sort((a,b)=>a.date.localeCompare(b.date));await saveFast();
   document.getElementById('fast-from').value='';document.getElementById('fast-to').value='';
-  toast(`✓ تم إضافة ${count} يوم`);renderFasting();if(adminUnlocked)renderAdminFasting();
+  toast(`✓ تم إضافة ${count} يوم (${type})`);renderFasting();if(adminUnlocked)renderAdminFasting();
 }
 
 async function toggleFastDay(date){
@@ -775,9 +825,10 @@ function fastDayHTML(d){
   let status='';
   if(d.date===TODAY()&&!mine)status='اليوم';else if(d.date>TODAY())status=`${daysDiff(TODAY(),d.date)} يوم`;else if(d.date<TODAY()&&!mine)status='فات';
   const who=cb.length?`<div class="fday-who">✓ ${cb.join(' + ')}</div>`:'';
+  const typeTag=d.type?`<span class="tag" style="font-size:9px;padding:1px 6px">${d.type==='قضاء'?'🔁':'🌙'} ${d.type}</span>`:'';
   return `<div class="fday ${mine?'checked':''}" onclick="toggleFastDay('${d.date}')">
     <div class="fchk">${mine?'✓':''}</div>
-    <div class="fday-info"><div class="fday-date">${lbl}</div>${who}</div>
+    <div class="fday-info"><div class="fday-date">${lbl} ${typeTag}</div>${who}</div>
     <div class="fday-status">${status}</div>
     <button class="fday-del" onclick="event.stopPropagation();deleteFastDay('${d.date}')" title="حذف">🗑</button>
   </div>`;
@@ -830,6 +881,19 @@ function buildHijriMonthGrid(baseDate){
   return {year:yearNum,month:monthNum,monthStart,days};
 }
 function localDateStr(d){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
+
+// ترتيب أيام الأسبوع يبدأ بيوم السبت، مع تمييز الاثنين والخميس (أيام السنن الفاضلة للصيام) بلون أغمق قليلاً من باقي الأيام
+const HIJRI_WEEK_ORDER=['سبت','أحد','اثنين','ثلاثاء','أربعاء','خميس','جمعة'];
+const HIJRI_DARK_DAYS=['اثنين','خميس'];
+// getDay(): أحد=0..سبت=6 → نعيد ترتيبها بحيث يبدأ السبت من index 0
+function hijriWeekIndex(getDayVal){return (getDayVal+1)%7;}
+function renderHijriWeekdayHeader(){
+  const el=document.getElementById('hijri-weekday-header');if(!el)return;
+  el.innerHTML=HIJRI_WEEK_ORDER.map(d=>{
+    const dark=HIJRI_DARK_DAYS.includes(d);
+    return `<div style="text-align:center;font-size:9px;font-weight:700;color:${dark?'var(--muted)':'var(--text2)'}">${d}</div>`;
+  }).join('');
+}
 function shiftHijriMonth(dir){
   const grid=buildHijriMonthGrid(hijriCalBase);
   if(!grid)return;
@@ -840,26 +904,29 @@ function shiftHijriMonth(dir){
 function renderFastCalendar(){
   const titleEl=document.getElementById('hijri-cal-title'),sumEl=document.getElementById('hijri-cal-summary'),gridEl=document.getElementById('hijri-cal-grid');
   if(!gridEl)return;
+  renderHijriWeekdayHeader();
   const grid=buildHijriMonthGrid(hijriCalBase);
   if(!grid){gridEl.innerHTML='<div class="lempty">التقويم الهجري غير مدعوم على هذا الجهاز</div>';return;}
   titleEl.textContent=hijriMonthName(grid.monthStart);
   const todayStr=TODAY();
   let availableCount=0,doneCount=0;
   const cells=[];
-  const leadBlank=grid.days.length?grid.days[0].greg.getDay():0;
+  // بداية الأسبوع يوم السبت
+  const leadBlank=grid.days.length?hijriWeekIndex(grid.days[0].greg.getDay()):0;
   for(let i=0;i<leadBlank;i++)cells.push('<div></div>');
   grid.days.forEach(({greg,hijriDay})=>{
     const ds=localDateStr(greg);
     const fd=fastDays.find(f=>f.date===ds);
     const isToday=ds===todayStr;
-    let bg='var(--surface)',border='var(--border)',color='var(--text2)';
+    const isDarkDay=HIJRI_DARK_DAYS.includes(HIJRI_WEEK_ORDER[hijriWeekIndex(greg.getDay())]);
+    let bg=isDarkDay?'#14161f':'var(--surface)',border='var(--border)',color='var(--text2)';
     if(fd){
       availableCount++;
       const cb=Array.isArray(fd.checkedBy)?fd.checkedBy:(fd.checked?['محمد']:[]);
       if(cb.length){doneCount++;bg='var(--green-dim)';border='var(--green)';color='var(--green)';}
       else{bg='var(--gold-dim)';border='var(--gold)';color='var(--gold)';}
     }
-    cells.push(`<div title="${greg.toLocaleDateString('ar-EG',{month:'short',day:'numeric'})}" style="aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:8px;background:${bg};border:1.5px solid ${border};${isToday?'box-shadow:0 0 0 2px var(--gold) inset;':''}font-size:12px;font-weight:700;color:${color};cursor:${fd?'pointer':'default'}" ${fd?`onclick="toggleFastDay('${ds}')"`:''}>${hijriDay}</div>`);
+    cells.push(`<div title="${greg.toLocaleDateString('ar-EG',{month:'short',day:'numeric'})}" style="aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:8px;background:${bg};border:1px solid ${border};${isToday?'box-shadow:0 0 0 2px var(--gold) inset;':''}font-size:11px;font-weight:700;color:${color};cursor:${fd?'pointer':'default'}" ${fd?`onclick="toggleFastDay('${ds}')"`:''}>${hijriDay}</div>`);
   });
   gridEl.innerHTML=cells.join('');
   sumEl.textContent=`${availableCount} يوم صيام متاح هذا الشهر — ${doneCount} تم صيامه، ${availableCount-doneCount} متبقي`;
@@ -974,7 +1041,7 @@ function renderHabits(){
   }).join('');
 }
 
-function render(){renderHabits();renderProgress();renderLog();if(currentTab==='admin'){renderHistory();if(adminUnlocked)renderAdmin();}if(currentTab==='quran')renderQuranTab();if(currentTab==='fasting')renderFasting();if(currentTab==='lectures')renderLectures();}
+function render(){renderHabits();renderProgress();renderLog();if(currentTab==='admin'&&adminUnlocked){renderHistory();renderAdmin();}if(currentTab==='quran')renderQuranTab();if(currentTab==='fasting')renderFasting();if(currentTab==='lectures')renderLectures();}
 
 // ── محاضرات / كورسات ──
 async function addCourse(){
@@ -1001,6 +1068,41 @@ async function addLecture(courseId){
   c.lectures.push({id:uid(),name});
   inp.value='';
   await saveCourses();renderAdmin();renderLectures();toast('✓ تمت إضافة المحاضرة');
+}
+// إضافة محاضرة تلقائية بصيغة "محاضرة 1، محاضرة 2..."
+async function addLectureAuto(courseId){
+  const c=courses.find(x=>x.id===courseId);if(!c)return;
+  const n=c.lectures.length+1;
+  c.lectures.push({id:uid(),name:'محاضرة '+n});
+  await saveCourses();renderAdmin();renderLectures();toast('✓ تمت إضافة محاضرة '+n);
+}
+// إضافة أسماء محاضرات دفعة واحدة (سطر لكل محاضرة)
+async function addLecturesBulk(courseId){
+  const ta=document.getElementById('lec-bulk-'+courseId);if(!ta)return;
+  const lines=ta.value.split('\n').map(s=>s.trim()).filter(Boolean);
+  if(!lines.length)return toast('اكتب اسم محاضرة في كل سطر','err');
+  const c=courses.find(x=>x.id===courseId);if(!c)return;
+  lines.forEach(name=>c.lectures.push({id:uid(),name}));
+  ta.value='';
+  await saveCourses();renderAdmin();renderLectures();toast(`✓ تمت إضافة ${lines.length} محاضرة`);
+}
+// توليد عدد من المحاضرات تلقائياً دفعة واحدة بصيغة "محاضرة N"
+async function addLecturesBulkAuto(courseId){
+  const inp=document.getElementById('lec-bulk-count-'+courseId);if(!inp)return;
+  const count=parseInt(inp.value,10);
+  if(!count||count<1)return toast('أدخل عدد صحيح أكبر من صفر','err');
+  const c=courses.find(x=>x.id===courseId);if(!c)return;
+  const start=c.lectures.length+1;
+  for(let i=0;i<count;i++)c.lectures.push({id:uid(),name:'محاضرة '+(start+i)});
+  inp.value='';
+  await saveCourses();renderAdmin();renderLectures();toast(`✓ تمت إضافة ${count} محاضرة`);
+}
+async function moveLecture(courseId,lecId,dir){
+  const c=courses.find(x=>x.id===courseId);if(!c)return;
+  const idx=c.lectures.findIndex(l=>l.id===lecId);const newIdx=idx+dir;
+  if(idx<0||newIdx<0||newIdx>=c.lectures.length)return;
+  [c.lectures[idx],c.lectures[newIdx]]=[c.lectures[newIdx],c.lectures[idx]];
+  await saveCourses();renderAdmin();renderLectures();
 }
 async function deleteLecture(courseId,lecId){
   const c=courses.find(x=>x.id===courseId);if(!c)return;
@@ -1033,11 +1135,30 @@ function renderAdminCourses(){
         <option value="نيرة" ${c.user==='نيرة'?'selected':''}>نيرة فقط</option>
       </select>
     </div>
-    <div class="frow" style="margin-bottom:8px">
+    <div class="frow" style="margin-bottom:6px">
       <input class="finp" id="lec-name-${c.id}" placeholder="اسم المحاضرة الجديدة" style="flex:1"/>
       <button class="btn-ghost" style="width:auto;padding:8px 14px;border-color:var(--border2)" onclick="addLecture('${c.id}')">+ إضافة</button>
+      <button class="btn-ghost" style="width:auto;padding:8px 14px;border-color:var(--border2)" onclick="addLectureAuto('${c.id}')" title="يضيف محاضرة N تلقائياً">🔢 محاضرة تلقائية</button>
     </div>
-    <div>${c.lectures.map(l=>`<div class="admin-lecture-row"><span style="flex:1">${escHtml(l.name)}</span><button class="admin-del" style="font-size:15px" onclick="deleteLecture('${c.id}','${l.id}')">×</button></div>`).join('')||'<div class="lempty">لا توجد محاضرات</div>'}</div>
+    <div style="font-size:10px;color:var(--muted);margin:8px 0 4px">➕ إضافة دفعة واحدة (سطر لكل محاضرة)</div>
+    <div class="frow" style="margin-bottom:6px">
+      <textarea class="finp" id="lec-bulk-${c.id}" placeholder="محاضرة 1&#10;محاضرة 2&#10;..." style="flex:1;min-height:56px"></textarea>
+    </div>
+    <div class="frow" style="margin-bottom:8px">
+      <button class="btn-ghost" style="flex:1;border-color:var(--border2)" onclick="addLecturesBulk('${c.id}')">📋 إضافة كل الأسطر دفعة واحدة</button>
+    </div>
+    <div class="frow" style="margin-bottom:10px">
+      <input class="finp" id="lec-bulk-count-${c.id}" type="number" min="1" placeholder="عدد المحاضرات" style="flex:1"/>
+      <button class="btn-ghost" style="width:auto;padding:8px 14px;border-color:var(--border2)" onclick="addLecturesBulkAuto('${c.id}')">🔢 توليد دفعة تلقائياً</button>
+    </div>
+    <div>${c.lectures.map((l,li)=>`<div class="admin-lecture-row">
+      <span style="flex:1">${escHtml(l.name)}</span>
+      <div class="admin-move">
+        <button class="mvbtn" onclick="moveLecture('${c.id}','${l.id}',-1)" ${li===0?'disabled':''} title="لأعلى">▲</button>
+        <button class="mvbtn" onclick="moveLecture('${c.id}','${l.id}',1)" ${li===c.lectures.length-1?'disabled':''} title="لأسفل">▼</button>
+      </div>
+      <button class="admin-del" style="font-size:15px" onclick="deleteLecture('${c.id}','${l.id}')">×</button>
+    </div>`).join('')||'<div class="lempty">لا توجد محاضرات</div>'}</div>
   </div>`).join('');
 }
 function renderLectures(){
