@@ -271,62 +271,6 @@ textarea.finp{resize:vertical;min-height:70px;line-height:1.6}
 .admin-course-name{font-size:13px;font-weight:700}
 .admin-lecture-row{display:flex;align-items:center;gap:8px;padding:5px 0;font-size:12px;border-bottom:1px solid var(--border)}
 .admin-lecture-row:last-child{border-bottom:none}
-
-/* ══════════ Material Design layer: flat icons + elevation ══════════ */
-:root{
-  --surface-deep:#0d0f16;
-  --elev1:0 1px 2px rgba(0,0,0,.3),0 1px 3px rgba(0,0,0,.25);
-  --elev2:0 2px 4px rgba(0,0,0,.3),0 4px 12px rgba(0,0,0,.28);
-  --elev3:0 4px 10px rgba(0,0,0,.35),0 8px 24px rgba(0,0,0,.3);
-}
-.ico-box{width:28px;height:28px;min-width:28px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.ico-box svg{width:15px;height:15px;stroke:currentColor}
-.ico-box.sz-sm{width:24px;height:24px;min-width:24px;border-radius:7px}
-.ico-box.sz-sm svg{width:13px;height:13px}
-.ico-box.ico-gold{background:var(--gold-dim);color:var(--gold)}
-.ico-box.ico-green{background:var(--green-dim);color:var(--green)}
-.ico-box.ico-red{background:var(--red-dim);color:var(--red)}
-.ico-box.ico-blue{background:rgba(91,142,240,.12);color:var(--blue)}
-.ico-box.ico-purple{background:var(--purple-dim);color:var(--purple)}
-.ico-flat{display:inline-flex;vertical-align:middle}
-.ico-flat svg{width:14px;height:14px;stroke:currentColor;fill:none}
-.tab{display:flex;align-items:center;justify-content:center;gap:6px}
-.tab svg{width:15px;height:15px;stroke:currentColor;fill:none;flex-shrink:0}
-.btn-primary,.btn-ghost,.tab,.ubtn,.pray-btn,.juz-btn,.check-all-btn,.mvbtn{box-shadow:var(--elev1)}
-.btn-primary:active,.btn-ghost:active,.check-all-btn:active{transform:translateY(1px);box-shadow:none}
-.panel,.panel-m,.admin-section,.course-block,.quran-block,.fast-block,.admin-course-block,#admin-lock{box-shadow:var(--elev1)}
-.modal-box{box-shadow:var(--elev3)}
-.hrow,.fday,.admin-habit-row{box-shadow:0 1px 2px rgba(0,0,0,.18)}
-.logtabs{display:flex;gap:8px;margin-bottom:16px}
-.logtab-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:12px 8px;border-radius:14px;border:1px solid var(--border);background:var(--surface);color:var(--text2);font-size:12.5px;font-weight:800;transition:.18s;box-shadow:var(--elev1)}
-.logtab-btn svg{width:16px;height:16px;stroke:currentColor}
-.logtab-btn.active{background:var(--gold-dim);border-color:var(--gold-b30);color:var(--gold);box-shadow:var(--elev2)}
-.logtab-btn:active{transform:translateY(1px)}
-.logview{display:none}
-.logview.active{display:block}
-.adhkar-btn{display:flex;align-items:center;gap:6px}
-.adhkar-panel{background:var(--card2);border:none;border-radius:18px;box-shadow:var(--elev3);padding:12px;margin-bottom:16px;animation:adhkarIn .18s ease}
-@keyframes adhkarIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
-.adhkar-acc{background:var(--surface);border-radius:14px;margin-bottom:8px;overflow:hidden;border:1px solid var(--border)}
-.adhkar-acc:last-child{margin-bottom:0}
-.adhkar-acc-hdr{display:flex;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;user-select:none}
-.adhkar-acc-title{flex:1;font-size:13px;font-weight:800;color:var(--text)}
-.adhkar-acc-count{font-size:10px;color:var(--muted);background:var(--card);padding:2px 8px;border-radius:8px}
-.adhkar-acc-chevron{width:18px;height:18px;color:var(--muted);transition:transform .2s;flex-shrink:0}
-.adhkar-acc-chevron svg{width:100%;height:100%}
-.adhkar-acc.open .adhkar-acc-chevron{transform:rotate(180deg)}
-.adhkar-acc-body{max-height:0;overflow:hidden;transition:max-height .25s ease}
-.adhkar-acc.open .adhkar-acc-body{max-height:800px}
-.adhkar-item{display:flex;align-items:flex-start;gap:8px;padding:9px 14px;border-top:1px solid var(--border);font-size:12.5px;line-height:1.7;color:var(--text2)}
-.adhkar-item-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);margin-top:7px;flex-shrink:0}
-.adhkar-item-del{background:transparent;border:none;color:var(--border2);font-size:15px;flex-shrink:0}
-.adhkar-item-del:hover{color:var(--red)}
-.adhkar-empty{padding:10px 14px;font-size:11.5px;color:var(--muted);border-top:1px solid var(--border)}
-.adhkar-admin-block{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:10px}
-.adhkar-admin-hdr{display:flex;align-items:center;gap:8px;margin-bottom:8px;font-size:12.5px;font-weight:800;color:var(--gold)}
-.scard-m{background:var(--surface-deep)}
-#offline-banner{display:none;align-items:center;gap:8px;background:var(--red-dim);border:1px solid rgba(224,92,92,.3);color:var(--red);border-radius:12px;padding:9px 14px;font-size:12px;font-weight:700;margin:0 16px 12px}
-#offline-banner.show{display:flex}
 </style>
 </head>
 <body>
@@ -352,8 +296,7 @@ textarea.finp{resize:vertical;min-height:70px;line-height:1.6}
     <div><div class="logo-text">وِرد</div><div class="logo-sub">متابعة العادات اليومية</div></div>
   </div>
   <div class="header-right">
-    <button id="install-btn" style="display:none;align-items:center;gap:5px;background:var(--gold-dim);border:1px solid var(--gold-b30);color:var(--gold);border-radius:8px;padding:5px 10px;font-size:11px;font-weight:700;margin-left:6px" onclick="installPWA()"><span id="ic-install" class="ico-flat"></span>تثبيت</button>
-    <span id="offline-badge" style="display:none;align-items:center;gap:4px;background:var(--red-dim);border:1px solid rgba(224,92,92,.3);color:var(--red);border-radius:8px;padding:5px 9px;font-size:10.5px;font-weight:700;margin-left:6px"><span id="ic-offline" class="ico-flat"></span>أوفلاين</span>
+    <button id="install-btn" style="display:none;background:var(--gold-dim);border:1px solid var(--gold-b30);color:var(--gold);border-radius:8px;padding:5px 10px;font-size:11px;font-weight:700;margin-left:6px" onclick="installPWA()">📲 تثبيت</button>
     <div class="user-toggle">
       <button class="ubtn active" id="btn-m" onclick="switchUser('محمد')">محمد</button>
       <button class="ubtn" id="btn-n" onclick="switchUser('نيرة')">نيرة</button>
@@ -368,24 +311,19 @@ textarea.finp{resize:vertical;min-height:70px;line-height:1.6}
 
 <main>
 <div>
-  <div id="offline-banner"><span class="ico-flat" id="ic-offline-banner"></span><span>أنت غير متصل — التغييرات هتتحفظ محليًا وتترفع تلقائيًا لما يرجع النت</span></div>
-
   <div class="tabs">
-    <button class="tab active" onclick="setTab('today',this)"><span id="ic-tab-today"></span>اليوم</button>
-    <button class="tab adhkar-btn" id="adhkar-tab-btn" onclick="toggleAdhkarPanel()"><span id="ic-tab-adhkar"></span>الأذكار</button>
-    <button class="tab" onclick="setTab('fasting',this)"><span id="ic-tab-fasting"></span>الصيام</button>
-    <button class="tab" onclick="setTab('quran',this)"><span id="ic-tab-quran"></span>القرآن</button>
-    <button class="tab" onclick="setTab('lectures',this)"><span id="ic-tab-lectures"></span>محاضرات</button>
-    <button class="tab" onclick="setTab('admin',this)"><span id="ic-tab-admin"></span>إدارة</button>
+    <button class="tab active" onclick="setTab('today',this)">اليوم ✦</button>
+    <button class="tab" onclick="setTab('fasting',this)">الصيام 🌙</button>
+    <button class="tab" onclick="setTab('quran',this)">القرآن 📖</button>
+    <button class="tab" onclick="setTab('lectures',this)">محاضرات 🎓</button>
+    <button class="tab" onclick="setTab('admin',this)">⚙ إدارة</button>
   </div>
-
-  <div id="adhkar-panel" class="adhkar-panel" style="display:none"></div>
 
   <div id="tab-today"><div id="habits-list"><div class="spinner"></div></div><div id="nafl-block"></div></div>
 
   <div id="tab-fasting" style="display:none">
     <div class="fast-block">
-      <div class="fast-title" style="display:flex;align-items:center;gap:6px"><span class="ico-flat" id="ic-fast-title"></span>متابعة أيام الصيام</div>
+      <div class="fast-title">🌙 متابعة أيام الصيام</div>
       <div class="fast-counter">
         <div class="fast-num" id="fast-remain">—</div>
         <div class="fast-lbl">يوم متبقي</div>
@@ -396,7 +334,7 @@ textarea.finp{resize:vertical;min-height:70px;line-height:1.6}
     </div>
 
     <div class="fast-block">
-      <div class="fast-title" style="display:flex;align-items:center;gap:6px"><span class="ico-flat" id="ic-fast-title2"></span>التقويم الهجري — أيام الصيام المتاحة هذا الشهر</div>
+      <div class="fast-title">📅 التقويم الهجري — أيام الصيام المتاحة هذا الشهر</div>
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:8px">
         <button class="btn-ghost" style="width:auto;padding:6px 14px;border-color:var(--border2)" onclick="shiftHijriMonth(-1)">‹ السابق</button>
         <div id="hijri-cal-title" style="font-size:13px;font-weight:900;color:var(--gold);text-align:center;flex:1"></div>
@@ -406,7 +344,7 @@ textarea.finp{resize:vertical;min-height:70px;line-height:1.6}
       <div id="hijri-weekday-header" style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:4px"></div>
       <div id="hijri-cal-grid" style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px"></div>
       <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;font-size:10px;color:var(--muted)">
-        <span style="display:inline-flex;align-items:center;gap:4px"><i style="width:9px;height:9px;border-radius:50%;background:var(--green);display:inline-block"></i>يوم صيام مُسجَّل (تم)</span><span style="display:inline-flex;align-items:center;gap:4px"><i style="width:9px;height:9px;border-radius:50%;background:var(--gold);display:inline-block"></i>يوم صيام مُتاح</span><span style="display:inline-flex;align-items:center;gap:4px"><i style="width:9px;height:9px;border-radius:50%;background:var(--border2);display:inline-block"></i>يوم عادي</span>
+        <span>🟢 يوم صيام مُسجَّل (تم)</span><span>🟡 يوم صيام مُتاح</span><span>⚪ يوم عادي</span>
       </div>
     </div>
   </div>
@@ -414,24 +352,24 @@ textarea.finp{resize:vertical;min-height:70px;line-height:1.6}
   <div id="tab-quran" style="display:none">
     <div class="quran-block">
       <div class="quran-hdr">
-        <div class="quran-title" style="display:flex;align-items:center;gap:6px"><span class="ico-flat" id="ic-quran-title"></span>متابعة القرآن الكريم</div>
+        <div class="quran-title">📖 متابعة القرآن الكريم</div>
         <div class="quran-stats" id="quran-stats">0/30 جزء</div>
       </div>
       <div class="quran-prog"><div class="quran-prog-bar" id="quran-bar" style="width:0%"></div></div>
       <div class="quran-grid" id="quran-grid"></div>
       <div style="margin-top:12px">
-        <button class="btn-ghost" onclick="resetQuran()"><span class="ico-flat" id="ic-reset-quran"></span> إعادة تعيين (أنت فقط)</button>
+        <button class="btn-ghost" onclick="resetQuran()">🔄 إعادة تعيين (أنت فقط)</button>
       </div>
     </div>
   </div>
 
   <div id="tab-lectures" style="display:none">
-    <div id="courses-list"><div class="lempty">لا توجد كورسات — اذهب لـ «إدارة»</div></div>
+    <div id="courses-list"><div class="lempty">لا توجد كورسات — اذهب لـ «⚙ إدارة»</div></div>
   </div>
 
   <div id="tab-admin" style="display:none">
     <div id="admin-lock">
-      <h3 style="display:flex;align-items:center;justify-content:center;gap:8px"><span id="ic-adminlock" class="ico-flat"></span>لوحة الإدارة</h3>
+      <h3>🔒 لوحة الإدارة</h3>
       <p>أدخل كلمة المرور للوصول</p>
       <div class="lock-row">
         <input class="finp" id="admin-pass-inp" type="password" placeholder="كلمة المرور" onkeydown="if(event.key==='Enter')checkAdminPass()"/>
@@ -440,12 +378,8 @@ textarea.finp{resize:vertical;min-height:70px;line-height:1.6}
     </div>
 
     <div id="admin-public-log">
-      <div class="logtabs">
-        <button class="logtab-btn active" id="logtab-btn-full" onclick="setLogView('full')"><span id="ic-logtab-full"></span>السجل الكامل</button>
-        <button class="logtab-btn" id="logtab-btn-activity" onclick="setLogView('activity')"><span id="ic-logtab-activity"></span>سجل النشاط</button>
-      </div>
-
-      <div class="admin-section logview active" id="logview-full">
+      <div class="admin-section">
+        <div class="admin-sec-title"><div class="asicon asicon-gold">📜</div><span style="color:var(--gold)">السجل الكامل</span></div>
         <div class="frow" style="margin-bottom:8px">
           <select class="fsel" id="hist-filter-user" style="flex:1" onchange="onHistoryFilterChange()">
             <option value="الكل">الكل (محمد ونيرة)</option>
@@ -455,24 +389,24 @@ textarea.finp{resize:vertical;min-height:70px;line-height:1.6}
           <button class="btn-ghost" style="width:auto;padding:9px 14px;border-color:var(--border2)" id="hist-toggle-btn" onclick="toggleHistoryShowAll()">إظهار السجل بالكامل</button>
         </div>
         <div id="admin-history-list"><div class="lempty">لا توجد سجلات بعد</div></div>
-      </div>
 
-      <div class="admin-section logview" id="logview-activity">
-        <div class="admin-sec-title"><span style="color:var(--gold)">آخر 7 عمليات</span><button class="ptitle-btn" style="margin-right:auto" onclick="clearActivityLog()">مسح</button></div>
-        <div class="frow" style="margin-bottom:8px">
-          <select class="fsel" id="log-filter-user" style="flex:1" onchange="onLogFilterChange()">
-            <option value="الكل">الكل (محمد ونيرة)</option>
-            <option value="محمد">محمد فقط</option>
-            <option value="نيرة">نيرة فقط</option>
-          </select>
+        <div style="margin-top:18px;padding-top:16px;border-top:1px solid var(--border)">
+          <div class="admin-sec-title"><div class="asicon asicon-gold">🕓</div><span style="color:var(--gold)">سجل النشاط <span style="font-size:10px;color:var(--muted);font-weight:600">(آخر 7)</span></span><button class="ptitle-btn" style="margin-right:auto" onclick="clearActivityLog()">مسح</button></div>
+          <div class="frow" style="margin-bottom:8px">
+            <select class="fsel" id="log-filter-user" style="flex:1" onchange="onLogFilterChange()">
+              <option value="الكل">الكل (محمد ونيرة)</option>
+              <option value="محمد">محمد فقط</option>
+              <option value="نيرة">نيرة فقط</option>
+            </select>
+          </div>
+          <div id="log-list"><div class="lempty">لا يوجد نشاط</div></div>
         </div>
-        <div id="log-list"><div class="lempty">لا يوجد نشاط</div></div>
       </div>
     </div>
 
     <div id="admin-content" style="display:none">
       <div class="admin-section">
-        <div class="admin-sec-title"><div class="asicon asicon-gold" id="ic-as-key"></div><span style="color:var(--gold)">كلمة مرور لوحة الإدارة</span><button class="ptitle-btn" style="margin-right:auto;display:inline-flex;align-items:center;gap:4px" onclick="lockAdminPanel()"><span id="ic-lock-btn" class="ico-flat"></span>قفل</button></div>
+        <div class="admin-sec-title"><div class="asicon asicon-gold">🔑</div><span style="color:var(--gold)">كلمة مرور لوحة الإدارة</span><button class="ptitle-btn" style="margin-right:auto" onclick="lockAdminPanel()">🔒 قفل</button></div>
         <div style="font-size:11px;color:var(--muted);margin-bottom:8px">كلمة المرور من رقمين فقط. بعد الدخول مرة، مش هتتطلب منك تاني إلا لو ضغطت «قفل».</div>
         <div class="frow">
           <input class="finp" id="new-admin-pass" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="2" placeholder="كلمة مرور جديدة (رقمين)" style="flex:1;text-align:center;letter-spacing:6px"/>
@@ -481,15 +415,15 @@ textarea.finp{resize:vertical;min-height:70px;line-height:1.6}
       </div>
 
       <div class="admin-section">
-        <div class="admin-sec-title"><div class="asicon asicon-gold" id="ic-as-plus"></div><span style="color:var(--gold)">إضافة عادة جديدة</span></div>
+        <div class="admin-sec-title"><div class="asicon asicon-gold">✦</div><span style="color:var(--gold)">إضافة عادة جديدة</span></div>
         <div class="frow">
           <input class="finp" id="h-name" placeholder="اسم العادة" style="flex:2"/>
           <select class="fsel" id="h-cat" style="flex:1">
-            <option value="أذكار">أذكار</option>
-            <option value="قرآن">قرآن</option>
-            <option value="صلاة">صلاة</option>
-            <option value="صوم">صوم</option>
-            <option value="أخرى">أخرى</option>
+            <option value="أذكار">📿 أذكار</option>
+            <option value="قرآن">📖 قرآن</option>
+            <option value="صلاة">🕌 صلاة</option>
+            <option value="صوم">🌙 صوم</option>
+            <option value="أخرى">⭐ أخرى</option>
           </select>
         </div>
         <div class="frow">
@@ -508,28 +442,18 @@ textarea.finp{resize:vertical;min-height:70px;line-height:1.6}
           <button class="toggle" id="url-toggle" onclick="toggleUrlField(this)"></button>
         </div>
         <div id="url-field" style="display:none;margin-bottom:8px">
-          <div class="url-row"><span class="ico-flat" style="color:var(--muted)" id="ic-url-h"></span><input class="finp" id="h-url" type="url" placeholder="https://..."/></div>
+          <div class="url-row"><span style="color:var(--muted)">🔗</span><input class="finp" id="h-url" type="url" placeholder="https://..."/></div>
         </div>
-        <button class="btn-primary" onclick="addHabit()"><span class="ico-flat" id="ic-add-habit-plus"></span> إضافة العادة</button>
+        <button class="btn-primary" onclick="addHabit()">✦ إضافة العادة</button>
       </div>
 
       <div class="admin-section">
-        <div class="admin-sec-title"><div class="asicon asicon-gold" id="ic-as-list"></div><span style="color:var(--gold)">العادات الحالية</span></div>
+        <div class="admin-sec-title"><div class="asicon asicon-gold">📋</div><span style="color:var(--gold)">العادات الحالية</span></div>
         <div id="admin-habit-list"><div class="lempty">لا توجد عادات</div></div>
       </div>
 
       <div class="admin-section">
-        <div class="admin-sec-title"><div class="asicon asicon-gold" id="ic-as-adhkar"></div><span style="color:var(--gold)">إدارة الأذكار</span></div>
-        <div style="font-size:11px;color:var(--muted);margin-bottom:10px">هنا تتحكم في محتوى زر «الأذكار» اللي فوق جنب اليوم — أذكار الصباح وأذكار المساء افتراضيًا، وتقدر تضيف أي قائمة (Outline) تانية بنفس الفكرة.</div>
-        <div class="frow" style="margin-bottom:10px">
-          <input class="finp" id="adhkar-new-list-title" placeholder="اسم قائمة جديدة (مثال: أذكار النوم)" style="flex:1" onkeydown="if(event.key==='Enter')addAdhkarList()"/>
-          <button class="btn-primary" style="width:auto;padding:9px 16px" onclick="addAdhkarList()">+ إضافة قائمة</button>
-        </div>
-        <div id="admin-adhkar-lists"></div>
-      </div>
-
-      <div class="admin-section">
-        <div class="admin-sec-title"><div class="asicon asicon-gold" id="ic-as-nafl"></div><span style="color:var(--gold)">إدارة النوافل</span></div>
+        <div class="admin-sec-title"><div class="asicon asicon-gold">🕋</div><span style="color:var(--gold)">إدارة النوافل</span></div>
         <div style="font-size:11px;color:var(--muted);margin-bottom:8px">هذه اللوحة مستقلة عن «الفروض» — أضف أي عدد من النوافل وستظهر بنفس شكل مربعات الفروض في شاشة اليوم.</div>
         <div class="frow">
           <input class="finp" id="nafl-name" placeholder="اسم النافلة (مثال: الضحى)" style="flex:1" onkeydown="if(event.key==='Enter')addNaflItem()"/>
@@ -539,16 +463,16 @@ textarea.finp{resize:vertical;min-height:70px;line-height:1.6}
       </div>
 
       <div class="admin-section">
-        <div class="admin-sec-title"><div class="asicon asicon-green" id="ic-as-moon"></div><span style="color:var(--green)">إدارة أيام الصيام</span></div>
-        <div style="font-size:11px;color:var(--muted);margin-bottom:8px;font-weight:600;display:flex;align-items:center;gap:5px"><span class="ico-flat" id="ic-fast-period"></span>إضافة فترة صيام</div>
+        <div class="admin-sec-title"><div class="asicon asicon-green">🌙</div><span style="color:var(--green)">إدارة أيام الصيام</span></div>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:8px;font-weight:600">📅 إضافة فترة صيام</div>
         <div class="date-row">
           <input type="date" class="finp" id="fast-from"/>
           <input type="date" class="finp" id="fast-to"/>
         </div>
         <div class="frow">
           <select class="fsel" id="fast-type" style="flex:1">
-            <option value="نافلة">نافلة</option>
-            <option value="قضاء">قضاء</option>
+            <option value="نافلة">🌙 نافلة</option>
+            <option value="قضاء">🔁 قضاء</option>
           </select>
           <select class="fsel" id="fast-who" style="flex:1">
             <option value="كلاهما">كلاهما</option>
@@ -558,11 +482,11 @@ textarea.finp{resize:vertical;min-height:70px;line-height:1.6}
         </div>
         <button class="btn-primary" onclick="addFastingPeriod()" style="margin-bottom:12px">إضافة أيام الصيام</button>
         <div id="admin-fast-list" style="display:grid;gap:6px"></div>
-        <div style="margin-top:10px"><button class="btn-ghost" onclick="clearFasting()"><span class="ico-flat" id="ic-clear-fasting-trash"></span> حذف كل أيام الصيام</button></div>
+        <div style="margin-top:10px"><button class="btn-ghost" onclick="clearFasting()">🗑 حذف كل أيام الصيام</button></div>
       </div>
 
       <div class="admin-section">
-        <div class="admin-sec-title"><div class="asicon asicon-gold" id="ic-as-grad"></div><span style="color:var(--gold)">إدارة المحاضرات</span></div>
+        <div class="admin-sec-title"><div class="asicon asicon-gold">🎓</div><span style="color:var(--gold)">إدارة المحاضرات</span></div>
         <div class="frow">
           <input class="finp" id="course-lecturer" placeholder="اسم المحاضر (مثال: سمير مصطفى)" style="flex:1"/>
         </div>
@@ -575,28 +499,27 @@ textarea.finp{resize:vertical;min-height:70px;line-height:1.6}
           </select>
         </div>
         <button class="btn-primary" style="margin-bottom:12px" onclick="addCourse()">+ إضافة الكورس</button>
-        <div style="font-size:10.5px;color:var(--muted);margin:2px 0 10px">بعد إضافة الكورس، هتلاقي تحته زر لينك URL علشان تحط لينك البلايليست بتاع الكورس على يوتيوب أو أي منصة.</div>
         <div id="admin-courses-list"></div>
       </div>
 
       <div class="admin-section">
-        <div class="admin-sec-title"><div class="asicon asicon-gold" id="ic-as-save"></div><span style="color:var(--gold)">النسخ الاحتياطي</span></div>
-        <button class="btn-primary" style="margin-bottom:8px" onclick="exportAllData()"><span class="ico-flat" id="ic-export"></span> تصدير كل البيانات</button>
-        <button class="btn-ghost" style="margin-bottom:8px" onclick="triggerImportFile()"><span class="ico-flat" id="ic-import"></span> استرداد البيانات من ملف</button>
+        <div class="admin-sec-title"><div class="asicon asicon-gold">💾</div><span style="color:var(--gold)">النسخ الاحتياطي</span></div>
+        <button class="btn-primary" style="margin-bottom:8px" onclick="exportAllData()">⬇️ تصدير كل البيانات</button>
+        <button class="btn-ghost" style="margin-bottom:8px" onclick="triggerImportFile()">⬆️ استرداد البيانات من ملف</button>
         <input type="file" id="import-file-input" accept="application/json" style="display:none" onchange="importAllData(event)"/>
       </div>
 
       <div class="admin-section">
-        <div class="admin-sec-title"><div class="asicon asicon-red" id="ic-as-wrench"></div><span style="color:var(--red)">تشخيص الاتصال بالسيرفر</span></div>
+        <div class="admin-sec-title"><div class="asicon asicon-red">🔧</div><span style="color:var(--red)">تشخيص الاتصال بالسيرفر</span></div>
         <div style="font-size:11px;color:var(--muted);margin-bottom:10px">لو ظاهر "فشل الحفظ على السيرفر"، اضغط الزر ده عشان نعرف السبب بالظبط.</div>
-        <button class="btn-ghost" onclick="runHealthCheck()"><span class="ico-flat" id="ic-health-pulse"></span> فحص الاتصال بـ Supabase</button>
+        <button class="btn-ghost" onclick="runHealthCheck()">🩺 فحص الاتصال بـ Supabase</button>
         <div id="health-result" style="margin-top:10px;font-size:11px;white-space:pre-wrap;line-height:1.8"></div>
       </div>
 
       <div class="admin-section">
-        <div class="admin-sec-title"><div class="asicon asicon-red" id="ic-as-warn"></div><span style="color:var(--red)">منطقة الخطر</span></div>
-        <button class="btn-ghost" onclick="clearAllRecords()" style="margin-bottom:8px"><span class="ico-flat" id="ic-clear-records-trash"></span> حذف كل السجلات اليومية</button>
-        <button class="btn-ghost" onclick="clearAllHabits()"><span class="ico-flat" id="ic-clear-habits-trash"></span> حذف كل العادات والسجلات</button>
+        <div class="admin-sec-title"><div class="asicon asicon-red">⚠</div><span style="color:var(--red)">منطقة الخطر</span></div>
+        <button class="btn-ghost" onclick="clearAllRecords()" style="margin-bottom:8px">🗑 حذف كل السجلات اليومية</button>
+        <button class="btn-ghost" onclick="clearAllHabits()">🗑 حذف كل العادات والسجلات</button>
       </div>
     </div>
   </div>
@@ -604,7 +527,7 @@ textarea.finp{resize:vertical;min-height:70px;line-height:1.6}
 
 <div>
   <div class="panel panel-m">
-    <div class="ptitle ptitle-m"><span class="ptitle-m-icon ico-flat" id="ic-progress"></span>تقدم اليوم</div>
+    <div class="ptitle ptitle-m"><span class="ptitle-m-icon">📊</span>تقدم اليوم</div>
     <div class="progress-m-row">
       <div class="prog-ring prog-ring-m">
         <svg width="92" height="92" viewBox="0 0 106 106">
@@ -619,8 +542,8 @@ textarea.finp{resize:vertical;min-height:70px;line-height:1.6}
         </div>
       </div>
       <div class="stats-grid-m">
-        <div class="scard-m scard-done"><div class="sicon-m ico-box ico-green" id="ic-done"></div><div class="stxt-m"><div class="snum" id="s-done">0</div><div class="slab">مكتمل</div></div></div>
-        <div class="scard-m scard-left"><div class="sicon-m ico-box ico-gold" id="ic-left"></div><div class="stxt-m"><div class="snum" id="s-left">0</div><div class="slab">متبقي</div></div></div>
+        <div class="scard-m scard-done"><div class="sicon-m">✅</div><div class="stxt-m"><div class="snum" id="s-done">0</div><div class="slab">مكتمل</div></div></div>
+        <div class="scard-m scard-left"><div class="sicon-m">⏳</div><div class="stxt-m"><div class="snum" id="s-left">0</div><div class="slab">متبقي</div></div></div>
       </div>
     </div>
   </div>
@@ -634,15 +557,15 @@ textarea.finp{resize:vertical;min-height:70px;line-height:1.6}
 
 <div class="modal-overlay" id="edit-habit-modal" style="display:none">
   <div class="modal-box">
-    <div class="modal-hdr"><div class="modal-title" style="display:flex;align-items:center;gap:6px"><span class="ico-flat" id="ic-editmodal-title"></span>تعديل العادة</div><button class="modal-x" onclick="closeEditHabit()">×</button></div>
+    <div class="modal-hdr"><div class="modal-title">✏️ تعديل العادة</div><button class="modal-x" onclick="closeEditHabit()">×</button></div>
     <div class="frow">
       <input class="finp" id="eh-name" placeholder="اسم العادة" style="flex:2"/>
       <select class="fsel" id="eh-cat" style="flex:1">
-        <option value="أذكار">أذكار</option>
-        <option value="قرآن">قرآن</option>
-        <option value="صلاة">صلاة</option>
-        <option value="صوم">صوم</option>
-        <option value="أخرى">أخرى</option>
+        <option value="أذكار">📿 أذكار</option>
+        <option value="قرآن">📖 قرآن</option>
+        <option value="صلاة">🕌 صلاة</option>
+        <option value="صوم">🌙 صوم</option>
+        <option value="أخرى">⭐ أخرى</option>
       </select>
     </div>
     <div class="frow">
@@ -654,79 +577,23 @@ textarea.finp{resize:vertical;min-height:70px;line-height:1.6}
       </select>
     </div>
     <div style="margin-bottom:8px"><textarea class="finp" id="eh-desc" placeholder="نص يظهر تحت الذكر (اختياري)..."></textarea></div>
-    <div class="url-row"><span class="ico-flat" style="color:var(--muted)" id="ic-url-eh"></span><input class="finp" id="eh-url" type="url" placeholder="https://..."/></div>
+    <div class="url-row"><span style="color:var(--muted)">🔗</span><input class="finp" id="eh-url" type="url" placeholder="https://..."/></div>
     <div class="toggle-row">
       <span class="toggle-label">الفروض (مربوط بشاشة الصلوات)</span>
       <button class="toggle" id="eh-prayers-toggle" onclick="this.classList.toggle('on')"></button>
     </div>
-    <button class="btn-primary" onclick="saveEditHabit()"><span class="ico-flat" id="ic-save-edit"></span> حفظ التعديلات</button>
+    <button class="btn-primary" onclick="saveEditHabit()">💾 حفظ التعديلات</button>
   </div>
 </div>
 
 <script>
 const PRAYERS=['الفجر','الظهر','العصر','المغرب','العشاء'];
+const CAT_ICONS={أذكار:'📿',قرآن:'📖',صلاة:'🕌',صوم:'🌙',أخرى:'⭐'};
 const JUZ_COUNT=30;
 
-// ══════════ أيقونات فلات (Flat Design) بدل الإيموجي ══════════
-const SVG_A='fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"';
-const ICONS={
-  today:`<svg viewBox="0 0 24 24" ${SVG_A}><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>`,
-  adhkar:`<svg viewBox="0 0 24 24" ${SVG_A}><circle cx="12" cy="4" r="1.6"/><circle cx="18" cy="7" r="1.6"/><circle cx="20" cy="13" r="1.6"/><circle cx="16" cy="18" r="1.6"/><circle cx="9" cy="19" r="1.6"/><circle cx="4" cy="15" r="1.6"/><circle cx="4" cy="8" r="1.6"/><circle cx="8" cy="3.4" r="1.2"/></svg>`,
-  moon:`<svg viewBox="0 0 24 24" ${SVG_A}><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`,
-  quran:`<svg viewBox="0 0 24 24" ${SVG_A}><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>`,
-  grad:`<svg viewBox="0 0 24 24" ${SVG_A}><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg>`,
-  gear:`<svg viewBox="0 0 24 24" ${SVG_A}><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>`,
-  install:`<svg viewBox="0 0 24 24" ${SVG_A}><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>`,
-  offline:`<svg viewBox="0 0 24 24" ${SVG_A}><path d="M1 1l22 22"/><path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/><path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/><path d="M10.71 5.05A16 16 0 0 1 22.58 9"/><path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>`,
-  progress:`<svg viewBox="0 0 24 24" ${SVG_A}><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>`,
-  check:`<svg viewBox="0 0 24 24" ${SVG_A}><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`,
-  clock:`<svg viewBox="0 0 24 24" ${SVG_A}><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
-  clipboard:`<svg viewBox="0 0 24 24" ${SVG_A}><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M9 4H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-3"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="15" y2="16"/></svg>`,
-  history:`<svg viewBox="0 0 24 24" ${SVG_A}><path d="M3 3v5h5"/><path d="M3.05 13A9 9 0 1 0 6 5.3L3 8"/><path d="M12 7v5l4 2"/></svg>`,
-  key:`<svg viewBox="0 0 24 24" ${SVG_A}><circle cx="7.5" cy="15.5" r="5.5"/><path d="M21 2l-9.6 9.6"/><path d="M15.5 7.5l3 3L22 7l-3-3"/></svg>`,
-  plus:`<svg viewBox="0 0 24 24" ${SVG_A}><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>`,
-  list:`<svg viewBox="0 0 24 24" ${SVG_A}><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>`,
-  sun:`<svg viewBox="0 0 24 24" ${SVG_A}><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="6.34" y2="6.34"/><line x1="17.66" y1="17.66" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="6.34" y2="17.66"/><line x1="17.66" y1="6.34" x2="19.07" y2="4.93"/></svg>`,
-  cloudSave:`<svg viewBox="0 0 24 24" ${SVG_A}><path d="M12 13v8"/><path d="M8 17l4 4 4-4"/><path d="M20.88 18.09A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 4 16.29"/></svg>`,
-  pulse:`<svg viewBox="0 0 24 24" ${SVG_A}><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>`,
-  warn:`<svg viewBox="0 0 24 24" ${SVG_A}><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`,
-  lock:`<svg viewBox="0 0 24 24" ${SVG_A}><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`,
-  mosque:`<svg viewBox="0 0 24 24" ${SVG_A}><path d="M12 2v3"/><path d="M4 22V11a8 8 0 0 1 16 0v11"/><path d="M2 22h20"/><path d="M9 22v-5a3 3 0 0 1 6 0v5"/></svg>`,
-  star:`<svg viewBox="0 0 24 24" ${SVG_A}><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`,
-  link:`<svg viewBox="0 0 24 24" ${SVG_A}><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>`,
-  edit:`<svg viewBox="0 0 24 24" ${SVG_A}><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4z"/></svg>`,
-  trash:`<svg viewBox="0 0 24 24" ${SVG_A}><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>`,
-  calendar:`<svg viewBox="0 0 24 24" ${SVG_A}><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`,
-  pin:`<svg viewBox="0 0 24 24" fill="currentColor"><path stroke="currentColor" stroke-width="1.5" d="M12 17v5"/><path stroke="currentColor" stroke-width="1.5" d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V17h14v-1.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7h1V5H8v2h1z"/></svg>`,
-  pinOutline:`<svg viewBox="0 0 24 24" ${SVG_A}><path d="M12 17v5"/><path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V17h14v-1.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7h1V5H8v2h1z"/></svg>`,
-  mic:`<svg viewBox="0 0 24 24" ${SVG_A}><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="19" x2="12" y2="22"/></svg>`,
-  repeat:`<svg viewBox="0 0 24 24" ${SVG_A}><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>`,
-  chevron:`<svg viewBox="0 0 24 24" ${SVG_A}><polyline points="6 9 12 15 18 9"/></svg>`,
-  user:`<svg viewBox="0 0 24 24" ${SVG_A}><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`,
-  note:`<svg viewBox="0 0 24 24" ${SVG_A}><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg>`,
-};
-const CAT_ICON_KEY={أذكار:'adhkar',قرآن:'quran',صلاة:'mosque',صوم:'moon',أخرى:'star'};
-function ic(name){return ICONS[name]||ICONS.star;}
-function iconInline(name){return `<span class="ico-flat">${ic(name)}</span>`;}
-function catIconBox(cat,size){return `<div class="ico-box ico-gold${size==='sm'?' sz-sm':''}">${ic(CAT_ICON_KEY[cat])}</div>`;}
-function initStaticIcons(){
-  const map={
-    'ic-tab-today':'today','ic-tab-adhkar':'adhkar','ic-tab-fasting':'moon','ic-tab-quran':'quran','ic-tab-lectures':'grad','ic-tab-admin':'gear',
-    'ic-install':'install','ic-offline':'offline','ic-offline-banner':'offline','ic-progress':'progress','ic-done':'check','ic-left':'clock',
-    'ic-logtab-full':'clipboard','ic-logtab-activity':'history',
-    'ic-as-key':'key','ic-as-plus':'plus','ic-as-list':'list','ic-as-nafl':'sun','ic-as-moon':'moon','ic-as-grad':'grad','ic-as-save':'cloudSave','ic-as-wrench':'pulse','ic-as-warn':'warn','ic-as-adhkar':'adhkar',
-    'ic-lock-btn':'lock','ic-adminlock':'lock','ic-url-h':'link','ic-url-eh':'link',
-    'ic-add-habit-plus':'plus','ic-health-pulse':'pulse','ic-clear-records-trash':'trash','ic-clear-habits-trash':'trash','ic-clear-fasting-trash':'trash',
-    'ic-editmodal-title':'edit','ic-save-edit':'cloudSave','ic-export':'cloudSave','ic-import':'cloudSave',
-    'ic-quran-title':'quran','ic-reset-quran':'repeat','ic-fast-title':'moon','ic-fast-title2':'calendar','ic-fast-period':'calendar'
-  };
-  Object.entries(map).forEach(([id,name])=>{const el=document.getElementById(id);if(el)el.innerHTML=ic(name);});
-}
-
 let currentUser='محمد',adminUnlocked=false,urlFieldOpen=false,currentTab='today';
-let habits=[],records=[],fastDays=[],quranData={},activityLog=[],courses=[],lectureProgress={},naflItems=[],adhkarLists=[];
+let habits=[],records=[],fastDays=[],quranData={},activityLog=[],courses=[],lectureProgress={},naflItems=[];
 let historyShowAll=false,historyFilterUser='الكل',logShowAll=false,logFilterUser='الكل',showCompletedLectures=false;
-let adhkarPanelOpen=false,adhkarExpanded={};
 const NEIRA_PINK='#d6336c';
 
 function localDate(){const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
@@ -756,8 +623,6 @@ setInterval(async ()=>{
   document.getElementById('today-label').textContent=d.toLocaleDateString('ar-EG',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
   try{document.getElementById('hijri-label').textContent=d.toLocaleDateString('ar-SA-u-ca-islamic',{year:'numeric',month:'long',day:'numeric'});}catch(e){}
 })();
-initStaticIcons();
-updateOfflineUI();
 
 // ── Save badge ──
 let sbTimer;
@@ -767,42 +632,6 @@ function sbShow(s){
   else if(s==='saved'){el.className='saved';document.getElementById('sb-icon').textContent='✓';document.getElementById('sb-text').textContent='تم الحفظ';sbTimer=setTimeout(()=>el.className='',2500);}
   else{el.className='err';document.getElementById('sb-icon').textContent='✗';document.getElementById('sb-text').textContent='فشل الحفظ';sbTimer=setTimeout(()=>el.className='',5000);}
 }
-
-// ── تخزين مؤقت أوفلاين: أي حفظ يفشل بسبب انقطاع النت يتخزن محليًا ويترفع تلقائيًا لما يرجع الاتصال ──
-const PENDING_KEY='werd_pending_saves';
-function getPendingSaves(){try{return JSON.parse(localStorage.getItem(PENDING_KEY)||'[]');}catch(e){return [];}}
-function queuePendingSave(key,value){
-  const q=getPendingSaves();
-  const idx=q.findIndex(x=>x.key===key);
-  if(idx>=0)q[idx]={key,value};else q.push({key,value});
-  localStorage.setItem(PENDING_KEY,JSON.stringify(q));
-  updateOfflineUI();
-}
-async function flushPendingSaves(){
-  let q=getPendingSaves();
-  if(!q.length)return;
-  const remaining=[];
-  for(const item of q){
-    try{
-      const r=await fetch('/api/data/save',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(item)});
-      if(!r.ok)throw new Error('http');
-    }catch(e){remaining.push(item);}
-  }
-  localStorage.setItem(PENDING_KEY,JSON.stringify(remaining));
-  if(remaining.length===0&&q.length>0)toast('✓ تم رفع كل التغييرات المحفوظة أوفلاين للسيرفر بنجاح');
-  updateOfflineUI();
-}
-function updateOfflineUI(){
-  const pending=getPendingSaves().length;
-  const isOffline=!navigator.onLine;
-  const banner=document.getElementById('offline-banner');
-  const badge=document.getElementById('offline-badge');
-  if(banner)banner.classList.toggle('show',isOffline||pending>0);
-  if(badge)badge.style.display=isOffline?'inline-flex':'none';
-}
-window.addEventListener('online',()=>{flushPendingSaves();updateOfflineUI();});
-window.addEventListener('offline',updateOfflineUI);
-document.addEventListener('visibilitychange',()=>{if(!document.hidden){flushPendingSaves();updateOfflineUI();}});
 
 // ── API — Cloudflare Pages Functions + Supabase (نفس المسارات القديمة، الفرونت إند لم يتغيّر) ──
 async function apiGet(key){
@@ -829,15 +658,13 @@ async function apiSet(key,value){
       if(attempt<3)await new Promise(res=>setTimeout(res,900*attempt));
     }
   }
-  // فشل الحفظ 3 مرات — على الأرجح أوفلاين: نخزن العملية محليًا ونرفعها تلقائيًا لما يرجع النت
-  queuePendingSave(key,value);
-  sbShow('err');toast('⚠ لا يوجد اتصال — تم الحفظ محليًا وسيُرفع تلقائيًا للسيرفر عند عودة النت','err');return false;
+  sbShow('err');toast('⚠ فشل الحفظ على السيرفر','err');return false;
 }
 
 // ── Load ──
 async function loadData(){
   const todayKey='records-'+localDate();
-  const[h,r,rOld,f,q,al,co,lp,ni,ad]=await Promise.all([
+  const[h,r,rOld,f,q,al,co,lp,ni]=await Promise.all([
     apiGet('habits'),
     apiGet(todayKey),          // new: date-keyed records for today
     apiGet('records'),         // old: legacy key (migration)
@@ -846,8 +673,7 @@ async function loadData(){
     apiGet('activityLog'),
     apiGet('courses'),
     apiGet('lectureProgress'),
-    apiGet('naflItems'),
-    apiGet('adhkarLists')
+    apiGet('naflItems')
   ]);
   habits=Array.isArray(h)?h:defaultHabits();
 
@@ -869,9 +695,6 @@ async function loadData(){
   courses=Array.isArray(co)?co:[];
   lectureProgress=(lp&&typeof lp==='object'&&!Array.isArray(lp))?lp:{};
   naflItems=Array.isArray(ni)?ni:[];
-  adhkarLists=Array.isArray(ad)&&ad.length?ad:defaultAdhkarLists();
-  flushPendingSaves();updateOfflineUI();
-  renderAdhkarPanel();renderAdminAdhkar();
   render();
 }
 
@@ -974,7 +797,7 @@ function renderNaflBlock(){
   const doneCount=naflItems.filter(n=>getRec('nafl__'+n.id,currentUser)?.done).length;
   const allDone=doneCount===naflItems.length;
   wrap.innerHTML=`
-    <div class="slabel">${iconInline('sun')}النوافل</div>
+    <div class="slabel">🕋 النوافل</div>
     <div class="hrow ${allDone?'done':''}" style="flex-direction:column;align-items:stretch;gap:10px">
       <div style="display:flex;align-items:center;gap:12px">
         <div class="chk" style="cursor:default;${allDone?'background:var(--green);border-color:var(--green);color:#fff':''}">${allDone?'✓':doneCount+'/'+naflItems.length}</div>
@@ -983,7 +806,7 @@ function renderNaflBlock(){
       <div class="prayers-grid" style="grid-template-columns:repeat(${Math.min(naflItems.length,5)||1},1fr)">
         ${naflItems.map(n=>{const d=getRec('nafl__'+n.id,currentUser)?.done;return `<button class="pray-btn ${d?'done':''}" onclick="toggleNafl('${n.id}')"><span style="font-size:14px">${d?'✓':'○'}</span><span>${escHtml(n.name)}</span></button>`;}).join('')}
       </div>
-      ${!allDone?`<button class="check-all-btn" onclick="checkAllNafl()">${iconInline('check')} تسجيل كل النوافل دفعة واحدة</button>`:''}
+      ${!allDone?`<button class="check-all-btn" onclick="checkAllNafl()">✅ تسجيل كل النوافل دفعة واحدة</button>`:''}
     </div>`;
 }
 async function toggleNafl(id){
@@ -1019,90 +842,13 @@ function renderAdminNafl(){
   const el=document.getElementById('admin-nafl-list');if(!el)return;
   if(!naflItems.length){el.innerHTML='<div class="lempty">لا توجد نوافل مضافة</div>';return;}
   el.innerHTML=naflItems.map((n,i)=>`<div class="admin-habit-row">
-    <div class="admin-habit-icon">${ic('sun')}</div>
+    <div class="admin-habit-icon">🕋</div>
     <div class="admin-habit-info"><div class="admin-habit-name">${escHtml(n.name)}</div></div>
     <div class="admin-move">
       <button class="mvbtn" onclick="moveNaflItem('${n.id}',-1)" ${i===0?'disabled':''} title="لأعلى">▲</button>
       <button class="mvbtn" onclick="moveNaflItem('${n.id}',1)" ${i===naflItems.length-1?'disabled':''} title="لأسفل">▼</button>
     </div>
     <button class="admin-del" onclick="deleteNaflItem('${n.id}')">×</button>
-  </div>`).join('');
-}
-
-// ══════════════════════════ زر «الأذكار»: أذكار الصباح / المساء + أي قائمة إضافية (Outline) ══════════════════════════
-function defaultAdhkarLists(){return[
-  {id:'morning',title:'أذكار الصباح',items:[]},
-  {id:'evening',title:'أذكار المساء',items:[]},
-];}
-async function saveAdhkarLists(){await apiSet('adhkarLists',adhkarLists);}
-
-function toggleAdhkarPanel(){
-  adhkarPanelOpen=!adhkarPanelOpen;
-  const panel=document.getElementById('adhkar-panel');
-  const btn=document.getElementById('adhkar-tab-btn');
-  if(panel)panel.style.display=adhkarPanelOpen?'':'none';
-  if(btn)btn.classList.toggle('active',adhkarPanelOpen);
-  if(adhkarPanelOpen)renderAdhkarPanel();
-}
-function toggleAdhkarAccordion(id){
-  adhkarExpanded[id]=!adhkarExpanded[id];
-  renderAdhkarPanel();
-}
-function renderAdhkarPanel(){
-  const el=document.getElementById('adhkar-panel');if(!el)return;
-  if(!adhkarLists.length){el.innerHTML='<div class="lempty">لا توجد قوائم أذكار — أضِفها من «إدارة»</div>';return;}
-  el.innerHTML=adhkarLists.map(l=>{
-    const open=!!adhkarExpanded[l.id];
-    const items=l.items&&l.items.length?l.items.map(it=>`<div class="adhkar-item"><span class="adhkar-item-dot"></span><span>${escHtml(it.text)}</span></div>`).join(''):'<div class="adhkar-empty">لا توجد أذكار مضافة في هذه القائمة بعد — أضِفها من «إدارة»</div>';
-    return `<div class="adhkar-acc ${open?'open':''}">
-      <div class="adhkar-acc-hdr" onclick="toggleAdhkarAccordion('${l.id}')">
-        <div class="ico-box ico-gold sz-sm">${ic('adhkar')}</div>
-        <div class="adhkar-acc-title">${escHtml(l.title)}</div>
-        <div class="adhkar-acc-count">${(l.items||[]).length}</div>
-        <div class="adhkar-acc-chevron">${ic('chevron')}</div>
-      </div>
-      <div class="adhkar-acc-body">${items}</div>
-    </div>`;
-  }).join('');
-}
-
-// ── إدارة الأذكار (لوحة الإدارة) ──
-async function addAdhkarList(){
-  const inp=document.getElementById('adhkar-new-list-title');const title=inp.value.trim();
-  if(!title)return toast('أدخل اسم القائمة','err');
-  adhkarLists.push({id:uid(),title,items:[]});
-  inp.value='';
-  await saveAdhkarLists();renderAdminAdhkar();renderAdhkarPanel();toast('✓ تمت إضافة القائمة');
-}
-async function deleteAdhkarList(id){
-  if(!confirm('حذف هذه القائمة وكل الأذكار اللي فيها؟'))return;
-  adhkarLists=adhkarLists.filter(l=>l.id!==id);
-  await saveAdhkarLists();renderAdminAdhkar();renderAdhkarPanel();toast('✓ تم الحذف','info');
-}
-async function addAdhkarItem(listId){
-  const inp=document.getElementById('adhkar-item-inp-'+listId);if(!inp)return;
-  const text=inp.value.trim();if(!text)return toast('اكتب نص الذكر','err');
-  const l=adhkarLists.find(x=>x.id===listId);if(!l)return;
-  if(!Array.isArray(l.items))l.items=[];
-  l.items.push({id:uid(),text});
-  inp.value='';
-  await saveAdhkarLists();renderAdminAdhkar();renderAdhkarPanel();toast('✓ تمت الإضافة');
-}
-async function deleteAdhkarItem(listId,itemId){
-  const l=adhkarLists.find(x=>x.id===listId);if(!l)return;
-  l.items=(l.items||[]).filter(it=>it.id!==itemId);
-  await saveAdhkarLists();renderAdminAdhkar();renderAdhkarPanel();toast('✓ تم الحذف','info');
-}
-function renderAdminAdhkar(){
-  const el=document.getElementById('admin-adhkar-lists');if(!el)return;
-  if(!adhkarLists.length){el.innerHTML='<div class="lempty">لا توجد قوائم بعد</div>';return;}
-  el.innerHTML=adhkarLists.map(l=>`<div class="adhkar-admin-block">
-    <div class="adhkar-admin-hdr"><span class="ico-flat">${ic('adhkar')}</span>${escHtml(l.title)}<button class="admin-del" style="margin-right:auto" onclick="deleteAdhkarList('${l.id}')" title="حذف القائمة">${ic('trash')}</button></div>
-    <div class="frow" style="margin-bottom:8px">
-      <input class="finp" id="adhkar-item-inp-${l.id}" placeholder="نص الذكر (مثال: سبحان الله وبحمده)" style="flex:1" onkeydown="if(event.key==='Enter')addAdhkarItem('${l.id}')"/>
-      <button class="btn-ghost" style="width:auto;padding:8px 14px;border-color:var(--border2)" onclick="addAdhkarItem('${l.id}')">+ إضافة</button>
-    </div>
-    ${(l.items||[]).length?(l.items.map(it=>`<div class="admin-lecture-row"><span style="flex:1">${escHtml(it.text)}</span><button class="admin-del" onclick="deleteAdhkarItem('${l.id}','${it.id}')">${ic('trash')}</button></div>`).join('')):'<div class="lempty">لا توجد أذكار في هذه القائمة بعد</div>'}
   </div>`).join('');
 }
 
@@ -1216,14 +962,14 @@ function fastDayHTML(d){
   let status='';
   if(d.date===TODAY()&&!mine)status='اليوم';else if(d.date>TODAY())status=`${daysDiff(TODAY(),d.date)} يوم`;else if(d.date<TODAY()&&!mine)status='فات';
   const who=cb.length?`<div class="fday-who">✓ ${cb.join(' + ')}</div>`:'';
-  const typeTag=d.type?`<span class="tag" style="font-size:9px;padding:1px 6px;display:inline-flex;align-items:center;gap:3px">${d.type==='قضاء'?ic('repeat'):ic('moon')}${d.type}</span>`:'';
-  const assignedTag=(d.assignedTo&&d.assignedTo!=='كلاهما')?`<span class="tag" style="font-size:9px;padding:1px 6px;color:var(--gold);display:inline-flex;align-items:center;gap:3px">${ic('user')}${d.assignedTo}</span>`:'';
+  const typeTag=d.type?`<span class="tag" style="font-size:9px;padding:1px 6px">${d.type==='قضاء'?'🔁':'🌙'} ${d.type}</span>`:'';
+  const assignedTag=(d.assignedTo&&d.assignedTo!=='كلاهما')?`<span class="tag" style="font-size:9px;padding:1px 6px;color:var(--gold)">👤 ${d.assignedTo}</span>`:'';
   const tagsRow=(typeTag||assignedTag)?`<div class="fday-tags">${typeTag}${assignedTag}</div>`:'';
   return `<div class="fday ${mine?'checked':''}" onclick="toggleFastDay('${d.date}')">
     <div class="fchk">${mine?'✓':''}</div>
     <div class="fday-info"><div class="fday-date">${lbl}</div>${tagsRow}${who}</div>
     <div class="fday-status">${status}</div>
-    <button class="fday-del" onclick="event.stopPropagation();deleteFastDay('${d.date}')" title="حذف">${ic('trash')}</button>
+    <button class="fday-del" onclick="event.stopPropagation();deleteFastDay('${d.date}')" title="حذف">🗑</button>
   </div>`;
 }
 
@@ -1234,7 +980,7 @@ function renderFasting(){
   document.getElementById('fast-remain').textContent=remain||'—';document.getElementById('fast-bar').style.width=pct+'%';
   document.getElementById('fast-summary').textContent=total?`${done} من ${total} يوم (${pct}%)`:'أضف أيام الصيام من لوحة الإدارة';
   const el=document.getElementById('fast-days-list');
-  el.innerHTML=total?my.map(fastDayHTML).join(''):'<div class="lempty">لا توجد أيام — اذهب لـ «إدارة»</div>';
+  el.innerHTML=total?my.map(fastDayHTML).join(''):'<div class="lempty">لا توجد أيام — اذهب لـ «⚙ إدارة»</div>';
   renderFastCalendar();
 }
 function renderAdminFasting(){
@@ -1331,13 +1077,6 @@ function toggleHistoryShowAll(){
   const btn=document.getElementById('hist-toggle-btn');if(btn)btn.textContent=historyShowAll?'إظهار اليوم فقط':'إظهار السجل بالكامل';
   renderHistory();
 }
-// تبديل مباشر بين «السجل الكامل» و«سجل النشاط» بزرارين ماتيريال جنب بعض
-function setLogView(view){
-  document.getElementById('logtab-btn-full').classList.toggle('active',view==='full');
-  document.getElementById('logtab-btn-activity').classList.toggle('active',view==='activity');
-  document.getElementById('logview-full').classList.toggle('active',view==='full');
-  document.getElementById('logview-activity').classList.toggle('active',view==='activity');
-}
 function onHistoryFilterChange(){historyFilterUser=document.getElementById('hist-filter-user').value;renderHistory();}
 function onLogFilterChange(){logFilterUser=document.getElementById('log-filter-user').value;renderLog();}
 
@@ -1348,8 +1087,8 @@ function renderLog(){
   if(logFilterUser&&logFilterUser!=='الكل')list=list.filter(l=>l.user===logFilterUser);
   list=list.slice(0,7); // آخر 7 سجلات فقط
   if(!list.length){el.innerHTML=`<div class="lempty">لا يوجد نشاط</div>`;return;}
-  el.innerHTML=list.map(l=>{const icoKey=l.type==='quran'?'quran':l.type==='fasting'?'moon':l.type==='prayer'?'mosque':l.type==='lecture'?'grad':l.type==='nafl'?'sun':'star';
-    return `<div class="lentry"><span class="ltime" style="margin-left:6px">${l.date}</span><span class="lwho ${l.user==='محمد'?'m':'n'}">${l.user}</span><span class="ltime">${l.time||''}</span><div class="lact" style="display:flex;align-items:center;gap:5px"><span class="ico-flat" style="color:${l.done?'var(--green)':'var(--muted)'}">${l.done?ic('check'):ic('clock')}</span><span class="ico-flat">${ic(icoKey)}</span>${l.desc||''}</div></div>`;
+  el.innerHTML=list.map(l=>{const ico=l.type==='quran'?'📖':l.type==='fasting'?'🌙':l.type==='prayer'?'🕌':l.type==='lecture'?'🎓':l.type==='nafl'?'🕋':'✦';
+    return `<div class="lentry"><span class="ltime" style="margin-left:6px">${l.date}</span><span class="lwho ${l.user==='محمد'?'m':'n'}">${l.user}</span><span class="ltime">${l.time||''}</span><div class="lact">${l.done?'✅':'◻'} ${ico} ${l.desc||''}</div></div>`;
   }).join('');
 }
 
@@ -1382,36 +1121,36 @@ async function renderHistory(){
   el.innerHTML=dates.map(date=>{
     const g=grouped[date];
     const fastingWhom=who==='الكل'?g.fasting:g.fasting.filter(u=>u===who);
-    const fH=fastingWhom.length?`<div class="hrow done" style="background:rgba(76,175,125,.06)"><div class="chk" style="background:var(--green);border-color:var(--green);color:#fff;cursor:default">✓</div><div class="hinfo"><div class="hname"><span class="hname-text" style="display:flex;align-items:center;gap:5px">${ic('moon')}صام اليوم</span></div><div class="hmeta"><span class="tag">${fastingWhom.join(' + ')}</span></div></div></div>`:'';
-    const qH=Object.entries(g.quran).filter(([u])=>who==='الكل'||u===who).map(([u,jz])=>`<div class="hrow done" style="background:rgba(155,110,240,.05)"><div class="chk" style="background:var(--purple);border-color:var(--purple);color:#fff;cursor:default">${ic('quran')}</div><div class="hinfo"><div class="hname"><span class="hname-text">قرآن</span></div><div class="hmeta"><span class="tag">${u}</span><span class="tag">${jz.join('، ')}</span></div></div></div>`).join('');
-    const lH=Object.entries(g.lectures||{}).filter(([u])=>who==='الكل'||u===who).map(([u,names])=>`<div class="hrow done" style="background:rgba(91,142,240,.05)"><div class="chk" style="background:var(--blue);border-color:var(--blue);color:#fff;cursor:default">${ic('grad')}</div><div class="hinfo"><div class="hname"><span class="hname-text">محاضرات</span></div><div class="hmeta"><span class="tag">${u}</span><span class="tag">${names.join('، ')}</span></div></div></div>`).join('');
+    const fH=fastingWhom.length?`<div class="hrow done" style="background:rgba(76,175,125,.06)"><div class="chk" style="background:var(--green);border-color:var(--green);color:#fff;cursor:default">✓</div><div class="hinfo"><div class="hname"><span class="hname-text">🌙 صام اليوم</span></div><div class="hmeta"><span class="tag">${fastingWhom.join(' + ')}</span></div></div></div>`:'';
+    const qH=Object.entries(g.quran).filter(([u])=>who==='الكل'||u===who).map(([u,jz])=>`<div class="hrow done" style="background:rgba(155,110,240,.05)"><div class="chk" style="background:var(--purple);border-color:var(--purple);color:#fff;cursor:default">📖</div><div class="hinfo"><div class="hname"><span class="hname-text">قرآن</span></div><div class="hmeta"><span class="tag">${u}</span><span class="tag">${jz.join('، ')}</span></div></div></div>`).join('');
+    const lH=Object.entries(g.lectures||{}).filter(([u])=>who==='الكل'||u===who).map(([u,names])=>`<div class="hrow done" style="background:rgba(91,142,240,.05)"><div class="chk" style="background:var(--blue);border-color:var(--blue);color:#fff;cursor:default">🎓</div><div class="hinfo"><div class="hname"><span class="hname-text">محاضرات</span></div><div class="hmeta"><span class="tag">${u}</span><span class="tag">${names.join('، ')}</span></div></div></div>`).join('');
     const recsWhom=who==='الكل'?g.recs:g.recs.filter(r=>r.user===who);
     const rH=recsWhom.map(r=>`<div class="hrow ${r.done?'done':''}"><div class="chk">${r.done?'✓':''}</div><div class="hinfo"><div class="hname"><span class="hname-text">${r.hname}</span></div><div class="hmeta"><span class="tag">${r.user}</span></div></div></div>`).join('');
     const dLbl=new Date(date+'T12:00:00').toLocaleDateString('ar-EG',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
-    return `<div class="hblock"><div class="hdate"><span class="ico-flat">${ic('calendar')}</span>${dLbl}</div>${fH}${qH}${lH}${rH}</div>`;
+    return `<div class="hblock"><div class="hdate">📅 ${dLbl}</div>${fH}${qH}${lH}${rH}</div>`;
   }).join('');
 }
 
-async function renderAdmin(){renderAdminHabits();renderAdminNafl();renderAdminFasting();renderAdminCourses();renderAdminAdhkar();}
+async function renderAdmin(){renderAdminHabits();renderAdminNafl();renderAdminFasting();renderAdminCourses();}
 function renderAdminHabits(){
   const el=document.getElementById('admin-habit-list');if(!habits.length){el.innerHTML='<div class="lempty">لا توجد عادات</div>';return;}
   const cats=[...new Set(habits.map(h=>h.cat))];
   el.innerHTML=cats.map(cat=>{const ch=habits.filter(h=>h.cat===cat);
-    return `<div class="slabel" style="margin-top:10px"><span class="ico-flat">${ic(CAT_ICON_KEY[cat])}</span>${cat}</div>
+    return `<div class="slabel" style="margin-top:10px">${CAT_ICONS[cat]||'•'} ${cat}</div>
       ${ch.map(h=>{const idx=habits.indexOf(h);
         return `<div class="admin-habit-row">
-        ${catIconBox(h.cat)}
+        <div class="admin-habit-icon">${CAT_ICONS[h.cat]||'⭐'}</div>
         <div class="admin-habit-info">
           <div class="admin-habit-name">${escHtml(h.name)}${h.target?` <span style="font-size:10px;color:var(--muted)">(${escHtml(h.target)})</span>`:''}</div>
-          <div class="admin-habit-meta"><span class="badge badge-muted">${h.user}</span>${h.prayers?'<span class="badge badge-gold">صلوات</span>':''}${h.url?`<span class="ico-flat" style="color:var(--blue)">${ic('link')}</span>`:''}</div>
-          ${h.desc?`<div class="admin-habit-desc" title="${escHtml(h.desc)}"><span class="ico-flat">${ic('note')}</span> ${escHtml(h.desc)}</div>`:''}
+          <div class="admin-habit-meta"><span class="badge badge-muted">${h.user}</span>${h.prayers?'<span class="badge badge-gold">صلوات</span>':''}${h.url?'<span style="font-size:10px;color:var(--blue)">🔗</span>':''}</div>
+          ${h.desc?`<div class="admin-habit-desc" title="${escHtml(h.desc)}">📝 ${escHtml(h.desc)}</div>`:''}
         </div>
         <div class="admin-move">
           <button class="mvbtn" onclick="moveHabit('${h.id}',-1)" ${idx===0?'disabled':''} title="لأعلى">▲</button>
           <button class="mvbtn" onclick="moveHabit('${h.id}',1)" ${idx===habits.length-1?'disabled':''} title="لأسفل">▼</button>
         </div>
-        <button class="admin-del" onclick="openEditHabit('${h.id}')" title="تعديل" style="font-size:15px">${ic('edit')}</button>
-        <button class="admin-del" onclick="deleteHabit('${h.id}')">${ic('trash')}</button>
+        <button class="admin-del" onclick="openEditHabit('${h.id}')" title="تعديل" style="font-size:15px">✏️</button>
+        <button class="admin-del" onclick="deleteHabit('${h.id}')">×</button>
       </div>`;}).join('')}`;
   }).join('');
 }
@@ -1428,10 +1167,10 @@ function renderProgress(){
 
 function renderHabits(){
   const my=habits.filter(h=>h.user==='كلاهما'||h.user===currentUser);const el=document.getElementById('habits-list');
-  if(!my.length){el.innerHTML=`<div class="empty"><span class="empty-icon ico-flat" style="width:40px;height:40px">${ic('list')}</span><div class="empty-text">لا توجد عادات — اذهب لـ «إدارة»</div></div>`;return;}
+  if(!my.length){el.innerHTML=`<div class="empty"><span class="empty-icon">📋</span><div class="empty-text">لا توجد عادات — اذهب لـ «⚙ إدارة»</div></div>`;return;}
   const cats=[...new Set(my.map(h=>h.cat))];
   el.innerHTML=cats.map(cat=>{const ch=my.filter(h=>h.cat===cat);
-    return `<div class="slabel"><span class="ico-flat">${ic(CAT_ICON_KEY[cat])}</span>${cat}</div>${ch.map(h=>{
+    return `<div class="slabel">${CAT_ICONS[cat]||'•'} ${cat}</div>${ch.map(h=>{
       if(h.prayers){
         const pDone=PRAYERS.filter(p=>getPrayerRec(h.id,p,currentUser)?.done).length;const allDone=pDone===PRAYERS.length;
         return `<div class="hrow ${allDone?'done':''}" style="flex-direction:column;align-items:stretch;gap:10px">
@@ -1440,7 +1179,7 @@ function renderHabits(){
             <div class="hinfo" style="margin:0"><div class="hname"><span class="hname-text">الفروض</span></div><div class="hmeta"><span class="tag">${pDone} من 5</span></div></div>
           </div>
           <div class="prayers-grid">${PRAYERS.map(p=>{const d=getPrayerRec(h.id,p,currentUser)?.done;return `<button class="pray-btn ${d?'done':''}" onclick="togglePrayer('${h.id}','${p}')"><span style="font-size:14px">${d?'✓':'○'}</span><span>${p}</span></button>`;}).join('')}</div>
-          ${!allDone?`<button class="check-all-btn" onclick="checkAllPrayers('${h.id}')">${iconInline('check')} تسجيل كل الصلوات دفعة واحدة</button>`:''}
+          ${!allDone?`<button class="check-all-btn" onclick="checkAllPrayers('${h.id}')">✅ تسجيل كل الصلوات دفعة واحدة</button>`:''}
         </div>`;
       }
       const rec=getRec(h.id,currentUser);const done=rec?.done;
@@ -1465,7 +1204,7 @@ async function addCourse(){
   if(!name)return toast('أدخل اسم الكورس','err');
   const userSel=document.getElementById('course-user');const user=userSel?userSel.value:'كلاهما';
   const lectInp=document.getElementById('course-lecturer');const lecturer=lectInp?lectInp.value.trim():'';
-  courses.push({id:uid(),name,user,lecturer,lectures:[],pinned:false,playlistUrl:''});
+  courses.push({id:uid(),name,user,lecturer,lectures:[],pinned:false});
   inp.value='';if(userSel)userSel.value='كلاهما';if(lectInp)lectInp.value='';
   await saveCourses();renderAdmin();renderLectures();toast('✓ تمت إضافة الكورس');
 }
@@ -1498,13 +1237,6 @@ function toggleShowCompletedLectures(){showCompletedLectures=!showCompletedLectu
 async function setCourseUser(courseId,user){
   const c=courses.find(x=>x.id===courseId);if(!c)return;
   c.user=user;await saveCourses();renderLectures();toast('✓ تم التحديث');
-}
-// زر من نوع لينك URL: حفظ لينك البلايليست بتاع الكورس
-async function saveCoursePlaylistUrl(courseId){
-  const inp=document.getElementById('course-url-'+courseId);if(!inp)return;
-  const c=courses.find(x=>x.id===courseId);if(!c)return;
-  c.playlistUrl=inp.value.trim();
-  await saveCourses();renderLectures();toast(c.playlistUrl?'✓ تم حفظ لينك البلايليست':'✓ تم مسح اللينك');
 }
 async function deleteCourse(id){
   if(!confirm('حذف هذا الكورس وكل محاضراته؟'))return;
@@ -1576,16 +1308,16 @@ function renderAdminCourses(){
   const lecturers=[...new Set(courses.map(c=>c.lecturer||'عام'))];
   el.innerHTML=lecturers.map(lect=>{
     const group=courses.filter(c=>(c.lecturer||'عام')===lect);
-    return `<div class="slabel"><span class="ico-flat">${ic('mic')}</span>${escHtml(lect)}</div>`+group.map((c,gIdx)=>`<div class="admin-course-block">
+    return `<div class="slabel">🎙 ${escHtml(lect)}</div>`+group.map((c,gIdx)=>`<div class="admin-course-block">
     <div class="admin-course-hdr">
-      <div class="admin-course-name" style="display:flex;align-items:center;gap:6px"><span class="ico-flat">${ic('grad')}</span>${escHtml(c.name)} <span style="font-size:10px;color:var(--muted);font-weight:400">(${c.lectures.length} محاضرة)</span></div>
+      <div class="admin-course-name">🎓 ${escHtml(c.name)} <span style="font-size:10px;color:var(--muted);font-weight:400">(${c.lectures.length} محاضرة)</span></div>
       <div style="display:flex;align-items:center;gap:4px">
         <div class="admin-move">
           <button class="mvbtn" onclick="moveCourse('${c.id}',-1)" ${gIdx===0?'disabled':''} title="لأعلى">▲</button>
           <button class="mvbtn" onclick="moveCourse('${c.id}',1)" ${gIdx===group.length-1?'disabled':''} title="لأسفل">▼</button>
         </div>
-        <button class="admin-del" style="font-size:15px" onclick="editCourse('${c.id}')" title="تعديل">${ic('edit')}</button>
-        <button class="admin-del" onclick="deleteCourse('${c.id}')" title="حذف">${ic('trash')}</button>
+        <button class="admin-del" style="font-size:15px" onclick="editCourse('${c.id}')" title="تعديل">✏️</button>
+        <button class="admin-del" onclick="deleteCourse('${c.id}')" title="حذف">×</button>
       </div>
     </div>
     <div class="frow" style="margin-bottom:8px">
@@ -1595,26 +1327,21 @@ function renderAdminCourses(){
         <option value="نيرة" ${c.user==='نيرة'?'selected':''}>نيرة فقط</option>
       </select>
     </div>
-    <div class="url-row" style="margin-bottom:8px">
-      <span class="ico-flat" style="color:var(--muted)">${ic('link')}</span>
-      <input class="finp" id="course-url-${c.id}" type="url" placeholder="رابط بلايليست الكورس (يوتيوب أو أي منصة)" value="${escHtml(c.playlistUrl||'')}"/>
-      <button class="btn-ghost" style="width:auto;padding:8px 14px;border-color:var(--border2)" onclick="saveCoursePlaylistUrl('${c.id}')">حفظ اللينك</button>
-    </div>
     <div class="frow" style="margin-bottom:6px">
       <input class="finp" id="lec-name-${c.id}" placeholder="اسم المحاضرة الجديدة" style="flex:1"/>
       <button class="btn-ghost" style="width:auto;padding:8px 14px;border-color:var(--border2)" onclick="addLecture('${c.id}')">+ إضافة</button>
-      <button class="btn-ghost" style="width:auto;padding:8px 14px;border-color:var(--border2)" onclick="addLectureAuto('${c.id}')" title="يضيف محاضرة N تلقائياً">${ic('repeat')} محاضرة تلقائية</button>
+      <button class="btn-ghost" style="width:auto;padding:8px 14px;border-color:var(--border2)" onclick="addLectureAuto('${c.id}')" title="يضيف محاضرة N تلقائياً">🔢 محاضرة تلقائية</button>
     </div>
-    <div style="font-size:10px;color:var(--muted);margin:8px 0 4px;display:flex;align-items:center;gap:4px">${ic('plus')} إضافة دفعة واحدة (سطر لكل محاضرة)</div>
+    <div style="font-size:10px;color:var(--muted);margin:8px 0 4px">➕ إضافة دفعة واحدة (سطر لكل محاضرة)</div>
     <div class="frow" style="margin-bottom:6px">
       <textarea class="finp" id="lec-bulk-${c.id}" placeholder="محاضرة 1&#10;محاضرة 2&#10;..." style="flex:1;min-height:56px"></textarea>
     </div>
     <div class="frow" style="margin-bottom:8px">
-      <button class="btn-ghost" style="flex:1;border-color:var(--border2)" onclick="addLecturesBulk('${c.id}')">${ic('clipboard')} إضافة كل الأسطر دفعة واحدة</button>
+      <button class="btn-ghost" style="flex:1;border-color:var(--border2)" onclick="addLecturesBulk('${c.id}')">📋 إضافة كل الأسطر دفعة واحدة</button>
     </div>
     <div class="frow" style="margin-bottom:10px">
       <input class="finp" id="lec-bulk-count-${c.id}" type="number" min="1" placeholder="عدد المحاضرات" style="flex:1"/>
-      <button class="btn-ghost" style="width:auto;padding:8px 14px;border-color:var(--border2)" onclick="addLecturesBulkAuto('${c.id}')">${ic('repeat')} توليد دفعة تلقائياً</button>
+      <button class="btn-ghost" style="width:auto;padding:8px 14px;border-color:var(--border2)" onclick="addLecturesBulkAuto('${c.id}')">🔢 توليد دفعة تلقائياً</button>
     </div>
     <div>${c.lectures.map((l,li)=>`<div class="admin-lecture-row">
       <span style="flex:1">${escHtml(l.name)}</span>
@@ -1631,13 +1358,12 @@ function courseBlockHTML(w){
   const{c,total,done}=w;const pct=total?Math.round(done/total*100):0;
   return `<div class="course-block">
       <div class="course-hdr">
-        <div class="course-title" style="display:flex;align-items:center;gap:6px"><span class="ico-flat">${ic('grad')}</span>${escHtml(c.name)}${c.user&&c.user!=='كلاهما'?` <span class="tag" style="font-size:10px">${c.user}</span>`:''}</div>
+        <div class="course-title">🎓 ${escHtml(c.name)}${c.user&&c.user!=='كلاهما'?` <span class="tag" style="font-size:10px">${c.user}</span>`:''}</div>
         <div style="display:flex;align-items:center;gap:8px">
           <div class="course-stats">${done}/${total} (${pct}%)</div>
-          <button class="admin-del" style="font-size:15px" onclick="togglePinCourse('${c.id}')" title="${c.pinned?'إلغاء التثبيت':'تثبيت هذه السلسلة'}">${c.pinned?ic('pin'):ic('pinOutline')}</button>
+          <button class="admin-del" style="font-size:15px" onclick="togglePinCourse('${c.id}')" title="${c.pinned?'إلغاء التثبيت':'تثبيت هذه السلسلة'}">${c.pinned?'📌':'📍'}</button>
         </div>
       </div>
-      ${c.playlistUrl?`<a href="${escHtml(c.playlistUrl)}" target="_blank" class="adhkar-link" style="margin-bottom:8px">${ic('link')}بلايليست الكورس</a>`:''}
       <div class="course-prog"><div class="course-prog-bar" style="width:${pct}%"></div></div>
       ${total?c.lectures.map(l=>{const d=isLectureDone(l.id);return `<div class="lecture-row ${d?'done':''}"><button class="lecture-chk" onclick="toggleLecture('${l.id}')">${d?'✓':''}</button><span class="lecture-name">${escHtml(l.name)}</span></div>`;}).join(''):'<div class="lempty">لا توجد محاضرات في هذا الكورس بعد</div>'}
     </div>`;
@@ -1645,24 +1371,24 @@ function courseBlockHTML(w){
 function renderLectures(){
   const el=document.getElementById('courses-list');if(!el)return;
   const my=courses.filter(c=>!c.user||c.user==='كلاهما'||c.user===currentUser);
-  if(!my.length){el.innerHTML='<div class="lempty">لا توجد كورسات — اذهب لـ «إدارة»</div>';return;}
+  if(!my.length){el.innerHTML='<div class="lempty">لا توجد كورسات — اذهب لـ «⚙ إدارة»</div>';return;}
   const withStats=my.map(c=>{const total=c.lectures.length;const done=c.lectures.filter(l=>isLectureDone(l.id)).length;return{c,total,done,complete:total>0&&done===total};});
   const incomplete=withStats.filter(w=>!w.complete);
   const completed=withStats.filter(w=>w.complete);
   const pinned=incomplete.filter(w=>w.c.pinned);
   const rest=incomplete.filter(w=>!w.c.pinned);
   let html='';
-  if(pinned.length)html+=`<div class="slabel"><span class="ico-flat">${ic('pin')}</span>مثبت</div>`+pinned.map(courseBlockHTML).join('');
+  if(pinned.length)html+=`<div class="slabel">📌 مثبت</div>`+pinned.map(courseBlockHTML).join('');
   const lecturers=[...new Set(rest.map(w=>w.c.lecturer||'عام'))];
   lecturers.forEach(lect=>{
     const items=rest.filter(w=>(w.c.lecturer||'عام')===lect);
-    html+=`<div class="slabel"><span class="ico-flat">${ic('mic')}</span>${escHtml(lect)}</div>`+items.map(courseBlockHTML).join('');
+    html+=`<div class="slabel">🎙 ${escHtml(lect)}</div>`+items.map(courseBlockHTML).join('');
   });
   if(!pinned.length&&!rest.length&&completed.length){
     html+='<div class="lempty">🎉 خلّصت كل السلاسل المتاحة!</div>';
   }
   if(completed.length){
-    html+=`<div style="text-align:center;margin:14px 0"><button class="btn-ghost" style="width:auto;padding:6px 16px" onclick="toggleShowCompletedLectures()">${showCompletedLectures?ic('chevron'):ic('check')} السلاسل المكتملة (${completed.length})</button></div>`;
+    html+=`<div style="text-align:center;margin:14px 0"><button class="btn-ghost" style="width:auto;padding:6px 16px" onclick="toggleShowCompletedLectures()">${showCompletedLectures?'🔽 إخفاء':'✅'} السلاسل المكتملة (${completed.length})</button></div>`;
     if(showCompletedLectures)html+=completed.map(courseBlockHTML).join('');
   }
   el.innerHTML=html;

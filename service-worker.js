@@ -1,7 +1,7 @@
 // =============================================
 // SERVICE WORKER — وِرد PWA
 // =============================================
-const SW_VERSION = 'v7';
+const SW_VERSION = 'v1.0.0';
 const CACHE_NAME = `werd-cache-${SW_VERSION}`;
 const OFFLINE_PAGE = '/offline.html';
 
