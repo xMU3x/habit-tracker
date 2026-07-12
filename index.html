@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="theme-color" content="#8b5cf6"/>
+<meta name="theme-color" content="#008ffe"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <meta name="apple-mobile-web-app-title" content="وِرد"/>
@@ -26,7 +26,7 @@
   --teal:#2bc0b0;--teal-dim:rgba(43,192,176,.12);
   --orange:#e89a52;--orange-dim:rgba(232,154,82,.12);
   --text:#eef0f7;--text2:#a8abc4;--muted:#5a5f78;
-  --font:'Rubik','Cairo',sans-serif;--font-ibm:'IBM Plex Sans Arabic','Rubik','Cairo',sans-serif;--radius:14px;
+  --font:'Rubik','Cairo',sans-serif;--font-ibm:'IBM Plex Sans Arabic','Rubik','Cairo',sans-serif;--radius:10px;
   --shadow:0 4px 24px rgba(0,0,0,.4);
 }
 body.font-ibm{--font:var(--font-ibm)}
@@ -49,7 +49,7 @@ button{font-family:var(--font);cursor:pointer}
 input,select,textarea{font-family:var(--font)}
 ::-webkit-scrollbar{width:4px}
 ::-webkit-scrollbar-track{background:var(--bg)}
-::-webkit-scrollbar-thumb{background:var(--border2);border-radius:4px}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:10px}
 
 header{display:flex;align-items:center;justify-content:space-between;padding:0 16px;height:58px;background:var(--surface);border-bottom:1px solid var(--surface-2);position:sticky;top:0;z-index:100}
 .logo{display:flex;align-items:center;gap:10px}
@@ -59,19 +59,19 @@ body.theme-neira .logo-icon{background:linear-gradient(135deg,var(--gold),var(--
 .logo-sub{font-size:10px;color:var(--muted)}
 .header-right{display:flex;align-items:center;gap:10px}
 .user-toggle{display:flex;gap:3px;background:var(--bg);padding:3px;border-radius:10px;border:1px solid var(--border)}
-.ubtn{padding:6px 15px;border:none;border-radius:7px;font-size:12px;font-weight:700;background:transparent;color:var(--muted);transition:.15s}
+.ubtn{padding:6px 15px;border:none;border-radius:10px;font-size:12px;font-weight:700;background:transparent;color:var(--muted);transition:.15s}
 .ubtn:active{transform:scale(.92)}
 .ubtn.active{background:var(--gold);color:#fff}
 
 .datebar{padding:7px 20px;background:var(--surface-2);border-bottom:1px solid var(--surface-2);font-size:11px;color:var(--muted);display:flex;justify-content:space-between;align-items:center}
 .datebar b{color:var(--gold2);font-weight:700}
 
-#save-badge{position:fixed;bottom:78px;left:50%;transform:translateX(-50%);z-index:200;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;border:1px solid;display:none;align-items:center;gap:5px}
+#save-badge{position:fixed;bottom:78px;left:50%;transform:translateX(-50%);z-index:200;padding:4px 12px;border-radius:10px;font-size:11px;font-weight:700;border:1px solid;display:none;align-items:center;gap:5px}
 #save-badge.saving{display:flex;background:var(--gold-b12);border-color:var(--gold-b30);color:var(--gold)}
 #save-badge.saved{display:flex;background:var(--green-dim);border-color:rgba(76,175,125,.3);color:var(--green)}
 #save-badge.queued{display:flex;background:rgba(91,142,240,.14);border-color:rgba(91,142,240,.35);color:var(--blue)}
 #save-badge.err{display:flex;background:var(--red-dim);border-color:rgba(224,92,92,.3);color:var(--red)}
-#pending-badge{position:fixed;bottom:112px;left:50%;transform:translateX(-50%);z-index:200;padding:4px 12px;border-radius:20px;font-size:10.5px;font-weight:700;border:1px solid rgba(91,142,240,.35);background:rgba(91,142,240,.14);color:var(--blue);display:none;align-items:center;gap:5px}
+#pending-badge{position:fixed;bottom:112px;left:50%;transform:translateX(-50%);z-index:200;padding:4px 12px;border-radius:10px;font-size:10.5px;font-weight:700;border:1px solid rgba(91,142,240,.35);background:rgba(91,142,240,.14);color:var(--blue);display:none;align-items:center;gap:5px}
 #offline-banner{display:none;align-items:center;justify-content:center;gap:8px;background:rgba(224,92,92,.14);color:var(--red);border-bottom:1px solid rgba(224,92,92,.3);font-size:11.5px;font-weight:700;padding:7px 10px}
 #offline-banner.show{display:flex}
 
@@ -80,16 +80,31 @@ main{max-width:700px;margin:0 auto;padding:20px 16px}
 
 .tabs{display:flex;gap:6px;margin-bottom:20px;background:var(--surface);padding:6px;border-radius:var(--radius);border:1px solid var(--border);overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none;scroll-snap-type:x proximity}
 .tabs::-webkit-scrollbar{display:none}
-.tab{flex:0 0 auto;min-width:68px;padding:11px 14px;border:none;background:transparent;color:var(--muted);font-size:12px;font-weight:700;border-radius:11px;transition:background .15s,color .15s,box-shadow .2s,transform .1s;white-space:nowrap;display:flex;align-items:center;justify-content:center;gap:6px;scroll-snap-align:start}
+.tab{flex:0 0 auto;min-width:68px;padding:11px 14px;border:none;background:transparent;color:var(--muted);font-size:12px;font-weight:700;border-radius:10px;transition:background .15s,color .15s,box-shadow .2s,transform .1s;white-space:nowrap;display:flex;align-items:center;justify-content:center;gap:6px;scroll-snap-align:start}
 @media(min-width:741px){.tab{flex:1 1 0}}
-.tab.active{background:var(--card2);color:var(--text);box-shadow:0 2px 8px rgba(0,0,0,.35)}
+.tab.active{background:var(--card2);color:#fff;box-shadow:0 2px 8px rgba(0,0,0,.35)}
+.tab.active .tab-ico{color:#fff}
+.tab.active.tab-clr-gold{background:var(--gold);box-shadow:0 3px 12px var(--gold-b30)}
+.tab.active.tab-clr-red{background:var(--red);box-shadow:0 3px 12px var(--red-dim)}
+.tab.active.tab-clr-teal{background:var(--teal);box-shadow:0 3px 12px var(--teal-dim)}
+.tab.active.tab-clr-green{background:var(--green);box-shadow:0 3px 12px var(--green-dim)}
+.tab.active.tab-clr-purple{background:var(--purple);box-shadow:0 3px 12px var(--purple-dim)}
+.tab.active.tab-clr-blue{background:var(--blue);box-shadow:0 3px 12px rgba(91,142,240,.3)}
+.tab.active.tab-clr-orange{background:var(--orange);box-shadow:0 3px 12px var(--orange-dim)}
 .tab:hover:not(.active){color:var(--text2);background:rgba(255,255,255,.04)}
 .tab:active{transform:scale(.94)}
 .tab-ico{width:17px;height:17px;flex-shrink:0;display:inline-flex}
 .tab-ico svg{width:100%;height:100%}
+.tab-ico-gold{color:var(--gold)}
+.tab-ico-red{color:var(--red)}
+.tab-ico-teal{color:var(--teal)}
+.tab-ico-green{color:var(--green)}
+.tab-ico-purple{color:var(--purple)}
+.tab-ico-blue{color:var(--blue)}
+.tab-ico-orange{color:var(--orange)}
 
 /* ── Flat design icon system (Material-style, single/two-tone) ── */
-.icon-sq{width:26px;height:26px;min-width:26px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;background:var(--gold-dim);color:var(--gold);flex-shrink:0}
+.icon-sq{width:26px;height:26px;min-width:26px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;background:var(--gold-dim);color:var(--gold);flex-shrink:0}
 .icon-sq svg{width:15px;height:15px}
 .icon-sq.i-green{background:var(--green-dim);color:var(--green)}
 .icon-sq.i-red{background:var(--red-dim);color:var(--red)}
@@ -97,7 +112,7 @@ main{max-width:700px;margin:0 auto;padding:20px 16px}
 .icon-sq.i-purple{background:var(--purple-dim);color:var(--purple)}
 .icon-sq.i-teal{background:var(--teal-dim);color:var(--teal)}
 .icon-sq.i-orange{background:var(--orange-dim);color:var(--orange)}
-.icon-sq.i-sm{width:20px;height:20px;border-radius:6px}
+.icon-sq.i-sm{width:20px;height:20px;border-radius:10px}
 .icon-sq.i-sm svg{width:12px;height:12px}
 .name-with-icon{display:inline-flex;align-items:center;gap:7px}
 
@@ -108,11 +123,11 @@ main{max-width:700px;margin:0 auto;padding:20px 16px}
 
 /* ── Log chooser: two Material buttons side by side ── */
 .log-chooser{display:flex;gap:12px;margin-bottom:4px}
-.mat-choice-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;padding:18px 10px;border-radius:16px;background:var(--surface);color:var(--text);font-size:12.5px;font-weight:700;border:1px solid var(--border)}
+.mat-choice-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;padding:18px 10px;border-radius:10px;background:var(--surface);color:var(--text);font-size:12.5px;font-weight:700;border:1px solid var(--border)}
 .mat-choice-btn:hover{border-color:var(--gold-b30);background:var(--gold-dim)}
-.mat-choice-btn .icon-sq{width:38px;height:38px;border-radius:12px}
+.mat-choice-btn .icon-sq{width:38px;height:38px;border-radius:10px}
 .mat-choice-btn .icon-sq svg{width:20px;height:20px}
-.log-back-btn{display:inline-flex;align-items:center;gap:6px;background:transparent;border:1px solid var(--border);color:var(--muted);font-size:11px;font-weight:700;padding:5px 12px;border-radius:8px;margin-bottom:12px}
+.log-back-btn{display:inline-flex;align-items:center;gap:6px;background:transparent;border:1px solid var(--border);color:var(--muted);font-size:11px;font-weight:700;padding:5px 12px;border-radius:10px;margin-bottom:12px}
 .log-back-btn:hover{border-color:var(--gold-b30);color:var(--gold)}
 
 .slabel{font-size:10px;font-weight:700;letter-spacing:1.8px;color:var(--muted);text-transform:uppercase;margin:18px 0 10px;display:flex;align-items:center;gap:8px}
@@ -128,40 +143,40 @@ main{max-width:700px;margin:0 auto;padding:20px 16px}
 .hinfo{flex:1;min-width:0}
 .hname{font-size:14px;font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .hrow.done .hname-text{color:var(--muted);text-decoration:line-through}
-.adhkar-link{display:inline-flex;align-items:center;gap:4px;padding:2px 9px;border-radius:6px;background:rgba(91,142,240,.12);border:1px solid rgba(91,142,240,.25);color:var(--blue);font-size:11px;font-weight:700;text-decoration:none}
+.adhkar-link{display:inline-flex;align-items:center;gap:4px;padding:2px 9px;border-radius:10px;background:rgba(91,142,240,.12);border:1px solid rgba(91,142,240,.25);color:var(--blue);font-size:11px;font-weight:700;text-decoration:none}
 .adhkar-link svg{width:11px;height:11px}
 .hmeta{font-size:11px;color:var(--muted);display:flex;gap:6px;flex-wrap:wrap;margin-bottom:4px}
-.tag{background:var(--surface);padding:2px 8px;border-radius:5px;border:1px solid var(--border)}
-.hdesc{font-size:12px;color:var(--text2);line-height:1.6;margin-top:4px;padding:8px 10px;background:var(--surface);border-radius:8px;border:1px solid var(--border);white-space:pre-wrap}
+.tag{background:var(--surface);padding:2px 8px;border-radius:10px;border:1px solid var(--border)}
+.hdesc{font-size:12px;color:var(--text2);line-height:1.6;margin-top:4px;padding:8px 10px;background:var(--surface);border-radius:10px;border:1px solid var(--border);white-space:pre-wrap}
 .delbtn{background:transparent;border:none;color:var(--border2);font-size:18px;padding:2px 4px;transition:.15s;flex-shrink:0;line-height:1}
 .delbtn:hover{color:var(--red)}
 
 .prayers-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:8px}
-.pray-btn{padding:8px 4px;border-radius:9px;border:1px solid var(--border);background:var(--surface);color:var(--muted);font-size:11px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:3px;transition:.2s}
+.pray-btn{padding:8px 4px;border-radius:10px;border:1px solid var(--border);background:var(--surface);color:var(--muted);font-size:11px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:3px;transition:.2s}
 .pray-btn.done{border-color:var(--green);background:var(--green-dim);color:var(--green)}
-.check-all-btn{width:100%;margin-top:10px;padding:8px;border-radius:9px;border:1px solid rgba(76,175,125,.3);background:var(--green-dim);color:var(--green);font-size:12px;font-weight:700;transition:.15s}
+.check-all-btn{width:100%;margin-top:10px;padding:8px;border-radius:10px;border:1px solid rgba(76,175,125,.3);background:var(--green-dim);color:var(--green);font-size:12px;font-weight:700;transition:.15s}
 .check-all-btn:hover{background:var(--green);color:#fff}
 
 .quran-block{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:20px}
 .quran-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
 .quran-title{font-size:13px;font-weight:900;color:var(--purple)}
 .quran-stats{font-size:11px;color:var(--muted)}
-.quran-prog{height:5px;background:var(--border);border-radius:3px;margin-bottom:12px}
-.quran-prog-bar{height:5px;background:linear-gradient(90deg,var(--purple),#c4a0f5);border-radius:3px;transition:.4s}
+.quran-prog{height:5px;background:var(--border);border-radius:10px;margin-bottom:12px}
+.quran-prog-bar{height:5px;background:linear-gradient(90deg,var(--purple),#c4a0f5);border-radius:10px;transition:.4s}
 .quran-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:5px}
-.juz-btn{padding:9px 3px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--muted);font-size:11px;font-weight:700;text-align:center;transition:.2s;cursor:pointer}
+.juz-btn{padding:9px 3px;border-radius:10px;border:1px solid var(--border);background:var(--surface);color:var(--muted);font-size:11px;font-weight:700;text-align:center;transition:.2s;cursor:pointer}
 .juz-btn.done{border-color:rgba(155,110,240,.4);background:var(--purple-dim);color:var(--purple)}
 
 .fast-block{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:20px}
 .fast-title{font-size:13px;font-weight:700;color:var(--gold);margin-bottom:12px}
-.fast-counter{text-align:center;padding:14px;background:var(--surface);border-radius:11px;margin-bottom:12px}
+.fast-counter{text-align:center;padding:14px;background:var(--surface);border-radius:10px;margin-bottom:12px}
 .fast-num{font-size:36px;font-weight:900;color:var(--gold);line-height:1}
 .fast-lbl{font-size:11px;color:var(--muted);margin-top:3px}
-.fast-prog{height:5px;background:var(--border);border-radius:3px;margin:10px 0 6px}
-.fast-prog-bar{height:5px;background:linear-gradient(90deg,var(--green),#7dd3a8);border-radius:3px;transition:.4s}
+.fast-prog{height:5px;background:var(--border);border-radius:10px;margin:10px 0 6px}
+.fast-prog-bar{height:5px;background:linear-gradient(90deg,var(--green),#7dd3a8);border-radius:10px;transition:.4s}
 .fast-summary{font-size:11px;color:var(--muted)}
 .fast-days-grid{display:grid;gap:6px;margin-top:12px}
-.fday{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:9px 12px;cursor:pointer;transition:.15s}
+.fday{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:9px 12px;cursor:pointer;transition:.15s}
 .fday:hover{border-color:var(--border2)}
 .fday.checked{border-color:rgba(76,175,125,.35);background:var(--green-dim)}
 .fday .fchk{width:26px;height:26px;min-width:26px;border-radius:50%;border:2px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:12px;transition:.15s;flex-shrink:0}
@@ -175,7 +190,7 @@ main{max-width:700px;margin:0 auto;padding:20px 16px}
 .fday-del{background:transparent;border:none;color:var(--border2);font-size:16px;padding:2px 6px;transition:.15s;flex-shrink:0}
 .fday-del:hover{color:var(--red)}
 
-.finp,.fsel{flex:1;min-width:100px;background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:9px 12px;font-size:13px;color:var(--text);outline:none;transition:border-color .15s;color-scheme:dark}
+.finp,.fsel{flex:1;min-width:100px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:9px 12px;font-size:13px;color:var(--text);outline:none;transition:border-color .15s;color-scheme:dark}
 .fsel{-webkit-appearance:none;-moz-appearance:none;appearance:none;padding-right:32px;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234a9de8' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M6 9l6 6 6-6'/></svg>");background-repeat:no-repeat;background-position:right 10px center;background-size:15px}
 body.theme-neira .fsel{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23d6336c' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M6 9l6 6 6-6'/></svg>")}
 .finp:focus,.fsel:focus{border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-b10)}
@@ -183,18 +198,18 @@ body.theme-neira .fsel{background-image:url("data:image/svg+xml;utf8,<svg xmlns=
 .fsel option{background:var(--surface);color:var(--text)}
 textarea.finp{resize:vertical;min-height:70px;line-height:1.6}
 
-.btn-primary{width:100%;background:#0080e5;color:#fff;border:none;border-radius:0;padding:11px;font-size:14px;font-weight:900;transition:.15s;box-shadow:0 2px 12px var(--gold-b25)}
+.btn-primary{width:100%;background:#0080e5;color:#fff;border:none;border-radius:10px;padding:11px;font-size:14px;font-weight:900;transition:.15s;box-shadow:0 2px 12px var(--gold-b25)}
 .btn-primary:hover{background:#0072c9}
 .btn-primary:active{transform:scale(.98)}
-.btn-ghost{width:100%;background:transparent;border:1px solid var(--border);color:var(--muted);border-radius:9px;padding:9px;font-size:12px;transition:.15s}
+.btn-ghost{width:100%;background:transparent;border:1px solid var(--border);color:var(--muted);border-radius:10px;padding:9px;font-size:12px;transition:.15s}
 .btn-ghost:hover{border-color:var(--red);color:var(--red);background:var(--red-dim)}
 
 .panel{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:14px}
 .ptitle{font-size:12px;font-weight:700;color:var(--gold);margin-bottom:14px;letter-spacing:.5px;text-transform:uppercase;display:flex;justify-content:space-between;align-items:center}
-.ptitle-btn{font-size:11px;background:transparent;border:1px solid var(--border);color:var(--muted);padding:3px 9px;border-radius:6px;transition:.15s}
+.ptitle-btn{font-size:11px;background:transparent;border:1px solid var(--border);color:var(--muted);padding:3px 9px;border-radius:10px;transition:.15s}
 .ptitle-btn:hover{border-color:var(--red);color:var(--red)}
 /* ── بانل "تقدم اليوم" — تصميم بسيط ومصغّر أعلى تبويب اليوم ── */
-.today-progress-mini{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:11px 15px;margin-bottom:16px}
+.today-progress-mini{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:11px 15px;margin-bottom:16px}
 .tpm-ring{position:relative;width:50px;height:50px;flex-shrink:0}
 .tpm-ring svg{transform:rotate(-90deg);width:100%;height:100%}
 .tpm-ring-pct{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:800;color:var(--gold)}
@@ -204,7 +219,7 @@ textarea.finp{resize:vertical;min-height:70px;line-height:1.6}
 
 .lentry{padding:8px 0;border-bottom:1px solid var(--border);font-size:12px}
 .lentry:last-child{border-bottom:none}
-.lwho{display:inline-flex;padding:1px 8px;border-radius:5px;font-size:10px;font-weight:700;margin-left:6px}
+.lwho{display:inline-flex;padding:1px 8px;border-radius:10px;font-size:10px;font-weight:700;margin-left:6px}
 .lwho.m{background:rgba(201,168,76,.15);color:var(--gold)}
 .lwho.n{background:rgba(76,175,125,.15);color:var(--green)}
 .ltime{color:var(--muted)}
@@ -218,24 +233,24 @@ textarea.finp{resize:vertical;min-height:70px;line-height:1.6}
 .admin-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:16px}
 
 /* ── Adhkar accordion ── */
-.adhkar-section{background:var(--card);border:1px solid var(--border);border-radius:16px;margin-bottom:12px;overflow:hidden}
+.adhkar-section{background:var(--card);border:1px solid var(--border);border-radius:10px;margin-bottom:12px;overflow:hidden}
 .adhkar-header{width:100%;display:flex;align-items:center;gap:10px;padding:14px 16px;background:transparent;border:none;color:var(--text);font-family:inherit;text-align:right;cursor:pointer}
 .adhkar-chevron{width:16px;height:16px;flex-shrink:0;color:var(--muted);transition:transform .2s ease;display:inline-flex}
 .adhkar-section.open .adhkar-chevron{transform:rotate(90deg);color:var(--gold)}
 .adhkar-header-title{flex:1;font-size:13.5px;font-weight:800}
-.adhkar-count{font-size:10.5px;color:var(--muted);background:var(--surface);border-radius:20px;padding:2px 9px;font-weight:700}
-.adhkar-del-sec{width:22px;height:22px;border-radius:7px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:15px;flex-shrink:0}
+.adhkar-count{font-size:10.5px;color:var(--muted);background:var(--surface);border-radius:10px;padding:2px 9px;font-weight:700}
+.adhkar-del-sec{width:22px;height:22px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:15px;flex-shrink:0}
 .adhkar-del-sec:hover{background:var(--red-dim);color:var(--red)}
 .adhkar-body{display:none;padding:0 16px 16px}
 .adhkar-section.open .adhkar-body{display:block}
-.adhkar-item{display:flex;align-items:center;gap:8px;justify-content:space-between;background:var(--surface);border-radius:12px;padding:10px 12px;margin-bottom:8px;font-size:12.5px;line-height:1.7}
+.adhkar-item{display:flex;align-items:center;gap:8px;justify-content:space-between;background:var(--surface);border-radius:10px;padding:10px 12px;margin-bottom:8px;font-size:12.5px;line-height:1.7}
 .adhkar-item-text{flex:1}
 .admin-sec-title{font-size:13px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px}
 .admin-sec-title.collapsible{cursor:pointer;user-select:none}
 .admin-section:not(.open) .admin-sec-title.collapsible{margin-bottom:0}
 .admin-sec-chevron{width:14px;height:14px;flex-shrink:0;color:var(--muted);transition:transform .2s ease;display:inline-flex}
 .admin-section.open .admin-sec-chevron{transform:rotate(90deg)}
-.asicon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.asicon{width:28px;height:28px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
 .asicon-gold{background:var(--gold-dim);border:1px solid var(--gold-b20)}
 .asicon-green{background:var(--green-dim);border:1px solid rgba(76,175,125,.2)}
 .asicon-red{background:var(--red-dim);border:1px solid rgba(224,92,92,.15)}
@@ -250,11 +265,11 @@ textarea.finp{resize:vertical;min-height:70px;line-height:1.6}
 .toggle.on{background:var(--gold)}
 .toggle::after{content:'';position:absolute;width:14px;height:14px;border-radius:50%;background:#fff;top:3px;right:3px;transition:.2s}
 .toggle.on::after{right:auto;left:3px}
-.admin-habit-row{display:flex;align-items:flex-start;gap:10px;background:var(--card);border:1px solid var(--border);border-radius:9px;padding:10px 12px;margin-bottom:6px}
+.admin-habit-row{display:flex;align-items:flex-start;gap:10px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 12px;margin-bottom:6px}
 .admin-habit-row:hover{border-color:var(--border2)}
-.admin-habit-icon{width:30px;height:30px;min-width:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;background:var(--gold-dim);border:1px solid var(--gold-b20);flex-shrink:0;color:var(--gold)}
+.admin-habit-icon{width:30px;height:30px;min-width:30px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:14px;background:var(--gold-dim);border:1px solid var(--gold-b20);flex-shrink:0;color:var(--gold)}
 .admin-habit-icon svg{width:15px;height:15px}
-.slabel-ico{width:18px;height:18px;border-radius:5px;display:inline-flex;align-items:center;justify-content:center;background:var(--gold-dim);color:var(--gold);flex-shrink:0}
+.slabel-ico{width:18px;height:18px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;background:var(--gold-dim);color:var(--gold);flex-shrink:0}
 .slabel-ico svg{width:11px;height:11px}
 .slabel-ico.i-blue{background:rgba(91,142,240,.14);color:var(--blue)}
 .slabel-ico.i-purple{background:var(--purple-dim);color:var(--purple)}
@@ -269,13 +284,13 @@ textarea.finp{resize:vertical;min-height:70px;line-height:1.6}
 .admin-habit-info{flex:1;min-width:0}
 .admin-habit-name{font-size:13px;font-weight:700;margin-bottom:3px}
 .admin-habit-meta{font-size:10px;color:var(--muted);display:flex;gap:6px;flex-wrap:wrap;margin-bottom:2px}
-.admin-habit-desc{font-size:11px;color:var(--text2);padding:3px 8px;background:var(--card);border:1px solid var(--border);border-radius:6px;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px}
+.admin-habit-desc{font-size:11px;color:var(--text2);padding:3px 8px;background:var(--card);border:1px solid var(--border);border-radius:10px;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px}
 .admin-del{background:transparent;border:none;color:var(--border2);font-size:18px;padding:2px 4px;transition:.15s;flex-shrink:0;line-height:1}
 .admin-del:hover{color:var(--red)}
-.url-row{display:flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:0 10px;margin-bottom:8px}
+.url-row{display:flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:0 10px;margin-bottom:8px}
 .url-row .finp{border:none;background:transparent;padding:9px 4px;box-shadow:none}
 .url-row .finp:focus{border:none;box-shadow:none}
-.badge{display:inline-flex;padding:2px 7px;border-radius:5px;font-size:10px;font-weight:700}
+.badge{display:inline-flex;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:700}
 .badge-gold{background:var(--gold-dim);color:var(--gold);border:1px solid var(--gold-b20)}
 .badge-muted{background:var(--surface);color:var(--muted);border:1px solid var(--border)}
 
@@ -283,7 +298,7 @@ textarea.finp{resize:vertical;min-height:70px;line-height:1.6}
 .hdate{font-size:10px;font-weight:700;color:var(--muted);letter-spacing:1.2px;margin-bottom:8px;display:flex;align-items:center;gap:6px}
 .hdate::after{content:'';flex:1;height:1px;background:var(--border)}
 
-#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--green);color:#fff;padding:10px 22px;border-radius:12px;font-size:13px;font-weight:700;transition:.25s cubic-bezier(.34,1.56,.64,1);z-index:9999;box-shadow:0 8px 40px rgba(0,0,0,.6);max-width:90vw;text-align:center}
+#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--green);color:#fff;padding:10px 22px;border-radius:10px;font-size:13px;font-weight:700;transition:.25s cubic-bezier(.34,1.56,.64,1);z-index:9999;box-shadow:0 8px 40px rgba(0,0,0,.6);max-width:90vw;text-align:center}
 #toast.show{transform:translateX(-50%) translateY(0)}
 #toast.err{background:var(--red)}
 #toast.info{background:var(--blue)}
@@ -297,11 +312,11 @@ textarea.finp{resize:vertical;min-height:70px;line-height:1.6}
 /* ── Gate screen ── */
 #gate-screen{position:fixed;inset:0;background:var(--bg);z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px}
 .gate-box{width:100%;max-width:300px;text-align:center}
-.gate-icon{width:64px;height:64px;border-radius:16px;background:linear-gradient(135deg,#6366f1,#06b6d4);display:flex;align-items:center;justify-content:center;font-size:30px;margin:0 auto 16px;box-shadow:0 6px 24px var(--gold-b30)}
+.gate-icon{width:64px;height:64px;border-radius:10px;background:linear-gradient(135deg,#6366f1,#06b6d4);display:flex;align-items:center;justify-content:center;font-size:30px;margin:0 auto 16px;box-shadow:0 6px 24px var(--gold-b30)}
 body.theme-neira .gate-icon{background:linear-gradient(135deg,var(--gold),var(--gold-dark2))}
 .gate-title{font-size:20px;font-weight:900;color:var(--gold);margin-bottom:6px}
 .gate-sub{font-size:12px;color:var(--muted);margin-bottom:22px;line-height:1.6}
-.gate-inp{width:100%;text-align:center;letter-spacing:16px;font-size:26px;font-weight:900;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 10px;color:var(--text);outline:none;margin-bottom:14px}
+.gate-inp{width:100%;text-align:center;letter-spacing:16px;font-size:26px;font-weight:900;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 10px;color:var(--text);outline:none;margin-bottom:14px}
 .gate-inp:focus{border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-b12)}
 .gate-err{font-size:12px;color:var(--red);min-height:16px;margin-bottom:10px}
 .gate-shake{animation:shake .35s}
@@ -317,7 +332,7 @@ body.theme-neira .gate-icon{background:linear-gradient(135deg,var(--gold),var(--
 
 /* ── Admin habit row: reorder buttons ── */
 .admin-move{display:flex;flex-direction:column;gap:2px}
-.mvbtn{background:transparent;border:1px solid var(--border);color:var(--muted);font-size:10px;border-radius:5px;padding:1px 4px;line-height:1.4}
+.mvbtn{background:transparent;border:1px solid var(--border);color:var(--muted);font-size:10px;border-radius:10px;padding:1px 4px;line-height:1.4}
 .mvbtn:hover:not(:disabled){border-color:var(--gold);color:var(--gold)}
 .mvbtn:disabled{opacity:.25;cursor:default}
 
@@ -328,15 +343,15 @@ body.theme-neira .gate-icon{background:linear-gradient(135deg,var(--gold),var(--
 .course-stats{font-size:11px;color:var(--muted);font-weight:700}
 .course-meta-row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:0 16px;margin-bottom:8px}
 .course-meta-actions{display:flex;align-items:center;gap:8px}
-.course-pin-btn,.course-link-btn{width:26px;height:26px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;transition:.15s;cursor:pointer}
+.course-pin-btn,.course-link-btn{width:26px;height:26px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;transition:.15s;cursor:pointer}
 .course-pin-btn svg,.course-link-btn svg{width:14px;height:14px}
 .course-pin-btn{background:var(--orange-dim);color:var(--orange)}
 .course-pin-btn.pinned{background:var(--orange);color:#fff;box-shadow:0 2px 8px rgba(232,147,74,.4)}
 .course-pin-btn:hover{background:var(--orange);color:#fff}
 .course-link-btn{background:var(--teal-dim);color:var(--teal);text-decoration:none}
 .course-link-btn:hover{background:var(--teal);color:#fff}
-.course-prog{height:5px;background:var(--border);border-radius:3px;margin-bottom:10px}
-.course-prog-bar{height:5px;background:linear-gradient(90deg,var(--blue),#8fb4f5);border-radius:3px;transition:.4s}
+.course-prog{height:5px;background:var(--border);border-radius:10px;margin-bottom:10px}
+.course-prog-bar{height:5px;background:linear-gradient(90deg,var(--blue),#8fb4f5);border-radius:10px;transition:.4s}
 .lecture-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)}
 .lecture-row:last-child{border-bottom:none}
 .lecture-chk{width:26px;height:26px;min-width:26px;border-radius:50%;border:2px solid var(--border2);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;transition:.2s;color:transparent}
@@ -345,7 +360,7 @@ body.theme-neira .gate-icon{background:linear-gradient(135deg,var(--gold),var(--
 .lecture-row.done .lecture-name{color:var(--muted);text-decoration:line-through}
 
 /* ── Admin course management ── */
-.admin-course-block{background:var(--card);border:1px solid var(--border);border-radius:9px;padding:12px;margin-bottom:10px}
+.admin-course-block{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:10px}
 .admin-course-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
 .admin-course-name{font-size:13px;font-weight:700}
 .admin-lecture-row{display:flex;align-items:center;gap:8px;padding:5px 0;font-size:12px;border-bottom:1px solid var(--border)}
@@ -353,27 +368,27 @@ body.theme-neira .gate-icon{background:linear-gradient(135deg,var(--gold),var(--
 
 /* ══════════════ لوحة الإدارة — Material Design ══════════════ */
 #tab-admin{--m-elev1:0 1px 2px rgba(0,0,0,.3),0 1px 6px rgba(0,0,0,.22);--m-elev2:0 2px 6px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.28)}
-#admin-lock{border:none;border-radius:24px;box-shadow:var(--m-elev2);padding:32px 24px}
-#tab-admin .admin-section{border:none;border-radius:20px;padding:18px;box-shadow:var(--m-elev1);transition:box-shadow .2s ease;margin-bottom:18px}
+#admin-lock{border:none;border-radius:10px;box-shadow:var(--m-elev2);padding:32px 24px}
+#tab-admin .admin-section{border:none;border-radius:10px;padding:18px;box-shadow:var(--m-elev1);transition:box-shadow .2s ease;margin-bottom:18px}
 #tab-admin .admin-section:hover{box-shadow:var(--m-elev2)}
-#tab-admin .admin-sec-title{margin:-18px -18px 16px -18px;padding:15px 18px;border-radius:20px 20px 0 0;background:rgba(0,0,0,.18);font-size:13.5px;font-weight:800}
-#tab-admin .admin-section:not(.open) .admin-sec-title.collapsible{border-radius:20px;margin-bottom:-18px}
-#tab-admin .asicon{width:32px;height:32px;border-radius:11px;border:none;box-shadow:0 1px 3px rgba(0,0,0,.25)}
-#tab-admin .admin-habit-row,#tab-admin .admin-course-block{border:none;border-radius:16px;box-shadow:0 1px 2px rgba(0,0,0,.2),0 1px 4px rgba(0,0,0,.18);transition:box-shadow .15s ease,transform .1s ease;padding:12px 14px}
+#tab-admin .admin-sec-title{margin:-18px -18px 16px -18px;padding:15px 18px;border-radius:10px 10px 0 0;background:rgba(0,0,0,.18);font-size:13.5px;font-weight:800}
+#tab-admin .admin-section:not(.open) .admin-sec-title.collapsible{border-radius:10px;margin-bottom:-18px}
+#tab-admin .asicon{width:32px;height:32px;border-radius:10px;border:none;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+#tab-admin .admin-habit-row,#tab-admin .admin-course-block{border:none;border-radius:10px;box-shadow:0 1px 2px rgba(0,0,0,.2),0 1px 4px rgba(0,0,0,.18);transition:box-shadow .15s ease,transform .1s ease;padding:12px 14px}
 #tab-admin .admin-habit-row:hover,#tab-admin .admin-course-block:hover{box-shadow:0 2px 10px rgba(0,0,0,.3)}
-#tab-admin .admin-habit-icon{border:none;border-radius:11px;box-shadow:0 1px 3px rgba(0,0,0,.25)}
-#tab-admin .finp,#tab-admin .fsel{border:none;border-radius:13px;background-color:var(--card2);padding:11px 14px;box-shadow:inset 0 0 0 1px var(--border)}
+#tab-admin .admin-habit-icon{border:none;border-radius:10px;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+#tab-admin .finp,#tab-admin .fsel{border:none;border-radius:10px;background-color:var(--card2);padding:11px 14px;box-shadow:inset 0 0 0 1px var(--border)}
 #tab-admin .fsel{padding-right:36px}
 #tab-admin .finp:focus,#tab-admin .fsel:focus{box-shadow:inset 0 0 0 2px var(--gold)}
-#tab-admin .btn-primary{border-radius:0;padding:12px;box-shadow:var(--m-elev1),0 2px 12px var(--gold-b25)}
+#tab-admin .btn-primary{border-radius:10px;padding:12px;box-shadow:var(--m-elev1),0 2px 12px var(--gold-b25)}
 #tab-admin .btn-primary:hover{box-shadow:var(--m-elev2),0 2px 16px var(--gold-b30)}
-#tab-admin .btn-ghost{border:none;background:var(--card2);border-radius:24px;box-shadow:var(--m-elev1)}
+#tab-admin .btn-ghost{border:none;background:var(--card2);border-radius:10px;box-shadow:var(--m-elev1)}
 #tab-admin .btn-ghost:hover{background:var(--red-dim)}
 #tab-admin .admin-del{width:26px;height:26px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center}
 #tab-admin .admin-del:hover{background:var(--red-dim)}
 #tab-admin .toggle{width:40px;height:22px}
 #tab-admin .toggle::after{width:16px;height:16px}
-#tab-admin .mvbtn{border-radius:7px}
+#tab-admin .mvbtn{border-radius:10px}
 </style>
 </head>
 <body class="dark-mode">
@@ -401,7 +416,7 @@ body.theme-neira .gate-icon{background:linear-gradient(135deg,var(--gold),var(--
     <div><div class="logo-text">وِرد</div><div class="logo-sub">متابعة العادات اليومية</div></div>
   </div>
   <div class="header-right">
-    <button id="install-btn" style="display:none;background:var(--gold-dim);border:1px solid var(--gold-b30);color:var(--gold);border-radius:8px;padding:5px 10px;font-size:11px;font-weight:700;margin-left:6px" onclick="installPWA()">📲 تثبيت</button>
+    <button id="install-btn" style="display:none;background:var(--gold-dim);border:1px solid var(--gold-b30);color:var(--gold);border-radius:10px;padding:5px 10px;font-size:11px;font-weight:700;margin-left:6px" onclick="installPWA()">📲 تثبيت</button>
     <div class="user-toggle">
       <button class="ubtn active" id="btn-m" onclick="switchUser('محمد')">محمد</button>
       <button class="ubtn" id="btn-n" onclick="switchUser('نيرة')">نيرة</button>
@@ -410,21 +425,21 @@ body.theme-neira .gate-icon{background:linear-gradient(135deg,var(--gold),var(--
 </header>
 
 <div class="datebar">
-  <span><b id="today-label"></b> <span id="today-pct-badge" class="tag" style="color:var(--gold);border-color:var(--gold-b30)">0%</span></span>
+  <span><b id="today-label"></b></span>
   <span id="hijri-label"></span>
 </div>
 
 <main>
 <div class="col-main">
   <div class="tabs">
-    <button class="tab active" onclick="setTab('today',this)"><span class="tab-ico" style="color:var(--gold)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>اليوم</button>
-    <button class="tab" onclick="setTab('tasks',this)"><span class="tab-ico" style="color:var(--red)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M8 14l2 2 4-4"/></svg></span>مهام</button>
-    <button class="tab" onclick="setTab('adhkar',this)"><span class="tab-ico" style="color:var(--teal)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="12" r="2"/><circle cx="12" cy="7" r="2"/><circle cx="18" cy="12" r="2"/><circle cx="12" cy="17" r="2"/><path d="M8 12h2M14 9.5l1.5 1M14 14.5l1.5-1M10 9.5L8.5 8.5"/></svg></span>الأذكار</button>
-    <button class="tab" onclick="setTab('fasting',this)"><span class="tab-ico" style="color:var(--green)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>الصيام</button>
-    <button class="tab" onclick="setTab('quran',this)"><span class="tab-ico" style="color:var(--purple)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>القرآن</button>
-    <button class="tab" onclick="setTab('lectures',this)"><span class="tab-ico" style="color:var(--blue)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.1 2.7 3 6 3s6-1.9 6-3v-5"/></svg></span>محاضرات</button>
-    <button class="tab" onclick="setTab('log',this)"><span class="tab-ico" style="color:var(--gold)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg></span>السجل</button>
-    <button class="tab" onclick="setTab('admin',this)"><span class="tab-ico" style="color:var(--orange)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 13a7.6 7.6 0 0 0 0-2l2-1.5-2-3.4-2.4 1a7.5 7.5 0 0 0-1.7-1L15 3h-6l-.3 2.6a7.5 7.5 0 0 0-1.7 1l-2.4-1-2 3.4L4.6 11a7.6 7.6 0 0 0 0 2l-2 1.5 2 3.4 2.4-1a7.5 7.5 0 0 0 1.7 1L9 21h6l.3-2.6a7.5 7.5 0 0 0 1.7-1l2.4 1 2-3.4z"/></svg></span>إدارة</button>
+    <button class="tab active tab-clr-gold" onclick="setTab('today',this)" aria-current="page"><span class="tab-ico tab-ico-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>اليوم</button>
+    <button class="tab tab-clr-red" onclick="setTab('tasks',this)"><span class="tab-ico tab-ico-red"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M8 14l2 2 4-4"/></svg></span>مهام</button>
+    <button class="tab tab-clr-teal" onclick="setTab('adhkar',this)"><span class="tab-ico tab-ico-teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="12" r="2"/><circle cx="12" cy="7" r="2"/><circle cx="18" cy="12" r="2"/><circle cx="12" cy="17" r="2"/><path d="M8 12h2M14 9.5l1.5 1M14 14.5l1.5-1M10 9.5L8.5 8.5"/></svg></span>الأذكار</button>
+    <button class="tab tab-clr-green" onclick="setTab('fasting',this)"><span class="tab-ico tab-ico-green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>الصيام</button>
+    <button class="tab tab-clr-purple" onclick="setTab('quran',this)"><span class="tab-ico tab-ico-purple"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>القرآن</button>
+    <button class="tab tab-clr-blue" onclick="setTab('lectures',this)"><span class="tab-ico tab-ico-blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.1 2.7 3 6 3s6-1.9 6-3v-5"/></svg></span>محاضرات</button>
+    <button class="tab tab-clr-gold" onclick="setTab('log',this)"><span class="tab-ico tab-ico-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg></span>السجل</button>
+    <button class="tab tab-clr-orange" onclick="setTab('admin',this)"><span class="tab-ico tab-ico-orange"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 13a7.6 7.6 0 0 0 0-2l2-1.5-2-3.4-2.4 1a7.5 7.5 0 0 0-1.7-1L15 3h-6l-.3 2.6a7.5 7.5 0 0 0-1.7 1l-2.4-1-2 3.4L4.6 11a7.6 7.6 0 0 0 0 2l-2 1.5 2 3.4 2.4-1a7.5 7.5 0 0 0 1.7 1L9 21h6l.3-2.6a7.5 7.5 0 0 0 1.7-1l2.4 1 2-3.4z"/></svg></span>إدارة</button>
   </div>
 
   <div id="tab-today">
@@ -1013,12 +1028,12 @@ function toggleUrlField(btn){urlFieldOpen=!urlFieldOpen;btn.classList.toggle('on
 function applyTheme(u){
   document.body.classList.toggle('theme-neira',u==='نيرة');
   const meta=document.querySelector('meta[name="theme-color"]');
-  if(meta)meta.setAttribute('content',u==='نيرة'?'#ec4899':'#8b5cf6');
+  if(meta)meta.setAttribute('content',u==='نيرة'?'#ec4899':'#008ffe');
 }
 function switchUser(u){currentUser=u;applyTheme(u);document.getElementById('btn-m').classList.toggle('active',u==='محمد');document.getElementById('btn-n').classList.toggle('active',u==='نيرة');render();if(currentTab==='quran')renderQuranTab();if(currentTab==='lectures')renderLectures();if(currentTab==='fasting')renderFasting();}
 
 async function setTab(tab,el){
-  currentTab=tab;localStorage.setItem('werd_last_tab',tab);document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');
+  currentTab=tab;localStorage.setItem('werd_last_tab',tab);document.querySelectorAll('.tab').forEach(t=>{t.classList.remove('active');t.removeAttribute('aria-current');});el.classList.add('active');el.setAttribute('aria-current','page');
   ['today','tasks','adhkar','fasting','quran','lectures','log','admin'].forEach(t=>document.getElementById('tab-'+t).style.display=t===tab?'':'none');
   if(tab==='tasks')renderTasksTab();
   if(tab==='adhkar')renderAdhkar();
@@ -1568,7 +1583,7 @@ function renderFastCalendar(){
       if(cb.length){doneCount++;bg='var(--green-dim)';border='var(--green)';color='var(--green)';}
       else{bg='var(--gold-dim)';border='var(--gold)';color='var(--gold)';}
     }
-    cells.push(`<div title="${greg.toLocaleDateString('ar-EG',{month:'short',day:'numeric'})}" style="aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:8px;background:${bg};border:1px solid ${border};${isToday?'box-shadow:0 0 0 2px var(--gold) inset;':''}font-size:11px;font-weight:700;color:${color};cursor:${fd?'pointer':'default'}" ${fd?`onclick="toggleFastDay('${ds}')"`:''}>${hijriDay}</div>`);
+    cells.push(`<div title="${greg.toLocaleDateString('ar-EG',{month:'short',day:'numeric'})}" style="aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:10px;background:${bg};border:1px solid ${border};${isToday?'box-shadow:0 0 0 2px var(--gold) inset;':''}font-size:11px;font-weight:700;color:${color};cursor:${fd?'pointer':'default'}" ${fd?`onclick="toggleFastDay('${ds}')"`:''}>${hijriDay}</div>`);
   });
   gridEl.innerHTML=cells.join('');
   sumEl.textContent=`${availableCount} يوم صيام متاح هذا الشهر — ${doneCount} تم صيامه، ${availableCount-doneCount} متبقي`;
@@ -1708,7 +1723,7 @@ function renderMonthlyTracker(grouped){
       else{bg='var(--red-dim)';border='var(--red)';color='var(--red)';}
     }
     const isToday=day===todayD;
-    cells.push(`<div title="${day}${pct!==null?' — '+pct+'%':''}" onclick="${!future?`jumpToHistoryDateDirect('${ds}')`:''}" style="aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:7px;background:${bg};border:1px solid ${border};${isToday?'box-shadow:0 0 0 2px var(--blue) inset;':''}font-size:10.5px;font-weight:700;color:${future?'var(--muted)':color};cursor:${!future?'pointer':'default'}">${day}</div>`);
+    cells.push(`<div title="${day}${pct!==null?' — '+pct+'%':''}" onclick="${!future?`jumpToHistoryDateDirect('${ds}')`:''}" style="aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:10px;background:${bg};border:1px solid ${border};${isToday?'box-shadow:0 0 0 2px var(--blue) inset;':''}font-size:10.5px;font-weight:700;color:${future?'var(--muted)':color};cursor:${!future?'pointer':'default'}">${day}</div>`);
   }
   gridEl.innerHTML=cells.join('');
   const avg=countedDays?Math.round(sumPct/countedDays):0;
