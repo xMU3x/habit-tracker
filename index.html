@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="theme-color" content="#F5A623"/>
+<meta name="theme-color" content="#008ffe"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <meta name="apple-mobile-web-app-title" content="وِرد"/>
@@ -13,13 +13,20 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#0c0c0c;--surface:#1e1e1e;--surface-2:#161616;--surface-3:#272727;
-  --card:#161616;--card2:#1e1e1e;
-  --border:#2e2e2e;--border2:#3a3a3a;
-  --gold:#F5A623;--gold2:#ffc35c;--gold-dim:rgba(245,166,35,.13);
-  --gold-dark:#cf8300;--gold-dark2:#e8960f;
-  --gold-b20:rgba(245,166,35,.2);--gold-b30:rgba(245,166,35,.3);--gold-b15:rgba(245,166,35,.15);
-  --gold-b25:rgba(245,166,35,.25);--gold-b10:rgba(245,166,35,.1);--gold-b12:rgba(245,166,35,.12);
+  --bg:#0f1117;--surface:#1a1d23;--surface-2:#14171c;--surface-3:#22262e;
+  --card:#1a1d23;--card2:#14171c;
+  --border:rgba(255,255,255,.08);--border2:rgba(255,255,255,.14);
+  --fg:#f3f4f5;--fg-muted:#9ca3af;--fg-subtle:#868c96;
+  --border-strong:rgba(255,255,255,.14);--border-input:rgba(255,255,255,.14);
+  --shadow-sm:0 1px 2px rgba(0,0,0,.4);
+  --shadow-card:0 1px 2px rgba(0,0,0,.4),0 4px 16px rgba(0,0,0,.3);
+  --shadow-card-hover:0 2px 4px rgba(0,0,0,.5),0 12px 32px rgba(0,0,0,.4);
+  --shadow-pop:0 8px 24px rgba(0,0,0,.5),0 24px 48px rgba(0,0,0,.5);
+  --dp-blue-soft:rgba(0,143,254,.14);
+  --gold:#008ffe;--gold2:#5cbaff;--gold-dim:rgba(0,143,254,.13);
+  --gold-dark:#0064b3;--gold-dark2:#0077d6;
+  --gold-b20:rgba(0,143,254,.2);--gold-b30:rgba(0,143,254,.3);--gold-b15:rgba(0,143,254,.15);
+  --gold-b25:rgba(0,143,254,.25);--gold-b10:rgba(0,143,254,.1);--gold-b12:rgba(0,143,254,.12);
   --green:#2ECC71;--green-dim:rgba(46,204,113,.13);
   --red:#E74C3C;--red-dim:rgba(231,76,60,.13);
   --blue:#4A9EFF;--purple:#9b7cf0;--purple-dim:rgba(155,124,240,.13);
@@ -27,13 +34,12 @@
   --orange:#e89a52;--orange-dim:rgba(232,154,82,.13);
   --text:#efefef;--text2:#a8a8a8;--muted:#6a6a6a;
   --font:'Tajawal',sans-serif;--font-ibm:'IBM Plex Sans Arabic','Tajawal',sans-serif;
-  --font-geist:'Geist',system-ui,-apple-system,sans-serif;--font-tajawal:'Tajawal',sans-serif;
+  --font-tajawal:'Tajawal',sans-serif;
   --r:14px;--rs:10px;--radius:14px;
   --shadow:none;
   --title-color:rgba(239,239,239,.72);
 }
 body.font-ibm{--font:var(--font-ibm)}
-body.font-geist{--font:var(--font-geist)}
 body.font-tajawal{--font:var(--font-tajawal)}
 /* ── ثيم نيرة: وردي-فوشيا ── */
 body.theme-neira{
@@ -41,6 +47,35 @@ body.theme-neira{
   --gold-dark:#9d174d;--gold-dark2:#a21caf;
   --gold-b20:rgba(236,72,153,.2);--gold-b30:rgba(236,72,153,.3);--gold-b15:rgba(236,72,153,.15);
   --gold-b25:rgba(236,72,153,.25);--gold-b10:rgba(236,72,153,.1);--gold-b12:rgba(236,72,153,.12);
+}
+/* ── اختيار لون الموقع من إعدادات عامة: الذهبي القديم ── */
+body.theme-classic-gold{
+  --gold:#F5A623;--gold2:#ffc35c;--gold-dim:rgba(245,166,35,.13);
+  --gold-dark:#cf8300;--gold-dark2:#e8960f;
+  --gold-b20:rgba(245,166,35,.2);--gold-b30:rgba(245,166,35,.3);--gold-b15:rgba(245,166,35,.15);
+  --gold-b25:rgba(245,166,35,.25);--gold-b10:rgba(245,166,35,.1);--gold-b12:rgba(245,166,35,.12);
+}
+/* ── لون مخصص لكل بروفايل: يتم ضبط هذه المتغيرات عبر JS (setSiteColor) ── */
+body.theme-custom{
+  --gold:var(--custom-color,#008ffe);--gold2:var(--custom-color2,#5cbaff);--gold-dim:var(--custom-color-dim,rgba(0,143,254,.13));
+  --gold-dark:var(--custom-color-dark,#0064b3);--gold-dark2:var(--custom-color-dark2,#0077d6);
+  --gold-b20:var(--custom-color-b20,rgba(0,143,254,.2));--gold-b30:var(--custom-color-b30,rgba(0,143,254,.3));--gold-b15:var(--custom-color-b15,rgba(0,143,254,.15));
+  --gold-b25:var(--custom-color-b25,rgba(0,143,254,.25));--gold-b10:var(--custom-color-b10,rgba(0,143,254,.1));--gold-b12:var(--custom-color-b12,rgba(0,143,254,.12));
+}
+/* ── لون خلفية مخصص لكل بروفايل ── */
+body.bg-custom{
+  --bg:var(--custom-bg,#0f1117);--surface:var(--custom-surface,#1a1d23);--surface-2:var(--custom-surface-2,#14171c);--surface-3:var(--custom-surface-3,#22262e);
+  --card:var(--custom-surface,#1a1d23);--card2:var(--custom-surface-2,#14171c);
+}
+.dark-mode{
+  --bg:#0f1117;--surface:#1a1d23;--surface-2:#14171c;--surface-3:#22262e;
+  --fg:#f3f4f5;--fg-muted:#9ca3af;--fg-subtle:#868c96;
+  --border:rgba(255,255,255,.08);--border-strong:rgba(255,255,255,.14);--border-input:rgba(255,255,255,.14);
+  --shadow-sm:0 1px 2px rgba(0,0,0,.4);
+  --shadow-card:0 1px 2px rgba(0,0,0,.4),0 4px 16px rgba(0,0,0,.3);
+  --shadow-card-hover:0 2px 4px rgba(0,0,0,.5),0 12px 32px rgba(0,0,0,.4);
+  --shadow-pop:0 8px 24px rgba(0,0,0,.5),0 24px 48px rgba(0,0,0,.5);
+  --dp-blue-soft:rgba(0,143,254,.14);
 }
 body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 button{font-family:var(--font);cursor:pointer}
@@ -78,7 +113,7 @@ main{max-width:700px;margin:0 auto;padding:20px 16px 120px}
 
 .tabs{display:flex;gap:6px;margin-bottom:20px;background:var(--surface-2);padding:6px;border-radius:12px;border:1px solid var(--border);overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none;scroll-snap-type:x proximity}
 .tabs::-webkit-scrollbar{display:none}
-.tab{flex:0 0 auto;min-width:68px;padding:11px 14px;border:none;background:transparent;color:var(--muted);font-size:12px;font-weight:700;border-radius:9px;transition:background .15s,color .15s,box-shadow .2s,transform .1s;white-space:nowrap;display:flex;align-items:center;justify-content:center;gap:6px;scroll-snap-align:start;touch-action:pan-y}
+.tab{flex:0 0 auto;min-width:68px;padding:11px 14px;border:none;background:transparent;color:var(--muted);font-size:12px;font-weight:700;border-radius:9px;transition:background .15s,color .15s,box-shadow .2s,transform .1s;white-space:nowrap;display:flex;align-items:center;justify-content:center;gap:6px;scroll-snap-align:start;touch-action:pan-x}
 .tab.dragging{opacity:.55;transform:scale(1.03)}
 .tab.drag-over{box-shadow:inset 2px 0 0 var(--gold),inset -2px 0 0 var(--gold)}
 .tab.active{background:var(--card2);color:#fff;box-shadow:0 2px 8px rgba(0,0,0,.4)}
@@ -134,7 +169,7 @@ main{max-width:700px;margin:0 auto;padding:20px 16px 120px}
 .slabel:first-child{margin-top:0}
 .slabel::after{content:'';flex:1;height:1px;background:var(--border)}
 
-.hrow{display:flex;align-items:flex-start;gap:12px;background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:13px 14px;margin-bottom:8px;transition:border-color .2s,background .2s}
+.hrow{display:flex;align-items:flex-start;gap:12px;background:linear-gradient(180deg, color-mix(in srgb, var(--surface) 96%, transparent), color-mix(in srgb, var(--surface-2, var(--surface)) 92%, transparent));border:1px solid var(--border);border-radius:var(--r);padding:13px 14px;margin-bottom:8px;transition:border-color .2s,background .2s}
 .hrow:hover{border-color:var(--border2)}
 .hrow.done{border-color:rgba(46,204,113,.35);background:linear-gradient(135deg,var(--card),rgba(46,204,113,.05))}
 .chk{width:32px;height:32px;min-width:32px;border-radius:50%;border:2px solid var(--border2);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;transition:.2s;margin-top:1px;flex-shrink:0;color:transparent}
@@ -154,13 +189,13 @@ main{max-width:700px;margin:0 auto;padding:20px 16px 120px}
 
 .prayers-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:8px}
 .pray-btn{padding:8px 4px;border-radius:var(--rs);border:1.5px solid var(--border);background:var(--surface);color:var(--muted);font-size:11px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:3px;transition:.2s}
-.pray-btn.done{border-color:var(--green);background:var(--green-dim);color:var(--green)}
+.pray-btn.done{border-color:rgba(46,204,113,.25);background:rgba(46,204,113,.07);color:var(--green)}
 .pray-btn:hover{transform:translateY(-1px)}
 .pray-btn:active{transform:scale(.94)}
 .check-all-btn{width:100%;margin-top:10px;padding:8px;border-radius:var(--rs);border:1.5px solid rgba(46,204,113,.3);background:var(--green-dim);color:var(--green);font-size:12px;font-weight:700;transition:.15s}
 .check-all-btn:hover{background:var(--green);color:#fff}
 
-.quran-block{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px;margin-bottom:20px}
+.quran-block{background:linear-gradient(180deg, color-mix(in srgb, var(--surface) 96%, transparent), color-mix(in srgb, var(--surface-2, var(--surface)) 92%, transparent));border:1px solid var(--border);border-radius:var(--r);padding:18px;margin-bottom:20px}
 .quran-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
 .quran-title{font-size:13px;font-weight:900;color:var(--title-color);transition:color .2s}
 .title-open .quran-title{color:var(--gold)}
@@ -171,7 +206,7 @@ main{max-width:700px;margin:0 auto;padding:20px 16px 120px}
 .juz-btn{padding:9px 3px;border-radius:var(--rs);border:1.5px solid var(--border);background:var(--surface);color:var(--muted);font-size:11px;font-weight:700;text-align:center;transition:.2s;cursor:pointer}
 .juz-btn.done{border-color:var(--purple);background:var(--purple-dim);color:var(--purple)}
 
-.fast-block{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px;margin-bottom:20px}
+.fast-block{background:linear-gradient(180deg, color-mix(in srgb, var(--surface) 96%, transparent), color-mix(in srgb, var(--surface-2, var(--surface)) 92%, transparent));border:1px solid var(--border);border-radius:var(--r);padding:18px;margin-bottom:20px}
 .fast-block.hijri-compact{padding:14px}
 .fast-block.hijri-compact .fast-title{font-size:12px;margin-bottom:8px}
 .fast-block.hijri-compact #hijri-cal-grid>div{font-size:10px !important}
@@ -240,7 +275,7 @@ textarea.finp{resize:vertical;min-height:70px;line-height:1.6}
 #admin-lock h3{font-size:15px;color:var(--gold);margin-bottom:12px}
 #admin-lock p{font-size:12px;color:var(--muted);margin-bottom:16px}
 .lock-row{display:flex;gap:8px}
-.admin-section{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px;margin-bottom:16px}
+.admin-section{background:linear-gradient(180deg, color-mix(in srgb, var(--surface) 96%, transparent), color-mix(in srgb, var(--surface-2, var(--surface)) 92%, transparent));border:1px solid var(--border);border-radius:var(--r);padding:18px;margin-bottom:16px}
 
 /* ── Adhkar accordion ── */
 .adhkar-section{background:var(--card);border:1px solid var(--border);border-radius:var(--r);margin-bottom:12px;overflow:hidden}
@@ -351,7 +386,7 @@ textarea.finp{resize:vertical;min-height:70px;line-height:1.6}
 .mvbtn:disabled{opacity:.25;cursor:default}
 
 /* ── Lectures tab ── */
-.course-block{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:14px}
+.course-block{background:linear-gradient(180deg, color-mix(in srgb, var(--surface) 96%, transparent), color-mix(in srgb, var(--surface-2, var(--surface)) 92%, transparent));border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:14px}
 .course-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
 .course-title{font-size:13px;font-weight:900;color:var(--blue)}
 .course-stats{font-size:11px;color:var(--muted);font-weight:700}
@@ -593,9 +628,25 @@ textarea.finp{resize:vertical;min-height:70px;line-height:1.6}
           <select class="fsel" id="font-select" style="flex:1" onchange="setAppFont(this.value)">
             <option value="default">الافتراضي (Rubik / Cairo)</option>
             <option value="ibm">IBM Plex Sans Arabic</option>
-            <option value="geist">Geist</option>
             <option value="tajawal">Tajawal</option>
           </select>
+        </div>
+        <div style="font-size:10.5px;color:var(--muted);margin-top:14px;margin-bottom:6px">لون الموقع (لكل بروفايل على حدة)</div>
+        <div class="frow">
+          <select class="fsel" id="site-color-select" style="flex:1" onchange="setSiteColor(this.value)">
+            <option value="blue">الأزرق الجديد (#008ffe)</option>
+            <option value="classic">الذهبي القديم</option>
+            <option value="custom">لون مخصص...</option>
+          </select>
+          <input type="color" id="site-color-picker" value="#008ffe" style="width:44px;height:38px;border:1.5px solid var(--border);border-radius:8px;background:var(--surface);padding:2px;display:none" oninput="setCustomSiteColor(this.value)"/>
+        </div>
+        <div style="font-size:10.5px;color:var(--muted);margin-top:14px;margin-bottom:6px">خلفية الموقع (لكل بروفايل على حدة)</div>
+        <div class="frow">
+          <select class="fsel" id="site-bg-select" style="flex:1" onchange="setSiteBg(this.value)">
+            <option value="default">الافتراضية (دارك)</option>
+            <option value="custom">خلفية مخصصة...</option>
+          </select>
+          <input type="color" id="site-bg-picker" value="#0f1117" style="width:44px;height:38px;border:1.5px solid var(--border);border-radius:8px;background:var(--surface);padding:2px;display:none" oninput="setCustomSiteBg(this.value)"/>
         </div>
       </div>
 
@@ -1110,10 +1161,78 @@ function changeAdminPass(){
 }
 function toggleUrlField(btn){urlFieldOpen=!urlFieldOpen;btn.classList.toggle('on',urlFieldOpen);document.getElementById('url-field').style.display=urlFieldOpen?'block':'none';}
 
+// ── أدوات لون: تحويل hex لدرجات فاتحة/غامقة/شفافة ──
+function _hexToRgb(hex){hex=hex.replace('#','');if(hex.length===3)hex=hex.split('').map(c=>c+c).join('');const n=parseInt(hex,16);return{r:(n>>16)&255,g:(n>>8)&255,b:n&255};}
+function _rgba(hex,a){const{r,g,b}=_hexToRgb(hex);return `rgba(${r},${g},${b},${a})`;}
+function _shade(hex,pct){const{r,g,b}=_hexToRgb(hex);const f=v=>{const n=pct<0?v*(1+pct):v+(255-v)*pct;return Math.max(0,Math.min(255,Math.round(n)));};return '#'+[f(r),f(g),f(b)].map(v=>v.toString(16).padStart(2,'0')).join('');}
+
+function applySiteColor(u){
+  const mode=localStorage.getItem('werd_color_'+u)||'blue';
+  const body=document.body;
+  body.classList.remove('theme-classic-gold','theme-custom');
+  let mainColor='#008ffe';
+  if(mode==='classic'){body.classList.add('theme-classic-gold');mainColor='#F5A623';}
+  else if(mode==='custom'){
+    const c=localStorage.getItem('werd_customColor_'+u)||'#008ffe';
+    body.classList.add('theme-custom');
+    body.style.setProperty('--custom-color',c);
+    body.style.setProperty('--custom-color2',_shade(c,.35));
+    body.style.setProperty('--custom-color-dark',_shade(c,-.3));
+    body.style.setProperty('--custom-color-dark2',_shade(c,-.15));
+    body.style.setProperty('--custom-color-dim',_rgba(c,.13));
+    body.style.setProperty('--custom-color-b10',_rgba(c,.1));
+    body.style.setProperty('--custom-color-b12',_rgba(c,.12));
+    body.style.setProperty('--custom-color-b15',_rgba(c,.15));
+    body.style.setProperty('--custom-color-b20',_rgba(c,.2));
+    body.style.setProperty('--custom-color-b25',_rgba(c,.25));
+    body.style.setProperty('--custom-color-b30',_rgba(c,.3));
+    mainColor=c;
+  }
+  const meta=document.querySelector('meta[name="theme-color"]');
+  if(meta)meta.setAttribute('content',mainColor);
+  const sel=document.getElementById('site-color-select');if(sel)sel.value=mode;
+  const picker=document.getElementById('site-color-picker');
+  if(picker){picker.style.display=mode==='custom'?'':'none';if(mode==='custom')picker.value=localStorage.getItem('werd_customColor_'+u)||'#008ffe';}
+}
+function setSiteColor(mode){
+  localStorage.setItem('werd_color_'+currentUser,mode);
+  if(mode==='custom'&&!localStorage.getItem('werd_customColor_'+currentUser))localStorage.setItem('werd_customColor_'+currentUser,'#008ffe');
+  applySiteColor(currentUser);
+}
+function setCustomSiteColor(hex){
+  localStorage.setItem('werd_color_'+currentUser,'custom');
+  localStorage.setItem('werd_customColor_'+currentUser,hex);
+  applySiteColor(currentUser);
+}
+function applySiteBg(u){
+  const mode=localStorage.getItem('werd_bg_'+u)||'default';
+  const body=document.body;
+  body.classList.toggle('bg-custom',mode==='custom');
+  if(mode==='custom'){
+    const c=localStorage.getItem('werd_customBg_'+u)||'#0f1117';
+    body.style.setProperty('--custom-bg',c);
+    body.style.setProperty('--custom-surface',_shade(c,.35));
+    body.style.setProperty('--custom-surface-2',_shade(c,-.15));
+    body.style.setProperty('--custom-surface-3',_shade(c,.55));
+  }
+  const sel=document.getElementById('site-bg-select');if(sel)sel.value=mode;
+  const picker=document.getElementById('site-bg-picker');
+  if(picker){picker.style.display=mode==='custom'?'':'none';if(mode==='custom')picker.value=localStorage.getItem('werd_customBg_'+u)||'#0f1117';}
+}
+function setSiteBg(mode){
+  localStorage.setItem('werd_bg_'+currentUser,mode);
+  if(mode==='custom'&&!localStorage.getItem('werd_customBg_'+currentUser))localStorage.setItem('werd_customBg_'+currentUser,'#0f1117');
+  applySiteBg(currentUser);
+}
+function setCustomSiteBg(hex){
+  localStorage.setItem('werd_bg_'+currentUser,'custom');
+  localStorage.setItem('werd_customBg_'+currentUser,hex);
+  applySiteBg(currentUser);
+}
 function applyTheme(u){
   document.body.classList.toggle('theme-neira',u==='نيرة');
-  const meta=document.querySelector('meta[name="theme-color"]');
-  if(meta)meta.setAttribute('content',u==='نيرة'?'#ec4899':'#F5A623');
+  applySiteColor(u);
+  applySiteBg(u);
 }
 function switchUser(u){currentUser=u;applyTheme(u);document.getElementById('btn-m').classList.toggle('active',u==='محمد');document.getElementById('btn-n').classList.toggle('active',u==='نيرة');render();if(currentTab==='quran')renderQuranTab();if(currentTab==='lectures')renderLectures();if(currentTab==='fasting')renderFasting();}
 
@@ -2389,13 +2508,11 @@ function isInstallBtnEnabled(){return localStorage.getItem('werd_install_btn_ena
 function setAppFont(v){
   localStorage.setItem('werd_font',v);
   document.body.classList.toggle('font-ibm',v==='ibm');
-  document.body.classList.toggle('font-geist',v==='geist');
   document.body.classList.toggle('font-tajawal',v==='tajawal');
 }
 function initAppFont(){
   const v=localStorage.getItem('werd_font')||'default';
   document.body.classList.toggle('font-ibm',v==='ibm');
-  document.body.classList.toggle('font-geist',v==='geist');
   document.body.classList.toggle('font-tajawal',v==='tajawal');
   const sel=document.getElementById('font-select');if(sel)sel.value=v;
 }
