@@ -85,6 +85,37 @@ input,select,textarea{font-family:var(--font)}
 ::-webkit-scrollbar-thumb{background:var(--border2);border-radius:10px}
 
 header{display:flex;align-items:center;justify-content:space-between;padding:0 16px;height:58px;background:linear-gradient(170deg,var(--surface-2) 0%,var(--bg) 85%);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;overflow:hidden}
+
+/* ── خلفية مجردة: نجوم + خطوط خفيفة + نيازك متحركة ── */
+#bg-fx{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.bg-stars{position:absolute;inset:-10% ;background-image:
+  radial-gradient(1.4px 1.4px at 8% 12%, rgba(255,255,255,.55), transparent 60%),
+  radial-gradient(1px 1px at 22% 38%, rgba(255,255,255,.4), transparent 60%),
+  radial-gradient(1.6px 1.6px at 35% 8%, rgba(255,255,255,.5), transparent 60%),
+  radial-gradient(1px 1px at 48% 55%, rgba(255,255,255,.35), transparent 60%),
+  radial-gradient(1.3px 1.3px at 62% 22%, rgba(255,255,255,.5), transparent 60%),
+  radial-gradient(1px 1px at 75% 65%, rgba(255,255,255,.4), transparent 60%),
+  radial-gradient(1.5px 1.5px at 88% 15%, rgba(255,255,255,.5), transparent 60%),
+  radial-gradient(1px 1px at 15% 78%, rgba(255,255,255,.35), transparent 60%),
+  radial-gradient(1.2px 1.2px at 92% 82%, rgba(0,143,254,.5), transparent 60%),
+  radial-gradient(1px 1px at 55% 88%, rgba(255,255,255,.3), transparent 60%);
+  background-repeat:repeat;background-size:340px 340px;opacity:.6;animation:bg-stars-drift 200s linear infinite}
+@keyframes bg-stars-drift{0%{transform:translate(0,0)}100%{transform:translate(-340px,-170px)}}
+.bg-lines{position:absolute;inset:0;background-image:repeating-linear-gradient(115deg, rgba(255,255,255,.025) 0 1px, transparent 1px 90px);opacity:.7}
+.meteor{position:absolute;width:2px;height:2px;border-radius:50%;background:#fff;box-shadow:0 0 8px 1px rgba(0,143,254,.6);opacity:0}
+.meteor::before{content:'';position:absolute;top:50%;right:100%;width:80px;height:1px;background:linear-gradient(90deg, transparent, rgba(255,255,255,.7));transform:translateY(-50%)}
+.meteor.m1{top:8%;left:12%;animation:meteor-fall 7s linear infinite;animation-delay:1s}
+.meteor.m2{top:5%;left:55%;animation:meteor-fall 9s linear infinite;animation-delay:4s}
+.meteor.m3{top:18%;left:80%;animation:meteor-fall 6.5s linear infinite;animation-delay:7.5s}
+.meteor.m4{top:2%;left:30%;animation:meteor-fall 11s linear infinite;animation-delay:2.5s}
+@keyframes meteor-fall{
+  0%{transform:translate(0,0) rotate(35deg);opacity:0}
+  4%{opacity:1}
+  35%{opacity:1}
+  45%{transform:translate(260px,260px) rotate(35deg);opacity:0}
+  100%{transform:translate(260px,260px) rotate(35deg);opacity:0}
+}
+#offline-banner,#gate-screen,#app-root{position:relative;z-index:1}
 header::before{content:'';position:absolute;top:-60px;right:14%;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,var(--gold-dim),transparent 70%);pointer-events:none}
 .logo{display:flex;align-items:center;gap:10px;position:relative;z-index:1}
 .logo-icon{width:36px;height:36px;border-radius:var(--rs);background:linear-gradient(135deg,var(--gold),var(--gold-dark2));display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 4px 14px var(--gold-b25)}
@@ -92,7 +123,8 @@ header::before{content:'';position:absolute;top:-60px;right:14%;width:220px;heig
 .logo-sub{font-size:10px;color:var(--muted)}
 .header-right{display:flex;align-items:center;gap:10px;position:relative;z-index:1}
 .user-toggle{display:flex;gap:3px;background:var(--surface-2);padding:3px;border-radius:var(--rs);border:1px solid var(--border)}
-.ubtn{padding:6px 15px;border:none;border-radius:8px;font-size:12px;font-weight:700;background:transparent;color:var(--muted);transition:.15s}
+.ubtn{padding:6px 15px;border:none;border-radius:8px;font-size:12px;font-weight:700;background:transparent;color:var(--muted);transition:.15s;display:inline-flex;align-items:center;gap:5px}
+.uicon{display:inline-flex;flex-shrink:0}
 .ubtn:active{transform:scale(.92)}
 .ubtn.active{background:var(--gold);color:#1a0e00}
 
@@ -154,7 +186,8 @@ main{max-width:700px;margin:0 auto;padding:20px 16px 120px}
 /* ── Flat cards: border only, no elevation (food-order style) ── */
 .btn-primary,.btn-ghost,.ptitle-btn,.mat-choice-btn{transition:box-shadow .2s ease,transform .1s ease,background .15s,color .15s,border-color .15s}
 .btn-primary:active,.mat-choice-btn:active{transform:scale(.97)}
-.hrow,.admin-section,.course-block,.quran-block,.fast-block,#admin-lock{box-shadow:none}
+.hrow,.admin-section,.course-block,.quran-block,.fast-block,#admin-lock{box-shadow:var(--shadow-card);transition:border-color .2s,background .2s,box-shadow .25s ease,transform .2s ease}
+.hrow:hover,.admin-section:hover,.course-block:hover,.quran-block:hover,.fast-block:hover{box-shadow:var(--shadow-card-hover);transform:translateY(-2px)}
 
 /* ── Log chooser ── */
 .log-chooser{display:flex;gap:12px;margin-bottom:4px}
@@ -165,7 +198,7 @@ main{max-width:700px;margin:0 auto;padding:20px 16px 120px}
 .log-back-btn{display:inline-flex;align-items:center;gap:6px;background:transparent;border:1.5px solid var(--border);color:var(--muted);font-size:11px;font-weight:700;padding:5px 12px;border-radius:50px;margin-bottom:12px}
 .log-back-btn:hover{border-color:var(--gold);color:var(--gold)}
 
-.slabel{font-size:10px;font-weight:700;letter-spacing:1.8px;color:var(--muted);text-transform:uppercase;margin:18px 0 10px;display:flex;align-items:center;gap:8px}
+.slabel{font-size:12px;font-weight:800;letter-spacing:1.2px;color:var(--muted);text-transform:uppercase;margin:18px 0 10px;display:flex;align-items:center;gap:8px}
 .slabel:first-child{margin-top:0}
 .slabel::after{content:'';flex:1;height:1px;background:var(--border)}
 
@@ -207,9 +240,11 @@ main{max-width:700px;margin:0 auto;padding:20px 16px 120px}
 .juz-btn.done{border-color:var(--purple);background:var(--purple-dim);color:var(--purple)}
 
 .fast-block{background:linear-gradient(180deg, color-mix(in srgb, var(--surface) 96%, transparent), color-mix(in srgb, var(--surface-2, var(--surface)) 92%, transparent));border:1px solid var(--border);border-radius:var(--r);padding:18px;margin-bottom:20px}
-.fast-block.hijri-compact{padding:14px}
-.fast-block.hijri-compact .fast-title{font-size:12px;margin-bottom:8px}
-.fast-block.hijri-compact #hijri-cal-grid>div{font-size:10px !important}
+.fast-block.hijri-compact{padding:12px}
+.fast-block.hijri-compact .fast-title{font-size:11.5px;margin-bottom:6px}
+.fast-block.hijri-compact #hijri-cal-grid{gap:2px}
+.fast-block.hijri-compact #hijri-cal-grid>div{font-size:9px !important}
+.hijri-day-greg{font-size:7px;font-weight:600;opacity:.6;line-height:1}
 .fast-title{font-size:13px;font-weight:700;color:var(--title-color);margin-bottom:12px;transition:color .2s}
 .title-open .fast-title{color:var(--gold)}
 .fast-counter{text-align:center;padding:14px;background:var(--surface);border-radius:var(--rs);margin-bottom:12px}
@@ -224,7 +259,9 @@ main{max-width:700px;margin:0 auto;padding:20px 16px 120px}
 .fday.checked{border-color:rgba(46,204,113,.35);background:var(--green-dim)}
 .fday .fchk{width:26px;height:26px;min-width:26px;border-radius:50%;border:2px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:12px;transition:.15s;flex-shrink:0}
 .fday.checked .fchk{background:var(--green);border-color:var(--green);color:#fff}
-.fday-info{flex:1;min-width:0}
+.tpm-ring-sm{width:34px;height:34px;position:relative;margin:0 auto}
+.tpm-ring-sm svg{width:100%;height:100%}
+.tpm-ring-pct-sm{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:9.5px;font-weight:800;color:var(--text)}
 .fday-date{font-size:13px;font-weight:600}
 .fday.checked .fday-date{color:var(--muted)}
 .fday-tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:3px}
@@ -233,10 +270,12 @@ main{max-width:700px;margin:0 auto;padding:20px 16px 120px}
 .fday-del{background:transparent;border:none;color:var(--border2);font-size:16px;padding:2px 6px;transition:.15s;flex-shrink:0}
 .fday-del:hover{color:var(--red)}
 
-.finp,.fsel{flex:1;min-width:100px;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--rs);padding:9px 12px;font-size:13px;color:var(--text);outline:none;transition:border-color .15s,box-shadow .15s;color-scheme:dark}
-.fsel{-webkit-appearance:none;-moz-appearance:none;appearance:none;padding-right:32px;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23F5A623' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M6 9l6 6 6-6'/></svg>");background-repeat:no-repeat;background-position:right 10px center;background-size:15px}
-body.theme-neira .fsel{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ec4899' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M6 9l6 6 6-6'/></svg>")}
-.finp:focus,.fsel:focus{border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-b10)}
+.finp,.fsel{flex:1;min-width:100px;background:var(--surface);border:1.5px solid var(--border);border-radius:12px;padding:11px 14px;font-size:13px;color:var(--text);outline:none;transition:border-color .2s,box-shadow .2s,background .2s;color-scheme:dark;box-shadow:var(--shadow-sm)}
+.fsel{-webkit-appearance:none;-moz-appearance:none;appearance:none;padding-right:32px;cursor:pointer;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-opacity='0.5' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M6 9l6 6 6-6'/></svg>");background-repeat:no-repeat;background-position:right 10px center;background-size:15px}
+.finp:focus,.fsel:focus{border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-b10),var(--shadow-card);background:var(--surface-2)}
+.fsel:focus{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23008ffe' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M6 9l6 6 6-6'/></svg>")}
+body.theme-neira .fsel:focus{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ec4899' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M6 9l6 6 6-6'/></svg>")}
+body.theme-classic-gold .fsel:focus{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23F5A623' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M6 9l6 6 6-6'/></svg>")}
 .finp::placeholder{color:var(--muted)}
 .fsel option{background:var(--surface);color:var(--text)}
 textarea.finp{resize:vertical;min-height:70px;line-height:1.6}
@@ -274,6 +313,20 @@ textarea.finp{resize:vertical;min-height:70px;line-height:1.6}
 #admin-lock{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:28px 22px;text-align:center;margin-bottom:16px}
 #admin-lock h3{font-size:15px;color:var(--gold);margin-bottom:12px}
 #admin-lock p{font-size:12px;color:var(--muted);margin-bottom:16px}
+/* ── الشريط الجانبي الثابت للوحة الإدارة ── */
+#admin-sidebar{position:fixed;top:50%;transform:translateY(-50%);right:8px;z-index:60;display:none;flex-direction:column;gap:6px;background:var(--surface-2);border:1px solid var(--border);border-radius:16px;padding:8px 6px;box-shadow:var(--shadow-card);max-height:80vh;overflow-y:auto}
+#admin-sidebar.show{display:flex}
+.admin-sidebar-btn{display:flex;flex-direction:column;align-items:center;gap:2px;background:transparent;border:none;color:var(--muted);padding:8px 6px;border-radius:10px;width:52px;transition:.15s;cursor:pointer}
+.admin-sidebar-btn:hover{background:var(--surface-3);color:var(--text)}
+.admin-sidebar-btn.active{background:var(--gold-dim);color:var(--gold)}
+.admin-sidebar-btn .asicon{width:18px;height:18px;background:transparent;color:inherit}
+.admin-sidebar-btn .asicon svg{width:100%;height:100%}
+.admin-sidebar-label{font-size:8px;font-weight:700;text-align:center;line-height:1.2;white-space:normal}
+.admin-content-modal{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(3px);z-index:500;display:none;align-items:center;justify-content:center;padding:16px}
+.admin-content-modal.show{display:flex}
+.admin-content-modal-inner{background:var(--bg);border:1px solid var(--border2);border-radius:18px;max-width:640px;width:100%;max-height:85vh;overflow-y:auto;padding:22px 18px;position:relative;box-shadow:var(--shadow-pop)}
+.admin-modal-close{position:absolute;top:12px;left:12px;background:var(--surface-2);border:1px solid var(--border);color:var(--text);width:30px;height:30px;border-radius:50%;font-size:16px;cursor:pointer;z-index:2;line-height:1}
+.admin-content-modal-inner .admin-section{margin-bottom:0}
 .lock-row{display:flex;gap:8px}
 .admin-section{background:linear-gradient(180deg, color-mix(in srgb, var(--surface) 96%, transparent), color-mix(in srgb, var(--surface-2, var(--surface)) 92%, transparent));border:1px solid var(--border);border-radius:var(--r);padding:18px;margin-bottom:16px}
 
@@ -425,7 +478,7 @@ textarea.finp{resize:vertical;min-height:70px;line-height:1.6}
 #tab-admin .admin-habit-row,#tab-admin .admin-course-block{border:1px solid var(--border);border-radius:var(--rs);transition:border-color .15s ease,transform .1s ease;padding:12px 14px}
 #tab-admin .admin-habit-row:hover,#tab-admin .admin-course-block:hover{border-color:var(--border2)}
 #tab-admin .admin-habit-icon{border:1px solid var(--gold-b20);border-radius:8px}
-#tab-admin .finp,#tab-admin .fsel{border:1.5px solid var(--border);border-radius:var(--rs);background-color:var(--surface-2);padding:11px 14px}
+#tab-admin .finp,#tab-admin .fsel{border:1.5px solid var(--border);border-radius:var(--rs);background-color:#1e1e1e;padding:11px 14px}
 #tab-admin .fsel{padding-right:36px}
 #tab-admin .finp:focus,#tab-admin .fsel:focus{border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-b10)}
 #tab-admin .btn-primary{border-radius:var(--rs);padding:12px;box-shadow:0 4px 18px var(--gold-b25)}
@@ -440,6 +493,14 @@ textarea.finp{resize:vertical;min-height:70px;line-height:1.6}
 </style>
 </head>
 <body class="dark-mode">
+<div id="bg-fx" aria-hidden="true">
+  <div class="bg-stars"></div>
+  <div class="bg-lines"></div>
+  <div class="meteor m1"></div>
+  <div class="meteor m2"></div>
+  <div class="meteor m3"></div>
+  <div class="meteor m4"></div>
+</div>
 <div id="offline-banner"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l22 22"/><path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/><path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/><path d="M10.71 5.05A16 16 0 0 1 22.58 9"/><path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>أنت غير متصل — بياناتك بتتحفظ محليًا وهتتبعت أوتوماتيك لما النت يرجع</div>
 
 <div id="gate-screen">
@@ -466,8 +527,8 @@ textarea.finp{resize:vertical;min-height:70px;line-height:1.6}
   <div class="header-right">
     <button id="install-btn" style="display:none;background:var(--gold-dim);border:1px solid var(--gold-b30);color:var(--gold);border-radius:10px;padding:5px 10px;font-size:11px;font-weight:700;margin-left:6px" onclick="installPWA()">📲 تثبيت</button>
     <div class="user-toggle">
-      <button class="ubtn active" id="btn-m" onclick="switchUser('محمد')">محمد</button>
-      <button class="ubtn" id="btn-n" onclick="switchUser('نيرة')">نيرة</button>
+      <button class="ubtn active" id="btn-m" onclick="switchUser('محمد')"><span class="uicon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" style="pointer-events:none"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></span>محمد</button>
+      <button class="ubtn" id="btn-n" onclick="switchUser('نيرة')"><span class="uicon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" style="pointer-events:none"><path d="M12 21v-4"></path><path d="M8.5 13a4.5 6 0 0 1 9 0c0 3-2 4.5-2 4.5H8.5s-2-1.5-2-4.5z"></path><circle cx="12" cy="6" r="4"></circle></svg></span>نيرة</button>
     </div>
   </div>
 </header>
@@ -606,6 +667,13 @@ textarea.finp{resize:vertical;min-height:70px;line-height:1.6}
       </div>
     </div>
 
+    <div id="admin-sidebar"></div>
+    <div id="admin-content-modal" class="admin-content-modal" onclick="if(event.target===this)closeAdminModal()">
+      <div class="admin-content-modal-inner">
+        <button class="admin-modal-close" onclick="closeAdminModal()">×</button>
+        <div id="admin-modal-body"></div>
+      </div>
+    </div>
     <div id="admin-content" style="display:none">
       <div class="admin-section">
         <div class="admin-sec-title collapsible" onclick="toggleAdminSection(this)"><span class="admin-sec-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span><div class="asicon asicon-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="4.5"/><path d="M10.6 12.4 19 4"/><path d="M16 8l2 2"/><path d="M13 11l2 2"/></svg></div><span style="color:var(--gold)">كلمة مرور لوحة الإدارة</span><button class="ptitle-btn" style="margin-right:auto" onclick="event.stopPropagation();lockAdminPanel()">🔒 قفل</button></div>
@@ -775,14 +843,14 @@ textarea.finp{resize:vertical;min-height:70px;line-height:1.6}
   </div>
 
   <div id="tab-log" style="display:none">
-    <div class="admin-section">
-      <div class="admin-sec-title"><span class="icon-sq i-sm i-blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><line x1="16" y1="3" x2="16" y2="7"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span><span id="month-tracker-title" style="color:var(--blue)">تراك الشهر</span></div>
-      <div id="month-tracker-weekday-header" style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:4px"></div>
-      <div id="month-tracker-grid" style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px"></div>
-      <div id="month-tracker-summary" style="font-size:11px;color:var(--muted);margin-top:10px;text-align:center"></div>
+    <div class="admin-section" style="padding:12px">
+      <div class="admin-sec-title" style="margin-bottom:8px;font-size:12.5px"><span class="icon-sq i-sm i-blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><line x1="16" y1="3" x2="16" y2="7"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span><span id="month-tracker-title" style="color:var(--blue)">تراك الشهر</span></div>
+      <div id="month-tracker-weekday-header" style="display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-bottom:3px"></div>
+      <div id="month-tracker-grid" style="display:grid;grid-template-columns:repeat(7,1fr);gap:3px"></div>
+      <div id="month-tracker-summary" style="font-size:10px;color:var(--muted);margin-top:8px;text-align:center"></div>
     </div>
-    <div class="admin-section">
-      <div class="admin-sec-title"><span class="icon-sq i-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg></span><span style="color:var(--gold)">السجل الكامل</span></div>
+    <div class="admin-section" style="padding:14px">
+      <div class="admin-sec-title" style="font-size:12.5px"><span class="icon-sq i-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg></span><span style="color:var(--gold)">السجل الكامل</span></div>
       <div class="frow" style="margin-bottom:8px">
         <select class="fsel" id="hist-filter-user" style="flex:1" onchange="onHistoryFilterChange()">
           <option value="الكل">الكل (محمد ونيرة)</option>
@@ -900,6 +968,13 @@ const ADHKAR_ICON_SET={
 };
 const ADHKAR_ICON_KEYS=Object.keys(ADHKAR_ICON_SET);
 function adhkarItemIcon(it){return ADHKAR_ICON_SET[it.icon]||ADHKAR_ICON_SET.sparkle;}
+function adhkarSectionIcon(s){return ADHKAR_ICON_SET[s.icon]||ADHKAR_ICON_SET.sparkle;}
+function cycleAdhkarSectionIcon(sectionId){
+  const s=adhkarSections.find(x=>x.id===sectionId);if(!s)return;
+  const cur=ADHKAR_ICON_KEYS.indexOf(s.icon)>-1?ADHKAR_ICON_KEYS.indexOf(s.icon):-1;
+  s.icon=ADHKAR_ICON_KEYS[(cur+1)%ADHKAR_ICON_KEYS.length];
+  saveAdhkar().then(()=>{renderAdhkar();renderAdminAdhkar();toast('✓ تم تغيير أيقونة القسم');});
+}
 function cycleAdhkarItemIcon(sectionId,itemId){
   const s=adhkarSections.find(x=>x.id===sectionId);if(!s)return;
   const it=s.items.find(x=>x.id===itemId);if(!it)return;
@@ -922,7 +997,7 @@ const JUZ_COUNT=30;
 let currentUser='محمد',adminUnlocked=false,urlFieldOpen=false,currentTab='today';
 let habits=[],records=[],fastDays=[],quranData={},activityLog=[],courses=[],lectureProgress={},naflItems=[],adhkarSections=[],tasks=[];
 let openAdhkarSections=new Set();
-let openCourses=new Set();
+let openCourses=new Set(JSON.parse(localStorage.getItem('werd_open_courses')||'[]'));
 let adminOpenCourses=new Set();
 let openAdminAdhkar=new Set();
 function toggleAdminAdhkarSection(id){
@@ -1115,6 +1190,47 @@ async function saveNafl(){await apiSet('naflItems',naflItems);}
 async function saveAdhkar(){await apiSet('adhkarSections',adhkarSections);}
 async function saveTasks(){await apiSet('tasks',tasks);}
 
+function initAdminSidebar(){
+  const flow=document.getElementById('admin-content');const sidebar=document.getElementById('admin-sidebar');
+  if(!flow||!sidebar)return;
+  const modalBody=document.getElementById('admin-modal-body');
+  const openSec=modalBody&&modalBody.firstElementChild?modalBody.firstElementChild:null;
+  const sections=[...flow.querySelectorAll(':scope > .admin-section')];
+  sidebar.innerHTML=sections.map((sec,i)=>{
+    const iconEl=sec.querySelector('.asicon');
+    const titleEl=sec.querySelector('.admin-sec-title>span[style*="color"]');
+    const icon=iconEl?iconEl.outerHTML:'';
+    const title=titleEl?titleEl.textContent:'قسم';
+    return `<button class="admin-sidebar-btn${openSec&&openSec.dataset.secIdx==i?' active':''}" onclick="openAdminModal(${i})" title="${title}">${icon}<span class="admin-sidebar-label">${title.split(' ').slice(0,2).join(' ')}</span></button>`;
+  }).join('');
+  sections.forEach((sec,i)=>sec.dataset.secIdx=i);
+}
+let _adminModalOriginalNext=null;
+function openAdminModal(idx){
+  const flow=document.getElementById('admin-content');
+  closeAdminModal();
+  const sections=[...flow.querySelectorAll(':scope > .admin-section')];
+  const sec=sections[idx];if(!sec)return;
+  _adminModalOriginalNext=sec.nextElementSibling;
+  const body=document.getElementById('admin-modal-body');
+  body.appendChild(sec);
+  setAdminSectionOpen(sec,true);
+  document.getElementById('admin-content-modal').classList.add('show');
+  [...document.querySelectorAll('.admin-sidebar-btn')].forEach((b,i)=>b.classList.toggle('active',i===idx));
+}
+function closeAdminModal(){
+  const modal=document.getElementById('admin-content-modal');if(!modal)return;
+  const body=document.getElementById('admin-modal-body');
+  const sec=body?body.firstElementChild:null;
+  const flow=document.getElementById('admin-content');
+  if(sec&&flow){
+    if(_adminModalOriginalNext&&_adminModalOriginalNext.parentElement===flow)flow.insertBefore(sec,_adminModalOriginalNext);
+    else flow.appendChild(sec);
+  }
+  modal.classList.remove('show');
+  [...document.querySelectorAll('.admin-sidebar-btn')].forEach(b=>b.classList.remove('active'));
+  _adminModalOriginalNext=null;
+}
 function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6);}
 function defaultHabits(){return[
   {id:uid(),name:'أذكار الصباح',cat:'أذكار',target:'',user:'كلاهما',url:'',prayers:false,desc:''},
@@ -1141,6 +1257,8 @@ function unlockAdminUI(){
   document.getElementById('admin-content').style.display='';
   localStorage.setItem('werd_admin_unlocked','1');
   renderHistory();renderAdmin();
+  initAdminSidebar();
+  document.getElementById('admin-sidebar').classList.add('show');
 }
 function checkAdminPass(){
   if(document.getElementById('admin-pass-inp').value===getAdminPass()){
@@ -1151,6 +1269,8 @@ function lockAdminPanel(){
   adminUnlocked=false;localStorage.removeItem('werd_admin_unlocked');
   document.getElementById('admin-lock').style.display='';document.getElementById('admin-content').style.display='none';
   document.getElementById('admin-pass-inp').value='';toast('🔒 تم قفل لوحة الإدارة','info');
+  closeAdminModal();
+  document.getElementById('admin-sidebar').classList.remove('show');
 }
 function changeAdminPass(){
   const v=document.getElementById('new-admin-pass').value.trim();
@@ -1300,7 +1420,10 @@ async function setTab(tab,el){
   if(tab==='log')await renderHistory();
   if(tab==='admin'){
     if(!adminUnlocked&&isAdminRemembered())unlockAdminUI();
-    if(adminUnlocked)renderAdmin();
+    if(adminUnlocked){renderAdmin();initAdminSidebar();document.getElementById('admin-sidebar').classList.add('show');}
+  }else{
+    const sb=document.getElementById('admin-sidebar');if(sb)sb.classList.remove('show');
+    closeAdminModal();
   }
 }
 
@@ -1364,13 +1487,13 @@ function renderAdhkar(){
     return `<div class="adhkar-section${open?' open':''}">
       <button class="adhkar-header" onclick="toggleAdhkarSection('${s.id}')">
         <span class="adhkar-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span>
-        <span class="icon-sq i-sm i-teal">${CAT_ICONS.أذكار}</span>
+        <span class="icon-sq i-sm i-teal">${adhkarSectionIcon(s)}</span>
         <span class="adhkar-header-title">${escHtml(s.title)}</span>
         <span class="adhkar-count">${s.items.length}</span>
       </button>
       <div class="adhkar-body">
         ${s.items.length?s.items.map(it=>{const rem=it.count?(it.remaining??it.count):null;return `<div class="adhkar-item">
-          ${it.count?`<span class="adhkar-counter-circle${rem===0?' zero':''}" onclick="event.stopPropagation();decrementAdhkarCount('${s.id}','${it.id}')" title="اضغط بعد كل مرة تقولها">${rem}</span>`:`<span class="icon-sq i-sm i-teal">${adhkarItemIcon(it)}</span>`}
+          ${it.count?`<span class="adhkar-counter-circle${rem===0?' zero':''}" onclick="event.stopPropagation();decrementAdhkarCount('${s.id}','${it.id}')" title="اضغط بعد كل مرة تقولها">${rem}</span>`:''}
           <span class="adhkar-item-text">${escHtml(it.text)}</span>
           ${it.count?`<button class="admin-del" style="font-size:11px;flex-shrink:0" onclick="event.stopPropagation();resetAdhkarCount('${s.id}','${it.id}')" title="إعادة العداد">↺</button>`:''}
         </div>`;}).join(''):'<div class="lempty">لا توجد أذكار مضافة بعد — يمكن للأدمن إضافتها من لوحة الإدارة</div>'}
@@ -1490,7 +1613,7 @@ function renderAdminAdhkar(){
     <div class="admin-habit-row" style="flex-direction:column;align-items:stretch;gap:0;padding:0;overflow:hidden">
       <div style="display:flex;align-items:center;gap:8px;padding:10px 12px;cursor:pointer" onclick="toggleAdminAdhkarSection('${s.id}')">
         <span class="adhkar-chevron" style="transform:rotate(${open?'90deg':'0deg'});transition:.15s"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span>
-        <div class="admin-habit-icon i-teal">${CAT_ICONS.أذكار}</div>
+        <div class="admin-habit-icon i-teal" style="cursor:pointer" onclick="event.stopPropagation();cycleAdhkarSectionIcon('${s.id}')" title="اضغط لتغيير أيقونة القسم">${adhkarSectionIcon(s)}</div>
         <div class="admin-habit-info" style="flex:1"><div class="admin-habit-name">${escHtml(s.title)}</div><div class="admin-habit-meta">${s.items.length} ذِكر${s.builtin?' · قسم أساسي':''}</div></div>
         <div class="admin-move" onclick="event.stopPropagation()">
           <button class="mvbtn" onclick="moveAdhkarSection('${s.id}',-1)" ${si===0?'disabled':''} title="رفع القسم لأعلى">▲</button>
@@ -1502,7 +1625,6 @@ function renderAdminAdhkar(){
       <div style="display:${open?'flex':'none'};flex-direction:column;gap:10px;padding:0 12px 12px">
       ${s.items.length?`<div style="display:flex;flex-direction:column;gap:6px">${s.items.map((it,i)=>`
         <div class="adhkar-item" style="gap:8px">
-          <span class="icon-sq i-sm i-teal" style="cursor:pointer" onclick="cycleAdhkarItemIcon('${s.id}','${it.id}')" title="اضغط لتغيير الأيقونة">${adhkarItemIcon(it)}</span>
           <span class="adhkar-item-text" style="flex:1">${escHtml(it.text)}</span>
           ${it.count?`<button class="tag" style="color:var(--teal);border-color:var(--teal);font-weight:800" onclick="decrementAdhkarCount('${s.id}','${it.id}')" title="اضغط لإنقاص العداد">${it.remaining??it.count} / ${it.count}</button>
           <button class="admin-del" style="font-size:11px" onclick="resetAdhkarCount('${s.id}','${it.id}')" title="إعادة تعيين العداد">↺</button>`:''}
@@ -1898,7 +2020,7 @@ function renderFastCalendar(){
       if(cb.length){doneCount++;bg='var(--green-dim)';border='var(--green)';color='var(--green)';}
       else{bg='var(--gold-dim)';border='var(--gold)';color='var(--gold)';}
     }
-    cells.push(`<div title="${greg.toLocaleDateString('ar-EG',{month:'short',day:'numeric'})}" style="aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:10px;background:${bg};border:1px solid ${border};${isToday?'box-shadow:0 0 0 2px var(--gold) inset;':''}font-size:11px;font-weight:700;color:${color};cursor:${fd?'pointer':'default'}" ${fd?`onclick="toggleFastDay('${ds}')"`:''}>${hijriDay}</div>`);
+    cells.push(`<div title="${greg.toLocaleDateString('ar-EG',{month:'short',day:'numeric'})}" style="aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;border-radius:8px;background:${bg};border:1px solid ${border};${isToday?'box-shadow:0 0 0 2px var(--gold) inset;':''}font-weight:700;color:${color};cursor:${fd?'pointer':'default'}" ${fd?`onclick="toggleFastDay('${ds}')"`:''}><span>${hijriDay}</span><span class="hijri-day-greg">${greg.getDate()}/${greg.getMonth()+1}</span></div>`);
   });
   gridEl.innerHTML=cells.join('');
   sumEl.textContent=`${availableCount} يوم صيام متاح هذا الشهر — ${doneCount} تم صيامه، ${availableCount-doneCount} متبقي`;
@@ -2031,14 +2153,17 @@ function renderMonthlyTracker(grouped){
       const{total,done}=dayStatsFromGrouped(grouped[ds],who,cat);
       if(total>0){pct=Math.round(done/total*100);sumPct+=pct;countedDays++;}
     }
-    let bg='var(--surface)',border='var(--border)',color='var(--text2)';
-    if(!future&&pct!==null){
-      if(pct>=100){bg='var(--green-dim)';border='var(--green)';color='var(--green)';}
-      else if(pct>0){bg='var(--gold-dim)';border='var(--gold)';color='var(--gold)';}
-      else{bg='var(--red-dim)';border='var(--red)';color='var(--red)';}
-    }
     const isToday=day===todayD;
-    cells.push(`<div title="${day}${pct!==null?' — '+pct+'%':''}" onclick="${!future?`jumpToHistoryDateDirect('${ds}')`:''}" style="aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:10px;background:${bg};border:1px solid ${border};${isToday?'box-shadow:0 0 0 2px var(--blue) inset;':''}font-size:10.5px;font-weight:700;color:${future?'var(--muted)':color};cursor:${!future?'pointer':'default'}">${day}</div>`);
+    const r=15,circ=Math.round(2*Math.PI*r);
+    const ringColor=pct===null?'var(--border)':pct>=100?'var(--green)':pct>0?'var(--gold)':'var(--red)';
+    const offset=pct===null?circ:Math.round(circ-(circ*Math.min(pct,100)/100));
+    cells.push(`<div class="tpm-ring-sm" title="${day}${pct!==null?' — '+pct+'%':''}" onclick="${!future?`jumpToHistoryDateDirect('${ds}')`:''}" style="cursor:${!future?'pointer':'default'}${isToday?';box-shadow:0 0 0 2px var(--blue) inset;border-radius:50%':''}">
+      <svg viewBox="0 0 36 36">
+        <circle cx="18" cy="18" r="${r}" fill="none" stroke="var(--border)" stroke-width="3"/>
+        ${pct!==null?`<circle cx="18" cy="18" r="${r}" fill="none" stroke="${ringColor}" stroke-width="3" stroke-dasharray="${circ}" stroke-dashoffset="${offset}" stroke-linecap="round" style="transition:stroke-dashoffset .4s ease;transform:rotate(-90deg);transform-origin:50% 50%"/>`:''}
+      </svg>
+      <div class="tpm-ring-pct-sm" style="color:${future?'var(--muted)':'var(--text)'}">${day}</div>
+    </div>`);
   }
   gridEl.innerHTML=cells.join('');
   const avg=countedDays?Math.round(sumPct/countedDays):0;
@@ -2381,6 +2506,7 @@ function toggleAdminCourseOpen(id){
 }
 function toggleCourseOpen(id){
   if(openCourses.has(id))openCourses.delete(id);else openCourses.add(id);
+  localStorage.setItem('werd_open_courses',JSON.stringify([...openCourses]));
   renderLectures();
 }
 function courseBlockHTML(w){
