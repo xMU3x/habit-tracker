@@ -62,7 +62,15 @@ input,select,textarea{font-family:var(--font)}
 header{display:flex;align-items:center;justify-content:space-between;padding:0 16px;height:58px;background:linear-gradient(170deg,var(--surface-2) 0%,var(--bg) 85%);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;overflow:hidden}
 header::before{content:'';position:absolute;top:-60px;right:14%;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,var(--gold-dim),transparent 70%);pointer-events:none}
 .logo{display:flex;align-items:center;gap:10px;position:relative;z-index:1}
-.logo-icon{width:36px;height:36px;border-radius:var(--rs);background:linear-gradient(135deg,var(--gold),var(--gold-dark2));display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 4px 14px var(--gold-b25)}
+.logo-icon{width:36px;height:36px;border-radius:var(--rs);background:linear-gradient(135deg,var(--gold),var(--gold-dark2));display:flex;align-items:center;justify-content:center;color:#1a0e00;box-shadow:0 4px 14px var(--gold-b25)}
+.logo-icon svg,.gate-icon svg{width:52%;height:52%}
+#sb-icon{display:inline-flex;align-items:center;justify-content:center}
+#sb-icon svg{display:block}
+.spin{animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.install-cta{display:inline-flex;align-items:center;background:var(--gold-dim);border:1px solid var(--gold-b30);color:var(--gold);border-radius:10px;padding:5px 12px;font-size:11px;font-weight:700;margin-left:6px;transition:background .15s,transform .15s,box-shadow .15s}
+.install-cta:hover{background:var(--gold);color:#1a0e00;transform:translateY(-1px);box-shadow:0 4px 14px var(--gold-b25)}
+.install-cta:active{transform:scale(.96)}
 .logo-text{font-size:18px;font-weight:900;color:var(--gold)}
 .logo-sub{font-size:10px;color:var(--muted)}
 .header-right{display:flex;align-items:center;gap:10px;position:relative;z-index:1}
@@ -356,6 +364,21 @@ textarea.finp{resize:vertical;min-height:70px;line-height:1.6}
 .modal-x{background:transparent;border:none;color:var(--muted);font-size:20px;line-height:1}
 .modal-x:hover{color:var(--red)}
 
+/* ── Custom confirm/prompt dialog (replaces native browser popups) ── */
+.confirm-box{max-width:360px;padding:26px 24px 22px;text-align:center;transform:scale(.92) translateY(8px);opacity:0;transition:transform .22s cubic-bezier(.2,.9,.3,1.3),opacity .18s ease}
+.modal-overlay#confirm-modal{opacity:0;transition:opacity .18s ease}
+.modal-overlay#confirm-modal.show{opacity:1}
+.modal-overlay#confirm-modal.show .confirm-box{transform:scale(1) translateY(0);opacity:1}
+.confirm-icon{width:52px;height:52px;border-radius:16px;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;background:var(--gold-dim);color:var(--gold)}
+.confirm-icon svg{width:26px;height:26px}
+.confirm-icon.danger{background:var(--red-dim);color:var(--red)}
+.confirm-msg{font-size:14px;font-weight:600;color:var(--text2);line-height:1.7;margin-bottom:18px}
+.confirm-input{margin-bottom:6px;text-align:center}
+.confirm-actions{display:flex;gap:10px;margin-top:14px}
+.confirm-actions .btn-ghost,.confirm-actions .btn-primary{width:auto;flex:1;margin:0}
+.confirm-ok.danger{background:linear-gradient(135deg,var(--red),#c0392b);color:#fff;box-shadow:0 4px 18px rgba(255,92,92,.28)}
+.confirm-ok.danger:hover{box-shadow:0 4px 20px rgba(255,92,92,.4)}
+
 /* ── Admin habit row: reorder buttons ── */
 .admin-move{display:flex;flex-direction:column;gap:2px}
 .mvbtn{background:transparent;border:1px solid var(--border);color:var(--muted);font-size:10px;border-radius:6px;padding:1px 4px;line-height:1.4}
@@ -597,7 +620,7 @@ a{color:inherit;text-decoration:none}
 
 <div id="gate-screen">
   <div class="gate-box">
-    <div class="gate-icon">☽</div>
+    <div class="gate-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></div>
     <div class="gate-title">وِرد</div>
     <div class="gate-sub">أدخل كلمة المرور المكوّنة من رقمين للدخول</div>
     <input class="gate-inp" id="gate-inp" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="2" placeholder="••" autocomplete="off" onkeydown="if(event.key==='Enter')checkGate()"/>
@@ -608,16 +631,16 @@ a{color:inherit;text-decoration:none}
 
 <div id="app-root" style="display:none">
 
-<div id="save-badge"><span id="sb-icon">⏳</span><span id="sb-text">جاري الحفظ...</span></div>
+<div id="save-badge"><span id="sb-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="spin"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg></span><span id="sb-text">جاري الحفظ...</span></div>
 <div id="pending-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10"/><path d="M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg><span id="pb-text">بانتظار المزامنة</span></div>
 
 <header>
   <div class="logo">
-    <div class="logo-icon">☽</div>
+    <div class="logo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></div>
     <div><div class="logo-text">وِرد</div><div class="logo-sub">متابعة العادات اليومية</div></div>
   </div>
   <div class="header-right">
-    <button id="install-btn" style="display:none;background:var(--gold-dim);border:1px solid var(--gold-b30);color:var(--gold);border-radius:10px;padding:5px 10px;font-size:11px;font-weight:700;margin-left:6px" onclick="installPWA()">📲 تثبيت</button>
+    <button id="install-btn" class="install-cta" style="display:none" onclick="installPWA()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-left:3px"><path d="M12 15V3"/><path d="m7 10 5 5 5-5"/><path d="M20 21H4"/></svg>تثبيت</button>
     <div class="user-toggle">
       <button class="ubtn active" id="btn-m" onclick="switchUser('محمد')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" style="pointer-events:none"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>محمد</button>
       <button class="ubtn" id="btn-n" onclick="switchUser('نيرة')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="pointer-events:none"><circle cx="12" cy="8" r="4"></circle><path d="M8 22l1.5-7.5h5L16 22"></path><path d="M8.5 14.5 6 22M15.5 14.5 18 22"></path></svg>نيرة</button>
@@ -773,7 +796,7 @@ a{color:inherit;text-decoration:none}
       <div class="admin-section">
         <div class="admin-sec-title collapsible" onclick="toggleAdminSection(this)"><span class="admin-sec-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span><div class="asicon asicon-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 13a7.6 7.6 0 0 0 0-2l2-1.5-2-3.4-2.4 1a7.5 7.5 0 0 0-1.7-1L15 3h-6l-.3 2.6a7.5 7.5 0 0 0-1.7 1l-2.4-1-2 3.4L4.6 11a7.6 7.6 0 0 0 0 2l-2 1.5 2 3.4 2.4-1a7.5 7.5 0 0 0 1.7 1L9 21h6l.3-2.6a7.5 7.5 0 0 0 1.7-1l2.4 1 2-3.4z"/></svg></div><span style="color:var(--gold)">إعدادات عامة</span></div>
         <div class="toggle-row">
-          <span class="toggle-label">إظهار زر «تثبيت التطبيق 📲» بجانب اسم الموقع</span>
+          <span class="toggle-label">إظهار زر «تثبيت التطبيق» بجانب اسم الموقع</span>
           <button class="toggle" id="install-btn-toggle" onclick="toggleInstallBtnSetting(this)"></button>
         </div>
         <div style="font-size:10.5px;color:var(--muted);margin-top:4px">الزر أصلاً بيظهر بس لو المتصفح/الجهاز بيدعم التثبيت. الخيار ده بيتحكم في إظهاره أو إخفاؤه بغض النظر عن دعم الجهاز.</div>
@@ -1015,6 +1038,50 @@ a{color:inherit;text-decoration:none}
   </div>
 </div>
 
+<div class="modal-overlay" id="confirm-modal" style="display:none">
+  <div class="modal-box confirm-box">
+    <div class="confirm-icon" id="confirm-icon"></div>
+    <div class="confirm-msg" id="confirm-msg"></div>
+    <input class="finp confirm-input" id="confirm-input" style="display:none" autocomplete="off"/>
+    <div class="confirm-actions">
+      <button class="btn-ghost confirm-cancel" id="confirm-cancel-btn">إلغاء</button>
+      <button class="btn-primary confirm-ok" id="confirm-ok-btn">تأكيد</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── Custom confirm/prompt (replaces native browser dialogs) ── */
+function _cModal(){return document.getElementById('confirm-modal');}
+function _openConfirmModal({message,isPrompt,defaultValue,danger}){
+  const overlay=_cModal();
+  document.getElementById('confirm-msg').textContent=message;
+  const inp=document.getElementById('confirm-input');
+  const okBtn=document.getElementById('confirm-ok-btn');
+  const icon=document.getElementById('confirm-icon');
+  icon.innerHTML=isPrompt
+    ?svgi('<path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/>')
+    :svgi('<path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>');
+  icon.className='confirm-icon'+(danger?' danger':'');
+  if(isPrompt){inp.style.display='block';inp.value=defaultValue||'';okBtn.textContent='حفظ';}
+  else{inp.style.display='none';okBtn.textContent='تأكيد';}
+  okBtn.className='btn-primary confirm-ok'+(danger?' danger':'');
+  overlay.style.display='flex';
+  requestAnimationFrame(()=>overlay.classList.add('show'));
+  if(isPrompt)setTimeout(()=>{inp.focus();inp.select();},50);
+  return new Promise(resolve=>{
+    const cleanup=(val)=>{overlay.classList.remove('show');setTimeout(()=>{overlay.style.display='none';},180);
+      okBtn.onclick=null;cancelBtn.onclick=null;overlay.onclick=null;inp.onkeydown=null;resolve(val);};
+    const cancelBtn=document.getElementById('confirm-cancel-btn');
+    okBtn.onclick=()=>cleanup(isPrompt?inp.value:true);
+    cancelBtn.onclick=()=>cleanup(isPrompt?null:false);
+    overlay.onclick=(e)=>{if(e.target===overlay)cleanup(isPrompt?null:false);};
+    inp.onkeydown=(e)=>{if(e.key==='Enter'){e.preventDefault();cleanup(inp.value);}if(e.key==='Escape')cleanup(null);};
+  });
+}
+function customConfirm(message,danger=true){return _openConfirmModal({message,isPrompt:false,danger});}
+function customPrompt(message,defaultValue=''){return _openConfirmModal({message,isPrompt:true,defaultValue,danger:false});}
+</script>
 <script>
 const PRAYERS=['الفجر','الظهر','العصر','المغرب','العشاء'];
 function svgi(inner){return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${inner}</svg>`;}
@@ -1102,10 +1169,10 @@ setInterval(async ()=>{
 let sbTimer;
 function sbShow(s){
   const el=document.getElementById('save-badge');clearTimeout(sbTimer);
-  if(s==='saving'){el.className='saving';document.getElementById('sb-icon').textContent='⏳';document.getElementById('sb-text').textContent='جاري الحفظ...';}
-  else if(s==='saved'){el.className='saved';document.getElementById('sb-icon').textContent='✓';document.getElementById('sb-text').textContent='تم الحفظ';sbTimer=setTimeout(()=>el.className='',2500);}
-  else if(s==='queued'){el.className='queued';document.getElementById('sb-icon').textContent='🔄';document.getElementById('sb-text').textContent='لا يوجد اتصال — هيتحفظ تلقائيًا';sbTimer=setTimeout(()=>el.className='',3500);}
-  else{el.className='err';document.getElementById('sb-icon').textContent='✗';document.getElementById('sb-text').textContent='فشل الحفظ';sbTimer=setTimeout(()=>el.className='',5000);}
+  if(s==='saving'){el.className='saving';document.getElementById('sb-icon').innerHTML='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="spin"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>';document.getElementById('sb-text').textContent='جاري الحفظ...';}
+  else if(s==='saved'){el.className='saved';document.getElementById('sb-icon').innerHTML='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';document.getElementById('sb-text').textContent='تم الحفظ';sbTimer=setTimeout(()=>el.className='',2500);}
+  else if(s==='queued'){el.className='queued';document.getElementById('sb-icon').innerHTML='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10"/><path d="M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>';document.getElementById('sb-text').textContent='لا يوجد اتصال — هيتحفظ تلقائيًا';sbTimer=setTimeout(()=>el.className='',3500);}
+  else{el.className='err';document.getElementById('sb-icon').innerHTML='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6"/><path d="M9 9l6 6"/></svg>';document.getElementById('sb-text').textContent='فشل الحفظ';sbTimer=setTimeout(()=>el.className='',5000);}
 }
 
 // ── API — Cloudflare Pages Functions + Supabase (نفس المسارات القديمة، الفرونت إند لم يتغيّر) ──
@@ -1460,16 +1527,16 @@ async function addAdhkarSection(){
   inp.value='';openAdhkarSections.add(id);
   await saveAdhkar();renderAdhkar();renderAdminAdhkar();toast('✓ تمت إضافة القسم');
 }
-function deleteAdhkarSection(id){
+async function deleteAdhkarSection(id){
   const s=adhkarSections.find(x=>x.id===id);if(!s||s.builtin)return;
-  if(!confirm(`حذف قسم "${s.title}" وكل الأذكار اللي فيه؟`))return;
+  if(!await customConfirm(`حذف قسم "${s.title}" وكل الأذكار اللي فيه؟`))return;
   adhkarSections=adhkarSections.filter(x=>x.id!==id);
   openAdhkarSections.delete(id);
   saveAdhkar().then(()=>{renderAdhkar();renderAdminAdhkar();toast('✓ تم الحذف');});
 }
-function editAdhkarSectionTitle(id){
+async function editAdhkarSectionTitle(id){
   const s=adhkarSections.find(x=>x.id===id);if(!s)return;
-  const val=prompt('تعديل اسم القسم:',s.title);
+  const val=await customPrompt('تعديل اسم القسم:',s.title);
   if(val===null)return;
   const nv=val.trim();if(!nv)return;
   s.title=nv;
@@ -1512,19 +1579,19 @@ function deleteAdhkarItem(sectionId,itemId){
   s.items=s.items.filter(it=>it.id!==itemId);
   saveAdhkar().then(()=>{renderAdhkar();renderAdminAdhkar();});
 }
-function editAdhkarItem(sectionId,itemId){
+async function editAdhkarItem(sectionId,itemId){
   const s=adhkarSections.find(x=>x.id===sectionId);if(!s)return;
   const it=s.items.find(x=>x.id===itemId);if(!it)return;
-  const val=prompt('تعديل نص الذكر:',it.text);
+  const val=await customPrompt('تعديل نص الذكر:',it.text);
   if(val===null)return;
   const nv=val.trim();if(!nv)return;
   it.text=nv;
   saveAdhkar().then(()=>{renderAdhkar();renderAdminAdhkar();toast('✓ تم التعديل');});
 }
-function setAdhkarItemCount(sectionId,itemId){
+async function setAdhkarItemCount(sectionId,itemId){
   const s=adhkarSections.find(x=>x.id===sectionId);if(!s)return;
   const it=s.items.find(x=>x.id===itemId);if(!it)return;
-  const val=prompt('عدد مرات تكرار هذا الذكر (اتركه فارغًا لإلغاء العداد):',it.count||'');
+  const val=await customPrompt('عدد مرات تكرار هذا الذكر (اتركه فارغًا لإلغاء العداد):',it.count||'');
   if(val===null)return;
   const nv=val.trim();
   if(!nv){it.count=null;it.remaining=null;}
@@ -1605,7 +1672,7 @@ async function addNaflItem(){
   await saveNafl();renderAdminNafl();renderNaflBlock();toast('✓ تمت الإضافة');
 }
 async function deleteNaflItem(id){
-  if(!confirm('حذف هذه النافلة؟'))return;
+  if(!await customConfirm('حذف هذه النافلة؟'))return;
   naflItems=naflItems.filter(n=>n.id!==id);
   await saveNafl();renderAdminNafl();renderNaflBlock();toast('✓ تم الحذف','info');
 }
@@ -1641,7 +1708,7 @@ async function addHabit(){
 }
 
 async function deleteHabit(id){
-  if(!confirm('حذف هذه العادة نهائياً؟'))return;
+  if(!await customConfirm('حذف هذه العادة نهائياً؟'))return;
   habits=habits.filter(h=>h.id!==id);records=records.filter(r=>r.habitId!==id&&!r.habitId.startsWith(id+'__'));
   await saveHabits();await saveRecords();renderAdmin();renderHabits();renderProgress();toast('✓ تم الحذف','info');
 }
@@ -1680,8 +1747,8 @@ async function moveHabit(id,dir){
   await saveHabits();renderAdmin();renderHabits();
 }
 
-async function clearAllRecords(){if(!confirm('حذف كل السجلات؟'))return;records=[];activityLog=[];await saveRecords();await saveLog();render();toast('✓ تم الحذف','info');}
-async function clearAllHabits(){if(!confirm('حذف كل شيء؟'))return;habits=[];records=[];activityLog=[];await saveHabits();await saveRecords();await saveLog();render();toast('✓ تم الحذف الشامل','info');}
+async function clearAllRecords(){if(!await customConfirm('حذف كل السجلات؟'))return;records=[];activityLog=[];await saveRecords();await saveLog();render();toast('✓ تم الحذف','info');}
+async function clearAllHabits(){if(!await customConfirm('حذف كل شيء؟ هذا الإجراء نهائي ولا يمكن التراجع عنه.'))return;habits=[];records=[];activityLog=[];await saveHabits();await saveRecords();await saveLog();render();toast('✓ تم الحذف الشامل','info');}
 
 async function toggleJuz(j){
   if(!quranData[currentUser])quranData[currentUser]={};const was=!!quranData[currentUser][j];quranData[currentUser][j]=!was;
@@ -1698,7 +1765,7 @@ async function toggleJuz(j){
   }
   await Promise.all([saveQuran(),saveLog()]);renderQuranTab();
 }
-async function resetQuran(){if(!confirm('إعادة تعيين القرآن لـ '+currentUser+'؟'))return;quranData[currentUser]={};await saveQuran();renderQuranTab();toast('✓ تم','info');}
+async function resetQuran(){if(!await customConfirm('إعادة تعيين القرآن لـ '+currentUser+'؟'))return;quranData[currentUser]={};await saveQuran();renderQuranTab();toast('✓ تم','info');}
 function renderQuranTab(){
   const uq=quranData[currentUser]||{};const done=Object.values(uq).filter(Boolean).length;const pct=Math.round(done/JUZ_COUNT*100);
   const s=document.getElementById('quran-stats');const b=document.getElementById('quran-bar');const g=document.getElementById('quran-grid');
@@ -1728,10 +1795,10 @@ async function toggleFastDay(date){
 }
 
 async function deleteFastDay(date){
-  if(!confirm('حذف هذا اليوم؟'))return;fastDays=fastDays.filter(d=>d.date!==date);await saveFast();
+  if(!await customConfirm('حذف هذا اليوم؟'))return;fastDays=fastDays.filter(d=>d.date!==date);await saveFast();
   renderFasting();if(adminUnlocked)renderAdminFasting();toast('✓ تم الحذف','info');
 }
-async function clearFasting(){if(!confirm('حذف كل الصيام؟'))return;fastDays=[];await saveFast();renderFasting();if(adminUnlocked)renderAdminFasting();toast('✓ تم الحذف','info');}
+async function clearFasting(){if(!await customConfirm('حذف كل الصيام؟'))return;fastDays=[];await saveFast();renderFasting();if(adminUnlocked)renderAdminFasting();toast('✓ تم الحذف','info');}
 
 function taskDueLabel(dateStr){
   const today=TODAY();
@@ -2291,11 +2358,11 @@ async function addCourse(){
   inp.value='';if(userSel)userSel.value='كلاهما';if(lectInp)lectInp.value='';if(urlInp)urlInp.value='';
   await saveCourses();renderAdmin();renderLectures();toast('✓ تمت إضافة الكورس');
 }
-function editCourse(id){
+async function editCourse(id){
   const c=courses.find(x=>x.id===id);if(!c)return;
-  const newName=prompt('اسم الكورس / السلسلة:',c.name);if(newName===null)return;
+  const newName=await customPrompt('اسم الكورس / السلسلة:',c.name);if(newName===null)return;
   const trimmed=newName.trim();if(!trimmed)return toast('الاسم مطلوب','err');
-  const newLect=prompt('اسم المحاضر (اتركه فارغاً لتصنيفه ضمن "عام"):',c.lecturer||'');
+  const newLect=await customPrompt('اسم المحاضر (اتركه فارغاً لتصنيفه ضمن "عام"):',c.lecturer||'');
   c.name=trimmed;
   if(newLect!==null)c.lecturer=newLect.trim();
   saveCourses().then(()=>{renderAdmin();renderLectures();toast('✓ تم حفظ التعديلات');});
@@ -2328,7 +2395,7 @@ async function setCourseUser(courseId,user){
   c.user=user;await saveCourses();renderLectures();toast('✓ تم التحديث');
 }
 async function deleteCourse(id){
-  if(!confirm('حذف هذا الكورس وكل محاضراته؟'))return;
+  if(!await customConfirm('حذف هذا الكورس وكل محاضراته؟'))return;
   courses=courses.filter(c=>c.id!==id);
   await saveCourses();renderAdmin();renderLectures();toast('✓ تم الحذف','info');
 }
@@ -2527,7 +2594,7 @@ async function exportAllData(){
 function triggerImportFile(){document.getElementById('import-file-input').click();}
 async function importAllData(evt){
   const file=evt.target.files[0];if(!file)return;
-  if(!confirm('استرداد البيانات من هذا الملف؟ سيتم استبدال البيانات الحالية بنفس المفاتيح.')){evt.target.value='';return;}
+  if(!await customConfirm('استرداد البيانات من هذا الملف؟ سيتم استبدال البيانات الحالية بنفس المفاتيح.')){evt.target.value='';return;}
   try{
     const text=await file.text();
     const parsed=JSON.parse(text);
