@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="theme-color" content="#008ffe"/>
+<meta name="theme-color" content="#2092FF"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <meta name="apple-mobile-web-app-title" content="وِرد"/>
@@ -15,27 +15,28 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#0f1117;--surface:#1a1d23;--surface-2:#14171c;--surface-3:#22262e;
-  --card:#14171c;--card2:#1a1d23;
-  --border:rgba(255,255,255,.08);--border2:rgba(255,255,255,.14);--border-input:rgba(255,255,255,.14);
-  --gold:#008ffe;--gold2:#5cb8ff;--gold-dim:rgba(0,143,254,.14);
-  --gold-dark:#0058a3;--gold-dark2:#0071cc;
-  --gold-b20:rgba(0,143,254,.2);--gold-b30:rgba(0,143,254,.3);--gold-b15:rgba(0,143,254,.15);
-  --gold-b25:rgba(0,143,254,.25);--gold-b10:rgba(0,143,254,.1);--gold-b12:rgba(0,143,254,.12);
-  --dp-blue-soft:rgba(0,143,254,.14);
-  --green:#2ECC71;--green-dim:rgba(46,204,113,.13);
-  --red:#E74C3C;--red-dim:rgba(231,76,60,.13);
+  /* ── droPrompt-style premium dark palette ── */
+  --bg:#0B1018;--surface:#181D25;--surface-2:#111827;--surface-3:#242C37;
+  --card:#171B24;--card2:#1B2029;
+  --border:rgba(255,255,255,.08);--border2:rgba(32,146,255,.22);--border-input:rgba(255,255,255,.12);
+  --gold:#2092FF;--gold2:#3AA0FF;--gold-dim:rgba(32,146,255,.14);
+  --gold-dark:#0B5ED1;--gold-dark2:#0B5ED1;
+  --gold-b20:rgba(32,146,255,.2);--gold-b30:rgba(32,146,255,.3);--gold-b15:rgba(32,146,255,.15);
+  --gold-b25:rgba(32,146,255,.25);--gold-b10:rgba(32,146,255,.1);--gold-b12:rgba(32,146,255,.12);
+  --dp-blue-soft:rgba(32,146,255,.14);
+  --green:#2DD36F;--green-dim:rgba(45,211,111,.13);
+  --red:#FF5C5C;--red-dim:rgba(255,92,92,.13);
   --blue:#4A9EFF;--purple:#9b7cf0;--purple-dim:rgba(155,124,240,.13);
   --teal:#2bc0b0;--teal-dim:rgba(43,192,176,.13);
-  --orange:#e89a52;--orange-dim:rgba(232,154,82,.13);
-  --text:#f3f4f5;--text2:#9ca3af;--muted:#868c96;
+  --orange:#F7C948;--orange-dim:rgba(247,201,72,.14);
+  --text:#FFFFFF;--text2:#C7CED8;--muted:#9CA7B5;
   --font:'Rubik',sans-serif;--font-ibm:'IBM Plex Sans Arabic','Tajawal',sans-serif;
   --font-tajawal:'Tajawal',sans-serif;--font-rubik:'Rubik',sans-serif;
-  --r:14px;--rs:10px;--radius:14px;
+  --r:22px;--rs:14px;--radius:14px;--rp:30px;
   --shadow:none;
-  --shadow-sm:0 1px 2px rgba(0,0,0,.4);
-  --shadow-card:0 1px 2px rgba(0,0,0,.4),0 4px 16px rgba(0,0,0,.3);
-  --title-color:rgba(243,244,245,.72);
+  --shadow-sm:0 2px 10px rgba(0,0,0,.28);
+  --shadow-card:0 20px 60px rgba(0,0,0,.35);
+  --title-color:rgba(255,255,255,.72);
   --outline-idle:rgba(255,255,255,.35);
 }
 body.font-ibm{--font:var(--font-ibm)}
@@ -51,10 +52,10 @@ body.theme-neira{
   --gold-b25:rgba(236,72,153,.25);--gold-b10:rgba(236,72,153,.1);--gold-b12:rgba(236,72,153,.12);
 }
 body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;position:relative}
-#space-bg{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;background:radial-gradient(ellipse at 20% 15%,rgba(0,143,254,.10),transparent 55%),radial-gradient(ellipse at 85% 75%,rgba(155,124,240,.08),transparent 55%),var(--bg)}
+#space-bg{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;background:radial-gradient(circle at 10% 0%,rgba(32,146,255,.18),transparent 30rem),radial-gradient(circle at 90% 10%,rgba(32,146,255,.12),transparent 30rem),var(--bg)}
 #space-bg .sb-stars-sm,#space-bg .sb-stars-lg{position:absolute;inset:0;width:100%;height:100%}
 #space-bg .planet{position:absolute;border-radius:50%;filter:blur(.5px);opacity:.5}
-#space-bg .planet.p1{width:120px;height:120px;top:8%;right:-30px;background:radial-gradient(circle at 35% 30%,rgba(0,143,254,.35),rgba(0,143,254,.03) 70%)}
+#space-bg .planet.p1{width:120px;height:120px;top:8%;right:-30px;background:radial-gradient(circle at 35% 30%,rgba(32,146,255,.35),rgba(32,146,255,.03) 70%)}
 #space-bg .planet.p2{width:70px;height:70px;top:55%;left:-20px;background:radial-gradient(circle at 35% 30%,rgba(155,124,240,.3),rgba(155,124,240,.02) 70%)}
 #space-bg .planet.p3{width:40px;height:40px;top:30%;left:12%;background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.18),transparent 70%)}
 #space-bg .meteor{position:absolute;width:2px;height:2px;background:#fff;border-radius:50%;box-shadow:0 0 6px 1px rgba(255,255,255,.6);opacity:0;animation:meteor-fall 5s linear infinite}
@@ -223,7 +224,7 @@ main{max-width:700px;margin:0 auto;padding:20px 16px 120px}
 .fday-del:hover{color:var(--red)}
 
 .finp,.fsel{flex:1;min-width:100px;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--rs);padding:9px 12px;font-size:13px;color:var(--text);outline:none;transition:border-color .15s,box-shadow .15s;color-scheme:dark}
-.fsel{-webkit-appearance:none;-moz-appearance:none;appearance:none;padding-right:32px;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23008ffe' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M6 9l6 6 6-6'/></svg>");background-repeat:no-repeat;background-position:right 10px center;background-size:15px}
+.fsel{-webkit-appearance:none;-moz-appearance:none;appearance:none;padding-right:32px;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232092FF' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M6 9l6 6 6-6'/></svg>");background-repeat:no-repeat;background-position:right 10px center;background-size:15px}
 body.theme-neira .fsel{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ec4899' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M6 9l6 6 6-6'/></svg>")}
 .finp:focus,.fsel:focus{border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-b10)}
 .finp::placeholder{color:var(--muted)}
@@ -426,6 +427,86 @@ textarea.finp{resize:vertical;min-height:70px;line-height:1.6}
 #tab-admin .toggle{width:40px;height:22px}
 #tab-admin .toggle::after{width:16px;height:16px}
 #tab-admin .mvbtn{border-radius:6px}
+
+/* ══════════════════════════════════════════════════════════
+   PREMIUM VISUAL LAYER — droPrompt design language
+   (presentation only: gradients, shadow, glow, glass nav, scrollbar)
+   ══════════════════════════════════════════════════════════ */
+
+/* -- layered body backdrop, softer star glow already tuned above -- */
+body{-webkit-font-smoothing:antialiased;letter-spacing:-.005em}
+
+/* -- premium card surface: soft gradient + large diffuse shadow -- */
+.panel,.quran-block,.fast-block,.admin-section,.adhkar-section,
+.course-block,.modal-box,#admin-lock,.today-progress-mini{
+  background:linear-gradient(180deg,rgba(27,32,42,.96),rgba(20,24,33,.95));
+  box-shadow:0 20px 60px rgba(0,0,0,.35);
+  position:relative;
+  overflow:hidden;
+  transition:border-color .2s ease,box-shadow .2s ease,transform .2s ease;
+}
+.modal-box{border-radius:30px;box-shadow:0 24px 80px rgba(0,0,0,.5);overflow-x:hidden;overflow-y:auto}
+#gate-screen .gate-box{border-radius:30px}
+
+/* -- subtle panel glow (pseudo element, never overpowering) -- */
+.panel::after,.quran-block::after,.fast-block::after,.admin-section::after,
+.course-block::after,#admin-lock::after{
+  content:'';position:absolute;inset:auto -10% -20% 20%;height:120px;
+  border-radius:999px;background:rgba(32,146,255,.10);filter:blur(40px);
+  pointer-events:none;z-index:0;
+}
+.panel>*,.quran-block>*,.fast-block>*,.admin-section>*,.course-block>*,#admin-lock>*{position:relative;z-index:1}
+
+/* -- list rows: crisp card, gentle lift + blue-tinted border on hover -- */
+.hrow,.admin-habit-row,.fday,.course-meta-row,.admin-course-block{
+  transition:border-color .2s ease,background .2s ease,transform .2s ease,box-shadow .2s ease;
+}
+.hrow:hover{border-color:var(--border2);transform:translateY(-1px);box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.admin-habit-row:hover{transform:translateY(-1px)}
+
+/* -- floating glass navbar -- */
+header{
+  background:rgba(11,16,24,.72);
+  backdrop-filter:blur(16px) saturate(140%);
+  -webkit-backdrop-filter:blur(16px) saturate(140%);
+  border-bottom:1px solid var(--border);
+  padding:0 20px;
+}
+.datebar{background:rgba(17,24,39,.6);backdrop-filter:blur(10px)}
+
+/* -- tabs: rounder, more breathing room, blue-glow active state -- */
+.tabs{padding:8px;border-radius:16px;background:rgba(255,255,255,.03)}
+.tab{border-radius:12px;transition:background .2s ease,color .2s ease,border-color .2s ease,transform .15s ease}
+.tab.active{box-shadow:0 8px 20px rgba(0,0,0,.25)}
+.tab.active.tab-clr-gold{box-shadow:0 8px 20px rgba(32,146,255,.15)}
+
+/* -- buttons: consistent premium lift -- */
+.btn-primary{transition:transform .2s ease,box-shadow .2s ease}
+.btn-primary:hover{transform:translateY(-2px)}
+.check-all-btn,.log-back-btn,.ptitle-btn,.mvbtn{transition:all .2s ease}
+
+/* -- inputs: refined focus ring -- */
+.finp,.fsel,.gate-inp{transition:border-color .2s ease,box-shadow .2s ease;background:rgba(255,255,255,.02)}
+
+/* -- badges: crisp pill -- */
+.badge,.tag,.lwho,.adhkar-count,.course-stats{letter-spacing:.2px}
+
+/* -- modern thin scrollbar with blue thumb -- */
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(32,146,255,.35);border-radius:10px}
+::-webkit-scrollbar-thumb:hover{background:rgba(32,146,255,.55)}
+*{scrollbar-width:thin;scrollbar-color:rgba(32,146,255,.35) transparent}
+
+/* -- headings / hero-style numbers: tighter, bolder -- */
+.fast-num{letter-spacing:-.02em}
+.gate-title,.logo-text{letter-spacing:-.01em}
+
+/* -- responsive rhythm: consistent 8px system on small screens -- */
+@media (max-width:480px){
+  main{padding:16px 12px 112px}
+  .panel,.quran-block,.fast-block,.admin-section,.course-block{padding:16px}
+}
 </style>
 </head>
 <body class="dark-mode">
@@ -1148,7 +1229,7 @@ function toggleUrlField(btn){urlFieldOpen=!urlFieldOpen;btn.classList.toggle('on
 function applyTheme(u){
   document.body.classList.toggle('theme-neira',u==='نيرة');
   const meta=document.querySelector('meta[name="theme-color"]');
-  if(meta)meta.setAttribute('content',u==='نيرة'?'#ec4899':'#008ffe');
+  if(meta)meta.setAttribute('content',u==='نيرة'?'#ec4899':'#2092FF');
 }
 function switchUser(u){currentUser=u;applyTheme(u);document.getElementById('btn-m').classList.toggle('active',u==='محمد');document.getElementById('btn-n').classList.toggle('active',u==='نيرة');render();if(currentTab==='quran')renderQuranTab();if(currentTab==='lectures')renderLectures();if(currentTab==='fasting')renderFasting();}
 
