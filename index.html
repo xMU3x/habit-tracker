@@ -193,7 +193,9 @@ main{max-width:700px;margin:0 auto;padding:20px 16px 120px}
 .fast-block{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px;margin-bottom:20px}
 .fast-block.hijri-compact{padding:18px}
 .fast-block.hijri-compact .fast-title{font-size:13px;margin-bottom:12px}
-.fast-block.hijri-compact #hijri-cal-grid>div{font-size:11px !important}
+.fast-block.hijri-compact #hijri-cal-grid{grid-auto-rows:min-content}
+.fast-block.hijri-compact #hijri-cal-grid>div{aspect-ratio:auto!important;height:30px!important;font-size:10.5px!important;font-weight:700}
+.fast-block.hijri-compact #hijri-weekday-header>div{font-size:9px}
 #hijri-cal-greg{font-size:10px;color:var(--muted);text-align:center;margin-top:2px}
 .fast-title{font-size:13px;font-weight:700;color:var(--title-color);margin-bottom:12px;transition:color .2s}
 .title-open .fast-title{color:var(--gold)}
@@ -219,7 +221,9 @@ main{max-width:700px;margin:0 auto;padding:20px 16px 120px}
 .fday-del:hover{color:var(--red)}
 
 .finp,.fsel{flex:1;min-width:100px;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--rs);padding:9px 12px;font-size:13px;color:var(--text);outline:none;transition:border-color .15s,box-shadow .15s;color-scheme:dark}
-.fsel{-webkit-appearance:none;-moz-appearance:none;appearance:none;padding-right:32px;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232092FF' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M6 9l6 6 6-6'/></svg>");background-repeat:no-repeat;background-position:right 10px center;background-size:15px}
+/* -- .fsel: single custom outline chevron, all native/browser arrows forcibly removed (fixes duplicate-arrows bug) -- */
+.fsel{-webkit-appearance:none!important;-moz-appearance:none!important;appearance:none!important;padding-right:32px;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232092FF' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M6 9l6 6 6-6'/></svg>");background-repeat:no-repeat!important;background-position:right 10px center;background-size:15px;text-indent:0.01px;text-overflow:''}
+.fsel::-ms-expand{display:none}
 body.theme-neira .fsel{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ec4899' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M6 9l6 6 6-6'/></svg>")}
 .finp:focus,.fsel:focus{border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-b10)}
 .finp::placeholder{color:var(--muted)}
@@ -321,6 +325,27 @@ textarea.finp{resize:vertical;min-height:70px;line-height:1.6}
 .admin-habit-desc{font-size:11px;color:var(--text2);padding:3px 8px;background:var(--card);border:1px solid var(--border);border-radius:50px;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px}
 .admin-del{background:transparent;border:none;color:var(--border2);font-size:18px;padding:2px 4px;transition:.15s;flex-shrink:0;line-height:1}
 .admin-del:hover{color:var(--red)}
+/* -- Tasks: toolbar, filters, priority strip, links, download status -- */
+.task-toolbar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.task-toolbar .fsel{flex:1;min-width:110px}
+.task-filters{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.tf-pill{display:inline-flex;align-items:center;gap:5px;background:var(--surface);border:1.5px solid var(--border);border-radius:50px;padding:6px 12px;font-size:11.5px;font-weight:700;color:var(--text2);cursor:pointer;transition:.15s}
+.tf-pill svg{width:13px;height:13px}
+.tf-pill:hover{border-color:var(--border2)}
+.tf-pill.active{border-color:var(--gold);background:var(--gold-dim);color:var(--gold)}
+.hrow.task-row{position:relative;overflow:hidden;border-right-width:1px}
+.hrow.task-row::before{content:'';position:absolute;top:0;bottom:0;right:0;width:4px;background:var(--pr-clr,transparent)}
+.hrow.task-row.done{opacity:.6}
+.task-link{display:inline-flex;align-items:center;gap:4px;color:var(--gold);font-size:10.5px;text-decoration:none;border:1px solid var(--gold-b25);border-radius:50px;padding:2px 8px;background:var(--gold-dim)}
+.task-link svg{width:10px;height:10px}
+.task-link:hover{text-decoration:underline}
+.dl-status{display:inline-flex;gap:4px}
+.dl-btn{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;padding:3px 8px;border-radius:50px;border:1px solid var(--border);background:var(--surface);color:var(--muted);cursor:pointer;transition:.15s}
+.dl-btn svg{width:11px;height:11px}
+.dl-btn.active-idle{border-color:var(--border2);color:var(--text2)}
+.dl-btn.active-downloading{border-color:var(--orange);background:var(--orange-dim);color:var(--orange)}
+.dl-btn.active-done{border-color:var(--green);background:var(--green-dim);color:var(--green)}
+.prio-dot{width:8px;height:8px;border-radius:50%;display:inline-block;flex-shrink:0;background:var(--pr-clr,var(--muted))}
 .url-row{display:flex;align-items:center;gap:6px;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--rs);padding:0 10px;margin-bottom:8px}
 .url-row .finp{border:none;background:transparent;padding:9px 4px;box-shadow:none}
 .url-row .finp:focus{border:none;box-shadow:none}
@@ -388,7 +413,7 @@ textarea.finp{resize:vertical;min-height:70px;line-height:1.6}
 /* ── Lectures tab ── */
 .course-block{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:14px}
 .course-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-.course-title{font-size:13px;font-weight:900;color:var(--blue)}
+.course-title{font-size:13px;font-weight:900;color:var(--gold)}
 .course-stats{font-size:11px;color:var(--muted);font-weight:700}
 .course-meta-row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:0 16px;margin-bottom:8px}
 .course-meta-actions{display:flex;align-items:center;gap:8px}
@@ -689,7 +714,11 @@ a{color:inherit;text-decoration:none}
       <div class="fast-title name-with-icon"><span class="icon-sq i-sm i-red"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M8 14l2 2 4-4"/></svg></span>مهامي</div>
       <div class="frow">
         <input class="finp" id="task-text-inp" placeholder="اكتب المهمة..." style="flex:2" onkeydown="if(event.key==='Enter'){event.preventDefault();addTask()}"/>
-        <input class="finp" id="task-date-inp" type="date" style="flex:1"/>
+        <input class="finp" id="task-date-inp" type="date" style="flex:1" title="التاريخ (اختياري)"/>
+      </div>
+      <div class="url-row">
+        <span style="color:var(--muted);display:inline-flex"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></span>
+        <input class="finp" id="task-link-inp" type="url" placeholder="لينك (اختياري) — https://..."/>
       </div>
       <div class="frow">
         <select class="fsel" id="task-recur-inp" style="flex:1" onchange="onTaskRecurChange(this.value,'task-recur-weekday-inp')">
@@ -702,17 +731,51 @@ a{color:inherit;text-decoration:none}
           <option value="0">الأحد</option><option value="1">الاثنين</option><option value="2">الثلاثاء</option>
           <option value="3">الأربعاء</option><option value="4">الخميس</option><option value="5">الجمعة</option><option value="6">السبت</option>
         </select>
+      </div>
+      <div class="frow">
+        <input class="finp" id="task-reminder-inp" type="datetime-local" style="flex:1" title="تذكير (اختياري)"/>
+        <select class="fsel" id="task-priority-inp" style="flex:1">
+          <option value="">بدون أولوية</option>
+          <option value="high">🔴 عالية</option>
+          <option value="medium">🟠 متوسطة</option>
+          <option value="low">🟢 منخفضة</option>
+        </select>
+      </div>
+      <div class="frow">
         <select class="fsel" id="task-cat-inp" style="flex:1">
           <option value="">بدون ربط بقسم</option>
           <option value="قرآن">📖 قرآن</option>
           <option value="أذكار">📿 أذكار</option>
           <option value="صلاة">🕌 صلاة</option>
           <option value="صوم">🌙 صوم</option>
+          <option value="تحميل">📥 تحميل</option>
+          <option value="مراجعة">🔁 مراجعة</option>
           <option value="أخرى">⭐ أخرى</option>
+        </select>
+        <select class="fsel" id="task-user-inp" style="flex:1">
+          <option value="كلاهما">كلاهما</option>
+          <option value="محمد">محمد فقط</option>
+          <option value="نيرة">نيرة فقط</option>
         </select>
       </div>
       <button class="btn-primary" onclick="addTask()" style="margin-bottom:4px">+ إضافة مهمة</button>
     </div>
+
+    <div class="task-toolbar">
+      <select class="fsel" id="task-sort-inp" onchange="setTaskSort(this.value)" title="ترتيب">
+        <option value="date">ترتيب: التاريخ</option>
+        <option value="priority">ترتيب: الأولوية</option>
+        <option value="added">ترتيب: الأحدث إضافة</option>
+        <option value="alpha">ترتيب: أبجدي</option>
+      </select>
+      <select class="fsel" id="task-group-inp" onchange="setTaskGroup(this.value)" title="تجميع">
+        <option value="none">بدون تجميع</option>
+        <option value="cat">تجميع حسب القسم</option>
+        <option value="priority">تجميع حسب الأولوية</option>
+        <option value="user">تجميع حسب البروفايل</option>
+      </select>
+    </div>
+    <div class="task-filters" id="task-filters"></div>
     <div id="tasks-list"></div>
   </div>
 
@@ -936,7 +999,7 @@ a{color:inherit;text-decoration:none}
 
   <div id="tab-log" style="display:none">
     <div class="admin-section">
-      <div class="admin-sec-title"><span class="icon-sq i-sm i-blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><line x1="16" y1="3" x2="16" y2="7"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span><span id="month-tracker-title" style="color:var(--blue)">تراك الشهر</span></div>
+      <div class="admin-sec-title"><span class="icon-sq i-sm i-blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><line x1="16" y1="3" x2="16" y2="7"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span><span id="month-tracker-title" style="color:var(--gold)">تراك الشهر</span></div>
       <div id="month-tracker-weekday-header" style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:4px"></div>
       <div id="month-tracker-grid" style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px"></div>
       <div id="month-tracker-summary" style="font-size:11px;color:var(--muted);margin-top:10px;text-align:center"></div>
@@ -1011,15 +1074,30 @@ a{color:inherit;text-decoration:none}
   <div class="modal-box">
     <div class="modal-hdr"><div class="modal-title">✏️ تعديل المهمة</div><button class="modal-x" onclick="closeEditTask()">×</button></div>
     <div style="margin-bottom:8px"><input class="finp" id="et-text" placeholder="نص المهمة" style="width:100%"/></div>
+    <div class="url-row">
+      <span style="color:var(--muted)">🔗</span>
+      <input class="finp" id="et-link" type="url" placeholder="لينك (اختياري) — https://..."/>
+    </div>
     <div class="frow">
-      <input class="finp" id="et-date" type="date" style="flex:1"/>
+      <input class="finp" id="et-date" type="date" style="flex:1" title="التاريخ (اختياري)"/>
+      <input class="finp" id="et-reminder" type="datetime-local" style="flex:1" title="تذكير (اختياري)"/>
+    </div>
+    <div class="frow">
       <select class="fsel" id="et-cat" style="flex:1">
         <option value="">بدون ربط بقسم</option>
         <option value="قرآن">📖 قرآن</option>
         <option value="أذكار">📿 أذكار</option>
         <option value="صلاة">🕌 صلاة</option>
         <option value="صوم">🌙 صوم</option>
+        <option value="تحميل">📥 تحميل</option>
+        <option value="مراجعة">🔁 مراجعة</option>
         <option value="أخرى">⭐ أخرى</option>
+      </select>
+      <select class="fsel" id="et-priority" style="flex:1">
+        <option value="">بدون أولوية</option>
+        <option value="high">🔴 عالية</option>
+        <option value="medium">🟠 متوسطة</option>
+        <option value="low">🟢 منخفضة</option>
       </select>
     </div>
     <div class="frow">
@@ -1032,6 +1110,13 @@ a{color:inherit;text-decoration:none}
       <select class="fsel" id="et-recur-weekday" style="flex:1;display:none">
         <option value="0">الأحد</option><option value="1">الاثنين</option><option value="2">الثلاثاء</option>
         <option value="3">الأربعاء</option><option value="4">الخميس</option><option value="5">الجمعة</option><option value="6">السبت</option>
+      </select>
+    </div>
+    <div class="frow">
+      <select class="fsel" id="et-user" style="flex:1">
+        <option value="كلاهما">كلاهما</option>
+        <option value="محمد">محمد فقط</option>
+        <option value="نيرة">نيرة فقط</option>
       </select>
     </div>
     <button class="btn-primary" onclick="saveEditTask()">💾 حفظ التعديلات</button>
@@ -1291,7 +1376,10 @@ async function loadData(){
   lectureProgress=(lp&&typeof lp==='object'&&!Array.isArray(lp))?lp:{};
   naflItems=Array.isArray(ni)?ni:[];
   adhkarSections=Array.isArray(adh)&&adh.length>0?adh:defaultAdhkarSections();
-  tasks=Array.isArray(tk)?tk:[];
+  tasks=(Array.isArray(tk)?tk:[]).filter(t=>!t.done).map(t=>({
+    assignedTo:'كلاهما',priority:null,reminder:null,reminded:false,link:null,dlStatus:t.cat==='تحميل'?'idle':null,
+    ...t,done:false
+  }));
   ensureBuiltinAdhkarSections();
   render();
 }
@@ -1808,10 +1896,35 @@ function taskDueLabel(dateStr){
   if(diff===1)return 'غدًا';
   return new Date(dateStr+'T12:00:00').toLocaleDateString('ar-EG',{month:'short',day:'numeric'});
 }
+// ── أيقونات SVG (outline) تُستخدم داخل عناصر المهام ──
+const ICON={
+  link:'<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>',
+  bell:'<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>',
+  recur:'<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2.1l4 4-4 4"/><path d="M3 12.2v-2a4 4 0 0 1 4-4h12.8"/><path d="M7 21.9l-4-4 4-4"/><path d="M21 11.8v2a4 4 0 0 1-4 4H4.2"/></svg>',
+  dl:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>',
+  spin:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>',
+  check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>',
+  edit:'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>',
+  trash:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>',
+  cat:{
+    'قرآن':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>',
+    'أذكار':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="12" r="2"/><circle cx="12" cy="7" r="2"/><circle cx="18" cy="12" r="2"/><circle cx="12" cy="17" r="2"/></svg>',
+    'صلاة':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>',
+    'صوم':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>',
+    'تحميل':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>',
+    'مراجعة':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2.1l4 4-4 4"/><path d="M3 12.2v-2a4 4 0 0 1 4-4h12.8"/><path d="M7 21.9l-4-4 4-4"/><path d="M21 11.8v2a4 4 0 0 1-4 4H4.2"/></svg>',
+    'أخرى':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.9 6.9L22 9.2l-5.5 4.8L18 21l-6-3.6L6 21l1.5-7-5.5-4.8 7.1-1.3z"/></svg>'
+  }
+};
+const TASK_CATS=['قرآن','أذكار','صلاة','صوم','تحميل','مراجعة','أخرى'];
+const PRIO_CLR={high:'var(--red)',medium:'var(--orange)',low:'var(--green)'};
+const PRIO_LBL={high:'عالية',medium:'متوسطة',low:'منخفضة'};
+let taskFilterCat='الكل',taskSortMode='date',taskGroupMode='none';
 function onTaskRecurChange(val,weekdaySelId){
   const wd=document.getElementById(weekdaySelId);if(wd)wd.style.display=val==='weekly'?'':'none';
 }
 function nextRecurDate(dateStr,recur){
+  if(!dateStr)return null;
   const d=new Date(dateStr+'T12:00:00');
   if(!recur)return null;
   if(recur.type==='daily')d.setDate(d.getDate()+1);
@@ -1822,43 +1935,64 @@ function nextRecurDate(dateStr,recur){
 }
 function recurLabel(recur){
   if(!recur)return'';
-  if(recur.type==='daily')return'🔁 يومي';
-  if(recur.type==='weekly')return`🔁 أسبوعي — ${['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'][recur.weekday??0]}`;
-  if(recur.type==='monthly')return'🔁 شهري';
+  if(recur.type==='daily')return'يومي';
+  if(recur.type==='weekly')return`أسبوعي — ${['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'][recur.weekday??0]}`;
+  if(recur.type==='monthly')return'شهري';
   return'';
 }
 async function addTask(){
   const inp=document.getElementById('task-text-inp'),dateInp=document.getElementById('task-date-inp');
   const recurSel=document.getElementById('task-recur-inp'),wdSel=document.getElementById('task-recur-weekday-inp'),catSel=document.getElementById('task-cat-inp');
-  const text=inp.value.trim();const date=dateInp.value||TODAY();
+  const linkInp=document.getElementById('task-link-inp'),remInp=document.getElementById('task-reminder-inp');
+  const prioSel=document.getElementById('task-priority-inp'),userSel=document.getElementById('task-user-inp');
+  const text=inp.value.trim();
+  // التاريخ اختياري تمامًا — لو مش محدد، المهمة بتفضل من غير تاريخ في زر المهام فقط
+  const date=dateInp.value||null;
   if(!text)return toast('اكتب المهمة الأول','err');
   const recurType=recurSel?recurSel.value:'';
-  const recur=recurType?{type:recurType,weekday:recurType==='weekly'?parseInt(wdSel.value,10):null}:null;
+  const recur=(recurType&&date)?{type:recurType,weekday:recurType==='weekly'?parseInt(wdSel.value,10):null}:null;
   const cat=catSel?catSel.value:'';
-  tasks.push({id:'t'+Date.now(),text,date,done:false,ts:Date.now(),recur,cat:cat||null});
-  inp.value='';dateInp.value='';if(recurSel)recurSel.value='';if(wdSel)wdSel.style.display='none';if(catSel)catSel.value='';
+  const link=linkInp&&linkInp.value.trim()?linkInp.value.trim():null;
+  const reminder=remInp&&remInp.value?remInp.value:null;
+  const priority=prioSel?prioSel.value||null:null;
+  const assignedTo=userSel?userSel.value:'كلاهما';
+  tasks.push({id:'t'+Date.now(),text,date,done:false,ts:Date.now(),recur,cat:cat||null,link,reminder,reminded:false,priority,assignedTo,dlStatus:cat==='تحميل'?'idle':null});
+  inp.value='';dateInp.value='';linkInp.value='';remInp.value='';
+  if(recurSel)recurSel.value='';if(wdSel)wdSel.style.display='none';if(catSel)catSel.value='';if(prioSel)prioSel.value='';if(userSel)userSel.value='كلاهما';
   await saveTasks();renderTasksTab();renderTodayTasks();toast('✓ تمت الإضافة');
 }
 async function toggleTask(id){
-  const t=tasks.find(x=>x.id===id);if(!t)return;
-  t.done=!t.done;t.doneTs=t.done?Date.now():null;
-  if(t.done&&t.recur){
+  const idx=tasks.findIndex(x=>x.id===id);if(idx<0)return;
+  const t=tasks[idx];
+  pushLog('tasks',t.text,true);
+  if(t.recur&&t.date){
     const nd=nextRecurDate(t.date,t.recur);
-    if(nd)tasks.push({id:'t'+Date.now()+Math.random().toString(36).slice(2,6),text:t.text,date:nd,done:false,ts:Date.now(),recur:t.recur,cat:t.cat||null});
+    if(nd)tasks.push({...t,id:'t'+Date.now()+Math.random().toString(36).slice(2,6),date:nd,done:false,ts:Date.now(),reminded:false,dlStatus:t.cat==='تحميل'?'idle':null});
   }
-  await saveTasks();renderTasksTab();renderTodayTasks();
+  // بمجرد ما تتعلّم كمكتملة، تختفي فورًا من زر المهام
+  tasks.splice(idx,1);
+  await saveTasks();await saveLog();renderTasksTab();renderTodayTasks();toast('✓ تم إنجاز المهمة');
 }
 async function deleteTask(id){
   tasks=tasks.filter(x=>x.id!==id);
   await saveTasks();renderTasksTab();renderTodayTasks();toast('✓ تم الحذف','info');
+}
+async function setDownloadStatus(id,status){
+  const t=tasks.find(x=>x.id===id);if(!t)return;
+  t.dlStatus=status;
+  await saveTasks();renderTasksTab();
 }
 let _editingTaskId=null;
 function editTaskOpen(id){
   const t=tasks.find(x=>x.id===id);if(!t)return;
   _editingTaskId=id;
   document.getElementById('et-text').value=t.text;
-  document.getElementById('et-date').value=t.date;
+  document.getElementById('et-date').value=t.date||'';
+  document.getElementById('et-link').value=t.link||'';
+  document.getElementById('et-reminder').value=t.reminder||'';
   document.getElementById('et-cat').value=t.cat||'';
+  document.getElementById('et-priority').value=t.priority||'';
+  document.getElementById('et-user').value=t.assignedTo||'كلاهما';
   document.getElementById('et-recur').value=t.recur?t.recur.type:'';
   const wd=document.getElementById('et-recur-weekday');
   wd.style.display=(t.recur&&t.recur.type==='weekly')?'':'none';
@@ -1869,40 +2003,102 @@ function closeEditTask(){document.getElementById('edit-task-modal').style.displa
 async function saveEditTask(){
   const t=tasks.find(x=>x.id===_editingTaskId);if(!t)return closeEditTask();
   const text=document.getElementById('et-text').value.trim();if(!text)return toast('اكتب نص المهمة','err');
-  const date=document.getElementById('et-date').value||t.date;
+  const date=document.getElementById('et-date').value||null;
+  const link=document.getElementById('et-link').value.trim()||null;
+  const reminder=document.getElementById('et-reminder').value||null;
   const cat=document.getElementById('et-cat').value;
+  const priority=document.getElementById('et-priority').value||null;
+  const assignedTo=document.getElementById('et-user').value;
   const recurType=document.getElementById('et-recur').value;
   const wd=document.getElementById('et-recur-weekday').value;
-  t.text=text;t.date=date;t.cat=cat||null;
-  t.recur=recurType?{type:recurType,weekday:recurType==='weekly'?parseInt(wd,10):null}:null;
+  t.text=text;t.date=date;t.link=link;t.reminder=reminder;t.reminded=false;t.priority=priority;t.assignedTo=assignedTo;
+  t.cat=cat||null;if(t.cat==='تحميل'&&!t.dlStatus)t.dlStatus='idle';if(t.cat!=='تحميل')t.dlStatus=null;
+  t.recur=(recurType&&date)?{type:recurType,weekday:recurType==='weekly'?parseInt(wd,10):null}:null;
   await saveTasks();closeEditTask();renderTasksTab();renderTodayTasks();toast('✓ تم حفظ التعديلات');
 }
 function taskItemHTML(t,showDate){
-  const catTag=t.cat?`<span class="tag" style="color:var(--gold)">${escHtml(t.cat)}</span>`:'';
-  const recurTag=t.recur?`<span class="tag">${recurLabel(t.recur)}</span>`:'';
-  return `<div class="hrow ${t.done?'done':''}">
-    <button class="chk" onclick="toggleTask('${t.id}')">${t.done?'✓':''}</button>
-    <div class="hinfo"><div class="hname"><span class="hname-text">${escHtml(t.text)}</span></div><div class="hmeta">${showDate?`<span class="tag" style="color:${t.date<TODAY()&&!t.done?'var(--red)':'var(--muted)'}">${taskDueLabel(t.date)}</span>`:''}${catTag}${recurTag}</div></div>
-    <button class="admin-del" style="font-size:12px" onclick="editTaskOpen('${t.id}')" title="تعديل">✎</button>
-    <button class="admin-del" onclick="deleteTask('${t.id}')" title="حذف">×</button>
+  const prioClr=t.priority?PRIO_CLR[t.priority]:'transparent';
+  const prioTag=t.priority?`<span class="tag" style="color:${prioClr};display:inline-flex;align-items:center;gap:4px"><span class="prio-dot" style="--pr-clr:${prioClr}"></span>${PRIO_LBL[t.priority]}</span>`:'';
+  const catIcon=t.cat&&ICON.cat[t.cat]?`<span style="display:inline-flex;width:10px;height:10px">${ICON.cat[t.cat]}</span>`:'';
+  const catTag=t.cat?`<span class="tag" style="color:var(--gold);display:inline-flex;align-items:center;gap:4px">${catIcon}${escHtml(t.cat)}</span>`:'';
+  const recurTag=t.recur?`<span class="tag" style="display:inline-flex;align-items:center;gap:4px">${ICON.recur}${recurLabel(t.recur)}</span>`:'';
+  const userTag=t.assignedTo&&t.assignedTo!=='كلاهما'?`<span class="tag">${t.assignedTo}</span>`:'';
+  const linkTag=t.link?`<a class="task-link" href="${escHtml(t.link)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${ICON.link} لينك</a>`:'';
+  const remTag=t.reminder?`<span class="tag" style="display:inline-flex;align-items:center;gap:4px">${ICON.bell}${new Date(t.reminder).toLocaleString('ar-EG',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'})}</span>`:'';
+  const dateTag=(showDate&&t.date)?`<span class="tag" style="color:${t.date<TODAY()?'var(--red)':'var(--muted)'}">${taskDueLabel(t.date)}</span>`:(showDate?`<span class="tag">بدون تاريخ</span>`:'');
+  const dlRow=t.cat==='تحميل'?`<div class="dl-status" onclick="event.stopPropagation()">
+      <button class="dl-btn ${t.dlStatus==='idle'||!t.dlStatus?'active-idle':''}" onclick="setDownloadStatus('${t.id}','idle')" title="لم يبدأ">لم يبدأ</button>
+      <button class="dl-btn ${t.dlStatus==='downloading'?'active-downloading':''}" onclick="setDownloadStatus('${t.id}','downloading')" title="جاري التحميل">${ICON.spin} جاري التحميل</button>
+      <button class="dl-btn ${t.dlStatus==='done'?'active-done':''}" onclick="setDownloadStatus('${t.id}','done')" title="تم التحميل">${ICON.check} تم التحميل</button>
+    </div>`:'';
+  return `<div class="hrow task-row" style="--pr-clr:${prioClr}">
+    <button class="chk" onclick="toggleTask('${t.id}')" title="إنهاء المهمة">${ICON.check}</button>
+    <div class="hinfo"><div class="hname"><span class="hname-text">${escHtml(t.text)}</span></div><div class="hmeta">${dateTag}${remTag}${catTag}${recurTag}${userTag}${prioTag}${linkTag}</div>${dlRow}</div>
+    <button class="admin-del" style="font-size:12px" onclick="editTaskOpen('${t.id}')" title="تعديل">${ICON.edit}</button>
+    <button class="admin-del" onclick="deleteTask('${t.id}')" title="حذف">${ICON.trash}</button>
   </div>`;
 }
+function myTasks(){return tasks.filter(t=>!t.assignedTo||t.assignedTo==='كلاهما'||t.assignedTo===currentUser);}
 function renderTodayTasks(){
   const el=document.getElementById('today-tasks-card');if(!el)return;
-  const todays=tasks.filter(t=>t.date===TODAY()&&!t.done);
+  const todays=myTasks().filter(t=>t.date===TODAY());
   if(!todays.length){el.innerHTML='';return;}
   el.innerHTML=`<div class="slabel"><span>📌 مهام اليوم</span></div>`+todays.map(t=>taskItemHTML(t,false)).join('');
 }
+function setTaskFilterCat(c){taskFilterCat=c;renderTasksTab();}
+function setTaskSort(v){taskSortMode=v;renderTasksTab();}
+function setTaskGroup(v){taskGroupMode=v;renderTasksTab();}
+function sortTasks(list){
+  const arr=[...list];
+  if(taskSortMode==='date')arr.sort((a,b)=>{if(!a.date&&!b.date)return b.ts-a.ts;if(!a.date)return 1;if(!b.date)return -1;return a.date.localeCompare(b.date);});
+  else if(taskSortMode==='priority'){const w={high:0,medium:1,low:2,null:3};arr.sort((a,b)=>(w[a.priority]??3)-(w[b.priority]??3));}
+  else if(taskSortMode==='added')arr.sort((a,b)=>b.ts-a.ts);
+  else if(taskSortMode==='alpha')arr.sort((a,b)=>a.text.localeCompare(b.text,'ar'));
+  return arr;
+}
+function groupTasks(list){
+  if(taskGroupMode==='none')return[{label:null,items:list}];
+  const keyFn=taskGroupMode==='cat'?t=>t.cat||'بدون قسم':taskGroupMode==='priority'?t=>t.priority?PRIO_LBL[t.priority]:'بدون أولوية':t=>t.assignedTo||'كلاهما';
+  const groups={};
+  list.forEach(t=>{const k=keyFn(t);(groups[k]=groups[k]||[]).push(t);});
+  return Object.keys(groups).map(k=>({label:k,items:groups[k]}));
+}
+function renderTaskFilters(){
+  const el=document.getElementById('task-filters');if(!el)return;
+  const cats=['الكل',...TASK_CATS];
+  el.innerHTML=cats.map(c=>{
+    const active=taskFilterCat===c?'active':'';
+    const ic=c==='الكل'?'':`<span style="display:inline-flex;width:13px;height:13px">${ICON.cat[c]||''}</span>`;
+    return `<button class="tf-pill ${active}" onclick="setTaskFilterCat('${c}')">${ic}${escHtml(c)}</button>`;
+  }).join('');
+}
 function renderTasksTab(){
   const el=document.getElementById('tasks-list');if(!el)return;
-  const pending=tasks.filter(t=>!t.done).sort((a,b)=>a.date.localeCompare(b.date));
-  const done=tasks.filter(t=>t.done).sort((a,b)=>(b.doneTs||0)-(a.doneTs||0));
-  if(!pending.length&&!done.length){el.innerHTML='<div class="lempty">لا توجد مهام بعد — أضف مهمة من فوق</div>';return;}
+  renderTaskFilters();
+  let list=myTasks();
+  if(taskFilterCat&&taskFilterCat!=='الكل')list=list.filter(t=>t.cat===taskFilterCat);
+  if(!list.length){el.innerHTML='<div class="lempty">لا توجد مهام مطابقة — أضف مهمة من فوق أو غيّر الفلتر</div>';return;}
+  list=sortTasks(list);
+  const groups=groupTasks(list);
   let html='';
-  if(pending.length)html+=`<div class="slabel">قيد الإنجاز — ${pending.length}</div>`+pending.map(t=>taskItemHTML(t,true)).join('');
-  if(done.length)html+=`<div class="slabel">تم الإنجاز — ${done.length}</div>`+done.map(t=>taskItemHTML(t,true)).join('');
+  groups.forEach(g=>{
+    if(g.label)html+=`<div class="slabel">${escHtml(g.label)} — ${g.items.length}</div>`;
+    html+=g.items.map(t=>taskItemHTML(t,true)).join('');
+  });
   el.innerHTML=html;
 }
+// ── فحص التذكيرات دوريًا (best-effort — طالما الصفحة مفتوحة) ──
+setInterval(()=>{
+  const now=Date.now();let changed=false;
+  tasks.forEach(t=>{
+    if(t.reminder&&!t.reminded&&new Date(t.reminder).getTime()<=now){
+      t.reminded=true;changed=true;
+      toast('⏰ تذكير: '+t.text,'info');
+      if(window.Notification&&Notification.permission==='granted')new Notification('وِرد — تذكير',{body:t.text});
+    }
+  });
+  if(changed)saveTasks();
+},30000);
 function isFastDayComplete(d){
   const cb=Array.isArray(d.checkedBy)?d.checkedBy:(d.checked?['محمد']:[]);
   if(d.assignedTo&&d.assignedTo!=='كلاهما')return cb.includes(d.assignedTo);
@@ -2108,7 +2304,7 @@ async function renderHistoryForDate(date){
     });
   });
   if(!rowsHtml)rowsHtml='<div class="lempty">لا توجد عادات مطابقة لهذا اليوم/الفلتر</div>';
-  el.innerHTML=`<div class="hblock"><div class="hdate name-with-icon"><span class="icon-sq i-sm i-blue">${CAL_ICON}</span>${dLbl} <span class="tag" style="color:var(--blue);border-color:var(--gold-b30)">وضع التسجيل الرجعي — اضغط لتشيّك ما فاتك</span></div>${rowsHtml}</div>`;
+  el.innerHTML=`<div class="hblock"><div class="hdate name-with-icon"><span class="icon-sq i-sm i-blue">${CAL_ICON}</span>${dLbl} <span class="tag" style="color:var(--gold);border-color:var(--gold-b30)">وضع التسجيل الرجعي — اضغط لتشيّك ما فاتك</span></div>${rowsHtml}</div>`;
 }
 
 let _pastRecordsCache=null;
@@ -2538,7 +2734,7 @@ function courseBlockHTML(w){
       <div class="adhkar-header" style="padding:14px 16px 8px" onclick="toggleCourseOpen('${c.id}')">
         <span class="adhkar-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span>
         <span class="icon-sq i-sm i-blue">${LECTURE_ICON}</span>
-        <span class="adhkar-header-title course-title" style="color:var(--blue)">${escHtml(c.name)}${c.user&&c.user!=='كلاهما'?` <span class="tag" style="font-size:10px">${c.user}</span>`:''}</span>
+        <span class="adhkar-header-title course-title" style="color:var(--gold)">${escHtml(c.name)}${c.user&&c.user!=='كلاهما'?` <span class="tag" style="font-size:10px">${c.user}</span>`:''}</span>
       </div>
       <div class="course-meta-row">
         <span class="course-stats">${done}/${total} (${pct}%)</span>
