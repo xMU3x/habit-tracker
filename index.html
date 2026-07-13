@@ -38,6 +38,27 @@
   --shadow-card:0 20px 60px rgba(0,0,0,.35);
   --title-color:rgba(255,255,255,.72);
   --outline-idle:rgba(255,255,255,.35);
+
+  /* ── Semantic design-system tokens (aliases onto the tokens above) ──
+     These give every part of the UI one shared vocabulary. Because they
+     simply point at the existing theme tokens, switching profile/theme
+     (see body.theme-neira below) re-colors everything that uses them —
+     no per-component overrides needed. Nothing above was renamed, so
+     all existing rules keep working exactly as before. */
+  --accent:var(--gold);
+  --accent-light:var(--gold2);
+  --accent-dark:var(--gold-dark2);
+  --accent-soft:var(--gold-dim);
+  --outline:var(--outline-idle);
+  --hover:var(--border2);
+  --focus:var(--gold-b10);
+  --text-secondary:var(--text2);
+
+  /* ── Shared motion tokens: one timing language for every transition ── */
+  --ease:cubic-bezier(.4,0,.2,1);
+  --dur-fast:120ms;
+  --dur:200ms;
+  --dur-slow:320ms;
 }
 body.font-ibm{--font:var(--font-ibm)}
 body.font-tajawal{--font:var(--font-tajawal)}
@@ -183,10 +204,17 @@ main{max-width:700px;margin:0 auto;padding:20px 16px 120px}
 .juz-btn.done{border-color:var(--purple);background:var(--purple-dim);color:var(--purple)}
 
 .fast-block{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px;margin-bottom:20px}
-.fast-block.hijri-compact{padding:18px}
-.fast-block.hijri-compact .fast-title{font-size:13px;margin-bottom:12px}
-.fast-block.hijri-compact #hijri-cal-grid>div{font-size:11px !important}
-#hijri-cal-greg{font-size:10px;color:var(--muted);text-align:center;margin-top:2px}
+.fast-block.hijri-compact{padding:16px}
+.fast-block.hijri-compact .fast-title{font-size:13px;margin-bottom:8px}
+.fast-block.hijri-compact #hijri-cal-grid>div{font-size:10.5px !important}
+.fast-block.hijri-compact #hijri-weekday-header>div{font-size:9.5px !important}
+.fast-block.hijri-compact #hijri-cal-grid,
+.fast-block.hijri-compact #hijri-weekday-header{gap:2px}
+.fast-block.hijri-compact #hijri-cal-title{font-size:11.5px}
+.fast-block.hijri-compact .btn-ghost{padding:4px 9px !important;font-size:10.5px !important}
+#hijri-cal-greg{font-size:9.5px;color:var(--muted);text-align:center;margin-top:1px}
+.fast-block.hijri-compact #hijri-cal-summary{font-size:9.5px;margin-bottom:6px !important}
+.fast-block.hijri-compact > div[style*="flex-wrap"]{margin-top:6px !important;gap:6px !important;font-size:8.5px !important}
 .fast-title{font-size:13px;font-weight:700;color:var(--title-color);margin-bottom:12px;transition:color .2s}
 .title-open .fast-title{color:var(--gold)}
 .fast-counter{text-align:center;padding:14px;background:var(--surface);border-radius:var(--rs);margin-bottom:12px}
@@ -590,6 +618,34 @@ a{color:inherit;text-decoration:none}
 ::-webkit-scrollbar-track{background:#10151d}
 ::-webkit-scrollbar-thumb{background:#2092ff;border-radius:100px}
 ::-webkit-scrollbar-thumb:hover{background:#3aa0ff}
+
+/* ══════════════════════════════════════════════════════════
+   DESIGN-SYSTEM CONSOLIDATION LAYER
+   One shared motion language + focus ring across every
+   interactive element. Purely additive — every rule here only
+   refines timing/outline, it never changes layout, color logic,
+   or removes anything declared above.
+   ══════════════════════════════════════════════════════════ */
+button,a,.tab,.hrow,.chk,.pray-btn,.juz-btn,.fday,.lecture-chk,
+.btn-primary,.btn-ghost,.ptitle-btn,.mat-choice-btn,.toggle,
+.finp,.fsel,.textarea,.adhkar-counter-circle,.course-pin-btn,.course-link-btn{
+  transition-timing-function:var(--ease);
+}
+:focus-visible{outline-color:var(--accent);box-shadow:0 0 0 3px var(--focus)}
+.finp:focus,.fsel:focus,textarea.finp:focus{box-shadow:0 0 0 3px var(--focus)}
+
+/* -- guard against overflow on very narrow phones -- */
+@media (max-width:360px){
+  main{padding:14px 10px 112px}
+  .panel,.quran-block,.fast-block,.admin-section,.course-block{padding:14px}
+  .prayers-grid{gap:4px}
+  .quran-grid{gap:4px}
+}
+
+/* -- comfortable reading measure on wider screens (tablet/desktop) -- */
+@media (min-width:900px){
+  main{max-width:760px}
+}
 </style>
 </head>
 <body class="dark-mode">
@@ -619,8 +675,8 @@ a{color:inherit;text-decoration:none}
   <div class="header-right">
     <button id="install-btn" style="display:none;background:var(--gold-dim);border:1px solid var(--gold-b30);color:var(--gold);border-radius:10px;padding:5px 10px;font-size:11px;font-weight:700;margin-left:6px" onclick="installPWA()">📲 تثبيت</button>
     <div class="user-toggle">
-      <button class="ubtn active" id="btn-m" onclick="switchUser('محمد')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" style="pointer-events:none"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>محمد</button>
-      <button class="ubtn" id="btn-n" onclick="switchUser('نيرة')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="pointer-events:none"><circle cx="12" cy="8" r="4"></circle><path d="M8 22l1.5-7.5h5L16 22"></path><path d="M8.5 14.5 6 22M15.5 14.5 18 22"></path></svg>نيرة</button>
+      <button class="ubtn active" id="btn-m" onclick="switchUser('محمد')" aria-label="التبديل لملف محمد"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="pointer-events:none"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>محمد</button>
+      <button class="ubtn" id="btn-n" onclick="switchUser('نيرة')" aria-label="التبديل لملف نيرة"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="pointer-events:none"><circle cx="12" cy="8" r="4"></circle><path d="M8 22l1.5-7.5h5L16 22"></path><path d="M8.5 14.5 6 22M15.5 14.5 18 22"></path></svg>نيرة</button>
     </div>
   </div>
 </header>
@@ -701,10 +757,10 @@ a{color:inherit;text-decoration:none}
   <div id="tab-fasting" style="display:none">
     <div class="fast-block hijri-compact">
       <div class="fast-title name-with-icon"><span class="icon-sq i-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><line x1="16" y1="3" x2="16" y2="7"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>التقويم الهجري</div>
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;gap:6px">
-        <button class="btn-ghost" style="width:auto;padding:5px 10px;font-size:11px;border-color:var(--border2)" onclick="shiftHijriMonth(-1)">‹ السابق</button>
-        <div id="hijri-cal-title" style="font-size:12px;font-weight:900;color:var(--gold);text-align:center;flex:1"></div>
-        <button class="btn-ghost" style="width:auto;padding:5px 10px;font-size:11px;border-color:var(--border2)" onclick="shiftHijriMonth(1)">التالي ›</button>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;gap:6px">
+        <button class="btn-ghost" style="width:auto;padding:4px 9px;font-size:10.5px;border-color:var(--border2)" onclick="shiftHijriMonth(-1)">‹ السابق</button>
+        <div id="hijri-cal-title" style="font-size:11.5px;font-weight:900;color:var(--gold);text-align:center;flex:1"></div>
+        <button class="btn-ghost" style="width:auto;padding:4px 9px;font-size:10.5px;border-color:var(--border2)" onclick="shiftHijriMonth(1)">التالي ›</button>
       </div>
       <div id="hijri-cal-greg"></div>
       <div id="hijri-cal-summary" style="font-size:10px;color:var(--muted);margin-bottom:8px;text-align:center"></div>
@@ -955,7 +1011,7 @@ a{color:inherit;text-decoration:none}
 
 <div class="modal-overlay" id="edit-habit-modal" style="display:none">
   <div class="modal-box">
-    <div class="modal-hdr"><div class="modal-title">✏️ تعديل العادة</div><button class="modal-x" onclick="closeEditHabit()">×</button></div>
+    <div class="modal-hdr"><div class="modal-title">✏️ تعديل العادة</div><button class="modal-x" onclick="closeEditHabit()" aria-label="إغلاق">×</button></div>
     <div class="frow">
       <input class="finp" id="eh-name" placeholder="اسم العادة" style="flex:2"/>
       <select class="fsel" id="eh-cat" style="flex:1">
@@ -986,7 +1042,7 @@ a{color:inherit;text-decoration:none}
 
 <div class="modal-overlay" id="edit-task-modal" style="display:none">
   <div class="modal-box">
-    <div class="modal-hdr"><div class="modal-title">✏️ تعديل المهمة</div><button class="modal-x" onclick="closeEditTask()">×</button></div>
+    <div class="modal-hdr"><div class="modal-title">✏️ تعديل المهمة</div><button class="modal-x" onclick="closeEditTask()" aria-label="إغلاق">×</button></div>
     <div style="margin-bottom:8px"><input class="finp" id="et-text" placeholder="نص المهمة" style="width:100%"/></div>
     <div class="frow">
       <input class="finp" id="et-date" type="date" style="flex:1"/>
