@@ -19,7 +19,7 @@
   --bg:#0B1018;--surface:#181D25;--surface-2:#111827;--surface-3:#242C37;
   --card:#171B24;--card2:#1B2029;
   --border:rgba(255,255,255,.08);--border2:rgba(32,146,255,.22);--border-input:rgba(255,255,255,.12);
-  --gold:#2092FF;--gold2:#3AA0FF;--gold-dim:rgba(32,146,255,.14);
+  --gold:#2092FF;--gold2:#3AA0FF;--gold-dim:rgba(32,146,255,.14);--gold-rgb:32,146,255;
   --gold-dark:#0B5ED1;--gold-dark2:#0B5ED1;
   --gold-b20:rgba(32,146,255,.2);--gold-b30:rgba(32,146,255,.3);--gold-b15:rgba(32,146,255,.15);
   --gold-b25:rgba(32,146,255,.25);--gold-b10:rgba(32,146,255,.1);--gold-b12:rgba(32,146,255,.12);
@@ -46,7 +46,7 @@ body.font-rubik{--font:var(--font-rubik)}
 input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-visible,a:focus-visible{outline-color:var(--gold)}
 /* ── ثيم نيرة: وردي-فوشيا ── */
 body.theme-neira{
-  --gold:#ec4899;--gold2:#f9a8d4;--gold-dim:rgba(236,72,153,.13);
+  --gold:#ec4899;--gold2:#f9a8d4;--gold-dim:rgba(236,72,153,.13);--gold-rgb:236,72,153;
   --gold-dark:#9d174d;--gold-dark2:#a21caf;
   --gold-b20:rgba(236,72,153,.2);--gold-b30:rgba(236,72,153,.3);--gold-b15:rgba(236,72,153,.15);
   --gold-b25:rgba(236,72,153,.25);--gold-b10:rgba(236,72,153,.1);--gold-b12:rgba(236,72,153,.12);
@@ -506,7 +506,7 @@ header{
 .tabs{padding:8px;border-radius:16px;background:rgba(255,255,255,.03)}
 .tab{border-radius:12px;transition:background .2s ease,color .2s ease,border-color .2s ease,transform .15s ease}
 .tab.active{box-shadow:0 8px 20px rgba(0,0,0,.25)}
-.tab.active.tab-clr-gold{box-shadow:0 8px 20px rgba(32,146,255,.15)}
+.tab.active.tab-clr-gold{box-shadow:0 8px 20px rgba(var(--gold-rgb),.15)}
 
 /* -- buttons: consistent premium lift -- */
 .btn-primary{transition:transform .2s ease,box-shadow .2s ease}
@@ -554,12 +554,12 @@ body{
     background:
         radial-gradient(
             circle at 12% 8%,
-            rgba(32,146,255,.18),
+            rgba(var(--gold-rgb),.18),
             transparent 32rem
         ),
         radial-gradient(
             circle at 88% 0%,
-            rgba(32,146,255,.14),
+            rgba(var(--gold-rgb),.14),
             transparent 28rem
         ),
         linear-gradient(
@@ -582,17 +582,17 @@ body::before{
     background:
         radial-gradient(
             circle at 20% 10%,
-            rgba(32,146,255,.10),
+            rgba(var(--gold-rgb),.10),
             transparent 28%
         ),
         radial-gradient(
             circle at 80% 5%,
-            rgba(32,146,255,.08),
+            rgba(var(--gold-rgb),.08),
             transparent 22%
         ),
         radial-gradient(
             circle at 50% 120%,
-            rgba(32,146,255,.05),
+            rgba(var(--gold-rgb),.05),
             transparent 45%
         );
     filter:blur(80px);
@@ -626,18 +626,129 @@ main{background:transparent!important}
     right:-140px;
     bottom:-140px;
     border-radius:50%;
-    background:rgba(32,146,255,.12);
+    background:rgba(var(--gold-rgb),.12);
     filter:blur(90px);
     pointer-events:none;
     z-index:0;
 }
 a{color:inherit;text-decoration:none}
-::selection{background:#2092ff;color:#ffffff}
+::selection{background:var(--gold);color:#ffffff}
 /* -- scrollbar -- */
 ::-webkit-scrollbar{width:10px}
 ::-webkit-scrollbar-track{background:#10151d}
-::-webkit-scrollbar-thumb{background:#2092ff;border-radius:100px}
-::-webkit-scrollbar-thumb:hover{background:#3aa0ff}
+::-webkit-scrollbar-thumb{background:var(--gold);border-radius:100px}
+::-webkit-scrollbar-thumb:hover{background:var(--gold2)}
+
+/* ══════════════════════════════════════════════════════════
+   UI UNIFICATION & POLISH LAYER
+   (visual refinement only — no logic/markup structure changes)
+   ══════════════════════════════════════════════════════════ */
+
+/* -- global easing + consistent radii scale -- */
+:root{
+  --ease:cubic-bezier(.22,.9,.34,1.1);
+  --ease-fast:cubic-bezier(.4,0,.2,1);
+  --r-lg:24px;--r-md:var(--r);--r-sm:var(--rs);--r-xl:var(--rp);
+}
+
+/* -- unify every card-like surface on one consistent radius/shadow/hover language -- */
+.panel,.quran-block,.fast-block,.admin-section,.adhkar-section,
+.course-block,.modal-box,#admin-lock,.today-progress-mini,
+.hrow,.admin-habit-row,.admin-course-block,.fday,.mat-choice-btn{
+  border-radius:var(--r-lg);
+}
+.hrow,.fday,.mat-choice-btn{border-radius:var(--r-md)}
+.admin-habit-row,.admin-course-block,.hdesc,.url-row,.fast-counter,.adhkar-item{border-radius:var(--r-sm)}
+.modal-box,#gate-screen .gate-box{border-radius:var(--r-xl)}
+
+.panel:hover,.quran-block:hover,.fast-block:hover,.course-block:hover,
+.adhkar-section:hover{
+  border-color:var(--border2);
+}
+
+/* -- buttons: one consistent family (primary / ghost / pill), same radius + easing -- */
+.btn-primary,.btn-ghost,.log-back-btn,.check-all-btn,.tf-pill,.dl-btn,
+.mat-choice-btn,.ptitle-btn,.install-cta{
+  font-family:var(--font);
+  border-radius:var(--r-sm);
+  transition:transform .18s var(--ease-fast),box-shadow .2s var(--ease-fast),
+             background .18s var(--ease-fast),border-color .18s var(--ease-fast),color .18s var(--ease-fast);
+}
+.btn-primary,.check-all-btn{border-radius:var(--r-sm)}
+.log-back-btn,.tf-pill,.dl-btn,.install-cta{border-radius:50px}
+.btn-primary:hover,.check-all-btn:hover{transform:translateY(-2px)}
+.btn-primary:active,.btn-ghost:active,.check-all-btn:active,.log-back-btn:active,
+.tf-pill:active,.dl-btn:active,.install-cta:active{transform:scale(.96)}
+.btn-primary:disabled,.btn-ghost:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
+
+/* -- inputs & selects: one consistent look, calmer default surface -- */
+.finp,.fsel,.gate-inp{
+  background:var(--surface);
+  border-radius:var(--r-sm);
+  transition:border-color .18s var(--ease-fast),box-shadow .18s var(--ease-fast),background .18s var(--ease-fast);
+}
+.finp:hover,.fsel:hover{border-color:var(--border2)}
+#tab-admin .finp,#tab-admin .fsel{background-color:var(--surface-3)}
+
+/* -- unify headers/titles across sections (course-title, quran-title, fast-title, ptitle, modal-title...) -- */
+.course-title,.quran-title,.fast-title,.ptitle,.modal-title,.gate-title,
+.admin-sec-title,.adhkar-header-title{
+  font-weight:800;letter-spacing:.2px;
+}
+.course-title,.modal-title,.gate-title{color:var(--gold)}
+.ptitle{letter-spacing:.6px}
+
+/* -- unify icon squares sizing rhythm -- */
+.icon-sq,.slabel-ico,.admin-habit-icon,.course-pin-btn,.course-link-btn{transition:background .18s var(--ease-fast),color .18s var(--ease-fast),transform .18s var(--ease-fast)}
+.icon-sq:hover,.admin-habit-icon:hover{transform:scale(1.05)}
+
+/* -- hover lift, consistent everywhere a row/card can be interacted with -- */
+.hrow,.admin-habit-row,.fday,.course-meta-row,.admin-course-block,.juz-btn,.pray-btn,.tab{
+  transition:border-color .2s var(--ease-fast),background .2s var(--ease-fast),
+             transform .15s var(--ease-fast),box-shadow .2s var(--ease-fast),color .15s var(--ease-fast);
+}
+.juz-btn:hover,.pray-btn:hover{border-color:var(--border2);transform:translateY(-1px)}
+
+/* -- focus: one consistent ring color/spread across all interactive controls -- */
+.finp:focus,.fsel:focus,.gate-inp:focus{box-shadow:0 0 0 3px var(--gold-b12)}
+.btn-primary:focus-visible,.btn-ghost:focus-visible,.tab:focus-visible,
+.chk:focus-visible,.pray-btn:focus-visible,.juz-btn:focus-visible{
+  outline:2px solid var(--gold);outline-offset:2px;
+}
+
+/* -- toast: icon + text layout (icon injected by toast() JS, purely presentational) -- */
+#toast{display:flex;align-items:center;gap:8px;justify-content:center}
+#toast .toast-ico{display:inline-flex;flex-shrink:0}
+#toast .toast-ico svg{width:15px;height:15px}
+
+/* -- modal / dialog polish: gentle fade + pop, consistent with confirm-box -- */
+.modal-overlay{animation:modalOverlayIn .18s var(--ease-fast)}
+.modal-box{animation:modalPopIn .22s var(--ease)}
+@keyframes modalOverlayIn{from{opacity:0}to{opacity:1}}
+@keyframes modalPopIn{from{opacity:0;transform:scale(.95) translateY(10px)}to{opacity:1;transform:scale(1) translateY(0)}}
+
+/* -- gentle entrance for freshly-rendered cards/rows (subtle, not exaggerated) -- */
+@keyframes fadeSlideIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.panel,.quran-block,.fast-block,.admin-section,.course-block,.adhkar-section,
+.today-progress-mini,#admin-lock{animation:fadeSlideIn .28s var(--ease-fast) both}
+
+/* -- responsive: tablet + small phone refinements (visual only) -- */
+@media (max-width:768px){
+  main{padding:18px 14px 116px}
+}
+@media (max-width:480px){
+  .tab{min-width:60px;padding:10px 12px;font-size:11.5px}
+  .prayers-grid{gap:5px}
+  .quran-grid{grid-template-columns:repeat(5,1fr)}
+  .modal-box{padding:16px;max-height:92vh}
+  .log-chooser{gap:8px}
+  .course-meta-row{padding:0 12px}
+}
+@media (max-width:360px){
+  .quran-grid{grid-template-columns:repeat(4,1fr)}
+  .fast-num{font-size:30px}
+  .logo-sub{display:none}
+}
 </style>
 </head>
 <body class="dark-mode">
@@ -736,21 +847,21 @@ a{color:inherit;text-decoration:none}
         <input class="finp" id="task-reminder-inp" type="datetime-local" style="flex:1" title="تذكير (اختياري)"/>
         <select class="fsel" id="task-priority-inp" style="flex:1">
           <option value="">بدون أولوية</option>
-          <option value="high">🔴 عالية</option>
-          <option value="medium">🟠 متوسطة</option>
-          <option value="low">🟢 منخفضة</option>
+          <option value="high">عالية</option>
+          <option value="medium">متوسطة</option>
+          <option value="low">منخفضة</option>
         </select>
       </div>
       <div class="frow">
         <select class="fsel" id="task-cat-inp" style="flex:1">
           <option value="">بدون ربط بقسم</option>
-          <option value="قرآن">📖 قرآن</option>
-          <option value="أذكار">📿 أذكار</option>
-          <option value="صلاة">🕌 صلاة</option>
-          <option value="صوم">🌙 صوم</option>
-          <option value="تحميل">📥 تحميل</option>
-          <option value="مراجعة">🔁 مراجعة</option>
-          <option value="أخرى">⭐ أخرى</option>
+          <option value="قرآن">قرآن</option>
+          <option value="أذكار">أذكار</option>
+          <option value="صلاة">صلاة</option>
+          <option value="صوم">صوم</option>
+          <option value="تحميل">تحميل</option>
+          <option value="مراجعة">مراجعة</option>
+          <option value="أخرى">أخرى</option>
         </select>
         <select class="fsel" id="task-user-inp" style="flex:1">
           <option value="كلاهما">كلاهما</option>
@@ -797,7 +908,7 @@ a{color:inherit;text-decoration:none}
       <div id="hijri-weekday-header" style="display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-bottom:3px"></div>
       <div id="hijri-cal-grid" style="display:grid;grid-template-columns:repeat(7,1fr);gap:3px"></div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;font-size:9px;color:var(--muted)">
-        <span>🟢 يوم صيام مُسجَّل (تم)</span><span>🟡 يوم صيام مُتاح</span><span>⚪ يوم عادي</span>
+        <span style="display:inline-flex;align-items:center;gap:4px"><i style="width:8px;height:8px;border-radius:50%;background:var(--green);display:inline-block"></i>يوم صيام مُسجَّل (تم)</span><span style="display:inline-flex;align-items:center;gap:4px"><i style="width:8px;height:8px;border-radius:50%;background:var(--orange);display:inline-block"></i>يوم صيام مُتاح</span><span style="display:inline-flex;align-items:center;gap:4px"><i style="width:8px;height:8px;border-radius:50%;background:var(--border2);display:inline-block"></i>يوم عادي</span>
       </div>
     </div>
 
@@ -833,7 +944,7 @@ a{color:inherit;text-decoration:none}
   </div>
 
   <div id="tab-lectures" style="display:none">
-    <div id="courses-list"><div class="lempty">لا توجد كورسات — اذهب لـ «⚙ إدارة»</div></div>
+    <div id="courses-list"><div class="lempty">لا توجد كورسات — اذهب لـ «إدارة»</div></div>
   </div>
 
   <div id="tab-admin" style="display:none">
@@ -878,11 +989,11 @@ a{color:inherit;text-decoration:none}
         <div class="frow">
           <input class="finp" id="h-name" placeholder="اسم العادة" style="flex:2"/>
           <select class="fsel" id="h-cat" style="flex:1">
-            <option value="أذكار">📿 أذكار</option>
-            <option value="قرآن">📖 قرآن</option>
-            <option value="صلاة">🕌 صلاة</option>
-            <option value="صوم">🌙 صوم</option>
-            <option value="أخرى">⭐ أخرى</option>
+            <option value="أذكار">أذكار</option>
+            <option value="قرآن">قرآن</option>
+            <option value="صلاة">صلاة</option>
+            <option value="صوم">صوم</option>
+            <option value="أخرى">أخرى</option>
           </select>
         </div>
         <div class="frow">
@@ -901,7 +1012,7 @@ a{color:inherit;text-decoration:none}
           <button class="toggle" id="url-toggle" onclick="toggleUrlField(this)"></button>
         </div>
         <div id="url-field" style="display:none;margin-bottom:8px">
-          <div class="url-row"><span style="color:var(--muted)">🔗</span><input class="finp" id="h-url" type="url" placeholder="https://..."/></div>
+          <div class="url-row"><span style="color:var(--muted);display:inline-flex"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></span><input class="finp" id="h-url" type="url" placeholder="https://..."/></div>
         </div>
         <button class="btn-primary" onclick="addHabit()">✦ إضافة العادة</button>
       </div>
@@ -940,8 +1051,8 @@ a{color:inherit;text-decoration:none}
         </div>
         <div class="frow">
           <select class="fsel" id="fast-type" style="flex:1">
-            <option value="نافلة">🌙 نافلة</option>
-            <option value="قضاء">🔁 قضاء</option>
+            <option value="نافلة">نافلة</option>
+            <option value="قضاء">قضاء</option>
           </select>
           <select class="fsel" id="fast-who" style="flex:1">
             <option value="كلاهما">كلاهما</option>
@@ -950,7 +1061,7 @@ a{color:inherit;text-decoration:none}
           </select>
         </div>
         <button class="btn-primary" onclick="addFastingPeriod()" style="margin-bottom:12px">إضافة أيام الصيام</button>
-        <div style="font-size:11px;color:var(--muted);margin-bottom:10px">إدارة الأيام (تعليم/حذف يوم بعينه) بقت من تاب «🌙 الصيام» نفسه؛ هنا بس للإضافة.</div>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:10px">إدارة الأيام (تعليم/حذف يوم بعينه) بقت من تاب «الصيام» نفسه؛ هنا بس للإضافة.</div>
         <div style="margin-top:10px"><button class="btn-ghost" onclick="clearFasting()">🗑 حذف كل أيام الصيام</button></div>
       </div>
 
@@ -1045,11 +1156,11 @@ a{color:inherit;text-decoration:none}
     <div class="frow">
       <input class="finp" id="eh-name" placeholder="اسم العادة" style="flex:2"/>
       <select class="fsel" id="eh-cat" style="flex:1">
-        <option value="أذكار">📿 أذكار</option>
-        <option value="قرآن">📖 قرآن</option>
-        <option value="صلاة">🕌 صلاة</option>
-        <option value="صوم">🌙 صوم</option>
-        <option value="أخرى">⭐ أخرى</option>
+        <option value="أذكار">أذكار</option>
+        <option value="قرآن">قرآن</option>
+        <option value="صلاة">صلاة</option>
+        <option value="صوم">صوم</option>
+        <option value="أخرى">أخرى</option>
       </select>
     </div>
     <div class="frow">
@@ -1061,21 +1172,21 @@ a{color:inherit;text-decoration:none}
       </select>
     </div>
     <div style="margin-bottom:8px"><textarea class="finp" id="eh-desc" placeholder="نص يظهر تحت الذكر (اختياري)..."></textarea></div>
-    <div class="url-row"><span style="color:var(--muted)">🔗</span><input class="finp" id="eh-url" type="url" placeholder="https://..."/></div>
+    <div class="url-row"><span style="color:var(--muted);display:inline-flex"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></span><input class="finp" id="eh-url" type="url" placeholder="https://..."/></div>
     <div class="toggle-row">
       <span class="toggle-label">الفروض (مربوط بشاشة الصلوات)</span>
       <button class="toggle" id="eh-prayers-toggle" onclick="this.classList.toggle('on')"></button>
     </div>
-    <button class="btn-primary" onclick="saveEditHabit()">💾 حفظ التعديلات</button>
+    <button class="btn-primary" onclick="saveEditHabit()">حفظ التعديلات</button>
   </div>
 </div>
 
 <div class="modal-overlay" id="edit-task-modal" style="display:none">
   <div class="modal-box">
-    <div class="modal-hdr"><div class="modal-title">✏️ تعديل المهمة</div><button class="modal-x" onclick="closeEditTask()">×</button></div>
+    <div class="modal-hdr"><div class="modal-title">تعديل المهمة</div><button class="modal-x" onclick="closeEditTask()">×</button></div>
     <div style="margin-bottom:8px"><input class="finp" id="et-text" placeholder="نص المهمة" style="width:100%"/></div>
     <div class="url-row">
-      <span style="color:var(--muted)">🔗</span>
+      <span style="color:var(--muted);display:inline-flex"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></span>
       <input class="finp" id="et-link" type="url" placeholder="لينك (اختياري) — https://..."/>
     </div>
     <div class="frow">
@@ -1085,19 +1196,19 @@ a{color:inherit;text-decoration:none}
     <div class="frow">
       <select class="fsel" id="et-cat" style="flex:1">
         <option value="">بدون ربط بقسم</option>
-        <option value="قرآن">📖 قرآن</option>
-        <option value="أذكار">📿 أذكار</option>
-        <option value="صلاة">🕌 صلاة</option>
-        <option value="صوم">🌙 صوم</option>
-        <option value="تحميل">📥 تحميل</option>
-        <option value="مراجعة">🔁 مراجعة</option>
-        <option value="أخرى">⭐ أخرى</option>
+        <option value="قرآن">قرآن</option>
+        <option value="أذكار">أذكار</option>
+        <option value="صلاة">صلاة</option>
+        <option value="صوم">صوم</option>
+        <option value="تحميل">تحميل</option>
+        <option value="مراجعة">مراجعة</option>
+        <option value="أخرى">أخرى</option>
       </select>
       <select class="fsel" id="et-priority" style="flex:1">
         <option value="">بدون أولوية</option>
-        <option value="high">🔴 عالية</option>
-        <option value="medium">🟠 متوسطة</option>
-        <option value="low">🟢 منخفضة</option>
+        <option value="high">عالية</option>
+        <option value="medium">متوسطة</option>
+        <option value="low">منخفضة</option>
       </select>
     </div>
     <div class="frow">
@@ -1119,7 +1230,7 @@ a{color:inherit;text-decoration:none}
         <option value="نيرة">نيرة فقط</option>
       </select>
     </div>
-    <button class="btn-primary" onclick="saveEditTask()">💾 حفظ التعديلات</button>
+    <button class="btn-primary" onclick="saveEditTask()">حفظ التعديلات</button>
   </div>
 </div>
 
@@ -1198,6 +1309,7 @@ function cycleAdhkarSectionIcon(sectionId){
 }
 const CAT_COLOR_CLASS={'أذكار':'i-teal','قرآن':'i-purple','صلاة':'i-blue','صوم':'i-green','أخرى':'i-orange'};
 function catClass(cat){return CAT_COLOR_CLASS[cat]||'i-orange';}
+function chkIcon(sz){return `<svg width="${sz}" height="${sz}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="display:block"><path d="M20 6 9 17l-5-5"/></svg>`;}
 const NAFL_ICON=svgi('<circle cx="12" cy="6" r="2.5"/><path d="M12 8.5V13"/><path d="M7 21l3-6h4l3 6"/><path d="M8 13h8"/>');
 const LECTURE_ICON=svgi('<path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.1 2.7 3 6 3s6-1.9 6-3v-5"/>');
 const PRAYER_ICON=svgi('<path d="M4 21V10l8-6 8 6v11"/><path d="M9 21v-6h6v6"/><circle cx="12" cy="6" r="1.4" fill="currentColor" stroke="none"/>');
@@ -1555,16 +1667,16 @@ function renderNaflBlock(){
   const doneCount=naflItems.filter(n=>getRec('nafl__'+n.id,currentUser)?.done).length;
   const allDone=doneCount===naflItems.length;
   wrap.innerHTML=`
-    <div class="slabel">🕋 النوافل</div>
+    <div class="slabel">النوافل</div>
     <div class="hrow ${allDone?'done':''}" style="flex-direction:column;align-items:stretch;gap:10px">
       <div style="display:flex;align-items:center;gap:12px">
-        <div class="chk" style="cursor:default;${allDone?'background:var(--green);border-color:var(--green);color:#fff':''}">${allDone?'✓':doneCount+'/'+naflItems.length}</div>
+        <div class="chk" style="cursor:default;${allDone?'background:var(--green);border-color:var(--green);color:#fff':''}">${allDone?chkIcon(15):doneCount+'/'+naflItems.length}</div>
         <div class="hinfo" style="margin:0"><div class="hname"><span class="hname-text">النوافل</span></div><div class="hmeta"><span class="tag">${doneCount} من ${naflItems.length}</span></div></div>
       </div>
       <div class="prayers-grid" style="grid-template-columns:repeat(${Math.min(naflItems.length,5)||1},1fr)">
-        ${naflItems.map(n=>{const d=getRec('nafl__'+n.id,currentUser)?.done;return `<button class="pray-btn ${d?'done':''}" onclick="toggleNafl('${n.id}')"><span style="font-size:14px">${d?'✓':'○'}</span><span>${escHtml(n.name)}</span></button>`;}).join('')}
+        ${naflItems.map(n=>{const d=getRec('nafl__'+n.id,currentUser)?.done;return `<button class="pray-btn ${d?'done':''}" onclick="toggleNafl('${n.id}')"><span style="font-size:14px;display:inline-flex">${d?chkIcon(14):''}</span><span>${escHtml(n.name)}</span></button>`;}).join('')}
       </div>
-      ${!allDone?`<button class="check-all-btn" onclick="checkAllNafl()">✅ تسجيل كل النوافل دفعة واحدة</button>`:''}
+      ${!allDone?`<button class="check-all-btn" onclick="checkAllNafl()">تسجيل كل النوافل دفعة واحدة</button>`:''}
     </div>`;
 }
 async function toggleNafl(id){
@@ -1730,7 +1842,7 @@ function renderAdminAdhkar(){
           <span class="adhkar-item-text" style="flex:1">${escHtml(it.text)}</span>
           ${it.count?`<button class="tag" style="color:var(--teal);border-color:var(--teal);font-weight:800" onclick="decrementAdhkarCount('${s.id}','${it.id}')" title="اضغط لإنقاص العداد">${it.remaining??it.count} / ${it.count}</button>
           <button class="admin-del" style="font-size:11px" onclick="resetAdhkarCount('${s.id}','${it.id}')" title="إعادة تعيين العداد">↺</button>`:''}
-          <button class="admin-del" style="font-size:12px" onclick="setAdhkarItemCount('${s.id}','${it.id}')" title="${it.count?'تعديل العداد':'إضافة عداد تكرار'}">🔢</button>
+          <button class="admin-del" style="font-size:12px" onclick="setAdhkarItemCount('${s.id}','${it.id}')" title="${it.count?'تعديل العداد':'إضافة عداد تكرار'}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg></button>
           <div class="admin-move">
             <button class="mvbtn" onclick="moveAdhkarItem('${s.id}','${it.id}',-1)" ${i===0?'disabled':''} title="لأعلى">▲</button>
             <button class="mvbtn" onclick="moveAdhkarItem('${s.id}','${it.id}',1)" ${i===s.items.length-1?'disabled':''} title="لأسفل">▼</button>
@@ -1858,7 +1970,7 @@ function renderQuranTab(){
   const uq=quranData[currentUser]||{};const done=Object.values(uq).filter(Boolean).length;const pct=Math.round(done/JUZ_COUNT*100);
   const s=document.getElementById('quran-stats');const b=document.getElementById('quran-bar');const g=document.getElementById('quran-grid');
   if(s)s.textContent=`${done}/${JUZ_COUNT} جزء (${pct}%)`;if(b)b.style.width=pct+'%';
-  if(g)g.innerHTML=Array.from({length:JUZ_COUNT},(_,i)=>{const j=i+1,d=uq[j];return `<button class="juz-btn ${d?'done':''}" onclick="toggleJuz(${j})">${d?'✓ ':''}${j}</button>`;}).join('');
+  if(g)g.innerHTML=Array.from({length:JUZ_COUNT},(_,i)=>{const j=i+1,d=uq[j];return `<button class="juz-btn ${d?'done':''}" onclick="toggleJuz(${j})">${d?j:j}</button>`;}).join('');
 }
 
 async function addFastingPeriod(){
@@ -2043,7 +2155,7 @@ function renderTodayTasks(){
   const el=document.getElementById('today-tasks-card');if(!el)return;
   const todays=myTasks().filter(t=>t.date===TODAY());
   if(!todays.length){el.innerHTML='';return;}
-  el.innerHTML=`<div class="slabel"><span>📌 مهام اليوم</span></div>`+todays.map(t=>taskItemHTML(t,false)).join('');
+  el.innerHTML=`<div class="slabel"><span>مهام اليوم</span></div>`+todays.map(t=>taskItemHTML(t,false)).join('');
 }
 function setTaskFilterCat(c){taskFilterCat=c;renderTasksTab();}
 function setTaskSort(v){taskSortMode=v;renderTasksTab();}
@@ -2110,14 +2222,14 @@ function fastDayHTML(d){
   let status='';
   if(d.date===TODAY())status=mine?'اليوم ✓':'اليوم';else if(d.date>TODAY())status=`${daysDiff(TODAY(),d.date)} يوم`;else if(d.date<TODAY()&&!mine)status='فات';
   const who=cb.length?`<div class="fday-who">✓ ${cb.join(' + ')}</div>`:'';
-  const typeTag=d.type?`<span class="tag" style="font-size:9px;padding:1px 6px">${d.type==='قضاء'?'🔁':'🌙'} ${d.type}</span>`:'';
-  const assignedTag=(d.assignedTo&&d.assignedTo!=='كلاهما')?`<span class="tag" style="font-size:9px;padding:1px 6px;color:var(--gold)">👤 ${d.assignedTo}</span>`:'';
+  const typeTag=d.type?`<span class="tag" style="font-size:9px;padding:1px 6px">${d.type}</span>`:'';
+  const assignedTag=(d.assignedTo&&d.assignedTo!=='كلاهما')?`<span class="tag" style="font-size:9px;padding:1px 6px;color:var(--gold)">${d.assignedTo}</span>`:'';
   const tagsRow=(typeTag||assignedTag)?`<div class="fday-tags">${typeTag}${assignedTag}</div>`:'';
   return `<div class="fday ${mine?'checked':''}" onclick="toggleFastDay('${d.date}')">
-    <div class="fchk">${mine?'✓':''}</div>
+    <div class="fchk">${mine?chkIcon(13):''}</div>
     <div class="fday-info"><div class="fday-date">${lbl}</div>${tagsRow}${who}</div>
     <div class="fday-status">${status}</div>
-    <button class="fday-del" onclick="event.stopPropagation();deleteFastDay('${d.date}')" title="حذف">🗑</button>
+    <button class="fday-del" onclick="event.stopPropagation();deleteFastDay('${d.date}')" title="حذف"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg></button>
   </div>`;
 }
 
@@ -2148,7 +2260,7 @@ function renderFasting(){
   const el=document.getElementById('fast-days-list');
   const monthLbl=document.getElementById('fast-list-month-lbl');
   if(monthLbl)monthLbl.textContent=grid?hijriMonthName(grid.monthStart):'';
-  el.innerHTML=my.length?my.map(fastDayHTML).join(''):(total?'<div class="lempty">لا توجد أيام صيام متاحة في هذا الشهر — تصفّح الشهور من التقويم فوق</div>':'<div class="lempty">لا توجد أيام — اذهب لـ «⚙ إدارة»</div>');
+  el.innerHTML=my.length?my.map(fastDayHTML).join(''):(total?'<div class="lempty">لا توجد أيام صيام متاحة في هذا الشهر — تصفّح الشهور من التقويم فوق</div>':'<div class="lempty">لا توجد أيام — اذهب لـ «إدارة»</div>');
   renderFastCalendar();
 }
 function renderAdminFasting(){}
@@ -2295,12 +2407,12 @@ async function renderHistoryForDate(date){
       if(h.prayers){
         rowsHtml+=`<div class="hrow" style="flex-direction:column;align-items:stretch;gap:8px">
           <div class="hinfo" style="margin:0"><div class="hname"><span class="hname-text">الفروض</span></div><div class="hmeta"><span class="tag">${u}</span></div></div>
-          <div class="prayers-grid">${PRAYERS.map(p=>{const key=h.id+'__'+p;const d=arr.find(r=>r.habitId===key&&r.user===u&&r.date===date)?.done;return `<button class="pray-btn ${d?'done':''}" onclick="toggleDateRecord('${date}','${key}','${u}')"><span style="font-size:14px">${d?'✓':'○'}</span><span>${p}</span></button>`;}).join('')}</div>
+          <div class="prayers-grid">${PRAYERS.map(p=>{const key=h.id+'__'+p;const d=arr.find(r=>r.habitId===key&&r.user===u&&r.date===date)?.done;return `<button class="pray-btn ${d?'done':''}" onclick="toggleDateRecord('${date}','${key}','${u}')"><span style="font-size:14px;display:inline-flex">${d?chkIcon(14):''}</span><span>${p}</span></button>`;}).join('')}</div>
         </div>`;
         return;
       }
       const rec=arr.find(r=>r.habitId===h.id&&r.user===u&&r.date===date);const done=rec?.done;
-      rowsHtml+=`<div class="hrow ${done?'done':''}"><button class="chk" onclick="toggleDateRecord('${date}','${h.id}','${u}')">${done?'✓':''}</button><div class="hinfo"><div class="hname"><span class="hname-text">${escHtml(h.name)}</span></div><div class="hmeta"><span class="tag">${u}</span><span class="tag" style="opacity:.7">${h.cat}</span></div></div></div>`;
+      rowsHtml+=`<div class="hrow ${done?'done':''}"><button class="chk" onclick="toggleDateRecord('${date}','${h.id}','${u}')">${done?chkIcon(15):''}</button><div class="hinfo"><div class="hname"><span class="hname-text">${escHtml(h.name)}</span></div><div class="hmeta"><span class="tag">${u}</span><span class="tag" style="opacity:.7">${h.cat}</span></div></div></div>`;
     });
   });
   if(!rowsHtml)rowsHtml='<div class="lempty">لا توجد عادات مطابقة لهذا اليوم/الفلتر</div>';
@@ -2407,12 +2519,12 @@ async function renderHistory(){
   el.innerHTML=dates.map(date=>{
     const g=grouped[date];
     const fastingWhom=(cat==='الكل'||cat==='صوم')?(who==='الكل'?g.fasting:g.fasting.filter(u=>u===who)):[];
-    const fH=fastingWhom.length?`<div class="hrow done" style="background:rgba(76,175,125,.06)"><div class="chk" style="background:var(--green);border-color:var(--green);color:#fff;cursor:default">✓</div><div class="hinfo"><div class="hname"><span class="hname-text name-with-icon"><span class="icon-sq i-sm i-green">${CAT_ICONS.صوم}</span>صام اليوم</span></div><div class="hmeta"><span class="tag">${fastingWhom.join(' + ')}</span></div></div></div>`:'';
-    const qH=(cat==='الكل'||cat==='قرآن')?Object.entries(g.quran).filter(([u])=>who==='الكل'||u===who).map(([u,jz])=>`<div class="hrow done" style="background:rgba(155,110,240,.05)"><div class="chk" style="background:var(--purple);border-color:var(--purple);color:#fff;cursor:default">✓</div><div class="hinfo"><div class="hname"><span class="hname-text name-with-icon"><span class="icon-sq i-sm i-purple">${CAT_ICONS.قرآن}</span>قرآن</span></div><div class="hmeta"><span class="tag">${u}</span><span class="tag">${jz.join('، ')}</span></div></div></div>`).join(''):'';
-    const lH=(cat==='الكل'||cat==='محاضرات')?Object.entries(g.lectures||{}).filter(([u])=>who==='الكل'||u===who).map(([u,names])=>`<div class="hrow done" style="background:rgba(91,142,240,.05)"><div class="chk" style="background:var(--blue);border-color:var(--blue);color:#fff;cursor:default">✓</div><div class="hinfo"><div class="hname"><span class="hname-text name-with-icon"><span class="icon-sq i-sm i-blue">${LECTURE_ICON}</span>محاضرات</span></div><div class="hmeta"><span class="tag">${u}</span><span class="tag">${names.join('، ')}</span></div></div></div>`).join(''):'';
+    const fH=fastingWhom.length?`<div class="hrow done" style="background:rgba(76,175,125,.06)"><div class="chk" style="background:var(--green);border-color:var(--green);color:#fff;cursor:default">${chkIcon(15)}</div><div class="hinfo"><div class="hname"><span class="hname-text name-with-icon"><span class="icon-sq i-sm i-green">${CAT_ICONS.صوم}</span>صام اليوم</span></div><div class="hmeta"><span class="tag">${fastingWhom.join(' + ')}</span></div></div></div>`:'';
+    const qH=(cat==='الكل'||cat==='قرآن')?Object.entries(g.quran).filter(([u])=>who==='الكل'||u===who).map(([u,jz])=>`<div class="hrow done" style="background:rgba(155,110,240,.05)"><div class="chk" style="background:var(--purple);border-color:var(--purple);color:#fff;cursor:default">${chkIcon(15)}</div><div class="hinfo"><div class="hname"><span class="hname-text name-with-icon"><span class="icon-sq i-sm i-purple">${CAT_ICONS.قرآن}</span>قرآن</span></div><div class="hmeta"><span class="tag">${u}</span><span class="tag">${jz.join('، ')}</span></div></div></div>`).join(''):'';
+    const lH=(cat==='الكل'||cat==='محاضرات')?Object.entries(g.lectures||{}).filter(([u])=>who==='الكل'||u===who).map(([u,names])=>`<div class="hrow done" style="background:rgba(91,142,240,.05)"><div class="chk" style="background:var(--blue);border-color:var(--blue);color:#fff;cursor:default">${chkIcon(15)}</div><div class="hinfo"><div class="hname"><span class="hname-text name-with-icon"><span class="icon-sq i-sm i-blue">${LECTURE_ICON}</span>محاضرات</span></div><div class="hmeta"><span class="tag">${u}</span><span class="tag">${names.join('، ')}</span></div></div></div>`).join(''):'';
     let recsWhom=who==='الكل'?g.recs:g.recs.filter(r=>r.user===who);
     if(cat!=='الكل')recsWhom=recsWhom.filter(r=>r.cat===cat);
-    const rH=recsWhom.map(r=>`<div class="hrow ${r.done?'done':''}"><div class="chk">${r.done?'✓':''}</div><div class="hinfo"><div class="hname"><span class="hname-text">${r.hname}</span></div><div class="hmeta"><span class="tag">${r.user}</span></div></div>${r.done?`<button class="admin-del" onclick="toggleDateRecord('${date}','${r.habitId}','${r.user}')" title="حذف — اتعلّمت بالغلط">×</button>`:''}</div>`).join('');
+    const rH=recsWhom.map(r=>`<div class="hrow ${r.done?'done':''}"><div class="chk">${r.done?chkIcon(15):''}</div><div class="hinfo"><div class="hname"><span class="hname-text">${r.hname}</span></div><div class="hmeta"><span class="tag">${r.user}</span></div></div>${r.done?`<button class="admin-del" onclick="toggleDateRecord('${date}','${r.habitId}','${r.user}')" title="حذف — اتعلّمت بالغلط">×</button>`:''}</div>`).join('');
     const dLbl=new Date(date+'T12:00:00').toLocaleDateString('ar-EG',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
     const emptyNote=(!fH&&!qH&&!lH&&!rH)?`<div class="lempty" style="padding:10px 0">لا توجد نتائج مطابقة للفلتر</div>`:'';
     return `<div class="hblock"><div class="hdate name-with-icon"><span class="icon-sq i-sm">${CAL_ICON}</span>${dLbl}</div>${fH}${qH}${lH}${rH}${emptyNote}</div>`;
@@ -2460,17 +2572,17 @@ function renderAdminHabits(){
     return `<div class="slabel" style="margin-top:10px"><span class="slabel-ico ${catClass(cat)}">${CAT_ICONS[cat]||''}</span>${cat}</div>
       ${ch.map(h=>{const idx=habits.indexOf(h);
         return `<div class="admin-habit-row">
-        <div class="admin-habit-icon ${catClass(h.cat)}">${CAT_ICONS[h.cat]||'⭐'}</div>
+        <div class="admin-habit-icon ${catClass(h.cat)}">${CAT_ICONS[h.cat]||CAT_ICONS.أخرى}</div>
         <div class="admin-habit-info">
           <div class="admin-habit-name">${escHtml(h.name)}${h.target?` <span style="font-size:10px;color:var(--muted)">(${escHtml(h.target)})</span>`:''}</div>
-          <div class="admin-habit-meta"><span class="badge badge-muted">${h.user}</span>${h.prayers?'<span class="badge badge-gold">صلوات</span>':''}${h.url?'<span style="font-size:10px;color:var(--blue)">🔗</span>':''}</div>
-          ${h.desc?`<div class="admin-habit-desc" title="${escHtml(h.desc)}">📝 ${escHtml(h.desc)}</div>`:''}
+          <div class="admin-habit-meta"><span class="badge badge-muted">${h.user}</span>${h.prayers?'<span class="badge badge-gold">صلوات</span>':''}${h.url?'<span style="color:var(--blue);display:inline-flex;align-items:center" title="له رابط"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></span>':''}</div>
+          ${h.desc?`<div class="admin-habit-desc" title="${escHtml(h.desc)}">${escHtml(h.desc)}</div>`:''}
         </div>
         <div class="admin-move">
           <button class="mvbtn" onclick="moveHabit('${h.id}',-1)" ${idx===0?'disabled':''} title="لأعلى">▲</button>
           <button class="mvbtn" onclick="moveHabit('${h.id}',1)" ${idx===habits.length-1?'disabled':''} title="لأسفل">▼</button>
         </div>
-        <button class="admin-del" onclick="openEditHabit('${h.id}')" title="تعديل" style="font-size:15px">✏️</button>
+        <button class="admin-del" onclick="openEditHabit('${h.id}')" title="تعديل" style="font-size:15px;display:inline-flex"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
         <button class="admin-del" onclick="deleteHabit('${h.id}')">×</button>
       </div>`;}).join('')}`;
   }).join('');
@@ -2493,17 +2605,17 @@ function renderTodayFasting(){
   if(!fd){el.innerHTML='';return;}
   const cb=Array.isArray(fd.checkedBy)?fd.checkedBy:(fd.checked?['محمد']:[]);
   const mine=cb.includes(currentUser);
-  const typeTag=fd.type?`<span class="tag" style="font-size:9px;padding:1px 6px">${fd.type==='قضاء'?'🔁':'🌙'} ${fd.type}</span>`:'';
+  const typeTag=fd.type?`<span class="tag" style="font-size:9px;padding:1px 6px">${fd.type}</span>`:'';
   el.innerHTML=`<div class="slabel"><span class="slabel-ico i-green">${CAT_ICONS.صوم}</span>صيام اليوم</div>
     <div class="hrow ${mine?'done':''}">
-      <button class="chk" onclick="toggleFastDay('${TODAY()}')">${mine?'✓':''}</button>
+      <button class="chk" onclick="toggleFastDay('${TODAY()}')">${mine?chkIcon(15):''}</button>
       <div class="hinfo"><div class="hname"><span class="hname-text">اليوم يوم صيام${fd.type?` (${escHtml(fd.type)})`:''}</span></div>
       <div class="hmeta">${typeTag}${cb.length?`<span class="tag" style="color:var(--green)">✓ ${cb.join(' + ')}</span>`:''}</div></div>
     </div>`;
 }
 function renderHabits(){
   const my=habits.filter(h=>h.user==='كلاهما'||h.user===currentUser);const el=document.getElementById('habits-list');
-  if(!my.length){el.innerHTML=`<div class="empty"><span class="empty-icon">📋</span><div class="empty-text">لا توجد عادات — اذهب لـ «⚙ إدارة»</div></div>`;return;}
+  if(!my.length){el.innerHTML=`<div class="empty"><div class="empty-text">لا توجد عادات — اذهب لـ «إدارة»</div></div>`;return;}
   const cats=[...new Set(my.map(h=>h.cat))];
   el.innerHTML=cats.map(cat=>{const ch=my.filter(h=>h.cat===cat);
     const isQuranCat=cat==='قرآن'&&!ch.some(h=>h.prayers);
@@ -2514,23 +2626,23 @@ function renderHabits(){
         const pDone=PRAYERS.filter(p=>getPrayerRec(h.id,p,currentUser)?.done).length;const allDone=pDone===PRAYERS.length;
         return `<div class="hrow ${allDone?'done':''}" style="flex-direction:column;align-items:stretch;gap:10px">
           <div style="display:flex;align-items:center;gap:12px">
-            <div class="chk" style="cursor:default;${allDone?'background:var(--green);border-color:var(--green);color:#fff':''}">${allDone?'✓':pDone+'/5'}</div>
+            <div class="chk" style="cursor:default;${allDone?'background:var(--green);border-color:var(--green);color:#fff':''}">${allDone?chkIcon(15):pDone+'/5'}</div>
             <div class="hinfo" style="margin:0"><div class="hname"><span class="hname-text">الفروض</span></div><div class="hmeta"><span class="tag">${pDone} من 5</span></div></div>
           </div>
-          <div class="prayers-grid">${PRAYERS.map(p=>{const d=getPrayerRec(h.id,p,currentUser)?.done;return `<button class="pray-btn ${d?'done':''}" onclick="togglePrayer('${h.id}','${p}')"><span style="font-size:14px">${d?'✓':'○'}</span><span>${p}</span></button>`;}).join('')}</div>
-          ${!allDone?`<button class="check-all-btn" onclick="checkAllPrayers('${h.id}')">✅ تسجيل كل الصلوات دفعة واحدة</button>`:''}
+          <div class="prayers-grid">${PRAYERS.map(p=>{const d=getPrayerRec(h.id,p,currentUser)?.done;return `<button class="pray-btn ${d?'done':''}" onclick="togglePrayer('${h.id}','${p}')"><span style="font-size:14px;display:inline-flex">${d?chkIcon(14):''}</span><span>${p}</span></button>`;}).join('')}</div>
+          ${!allDone?`<button class="check-all-btn" onclick="checkAllPrayers('${h.id}')">تسجيل كل الصلوات دفعة واحدة</button>`:''}
         </div>`;
       }
       const rec=getRec(h.id,currentUser);const done=rec?.done;
       const linkBtn=h.url?`<a href="${escHtml(h.url)}" target="_blank" class="adhkar-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>افتح</a>`:'';
       if(h.cat==='قرآن'){
         return `<button class="pray-btn ${done?'done':''}" style="flex:1 1 130px;min-width:110px" onclick="toggleHabit('${h.id}')">
-          <span style="font-size:14px">${done?'✓':'○'}</span>
+          <span style="font-size:14px;display:inline-flex">${done?chkIcon(14):''}</span>
           <span>${escHtml(h.name)}${h.target?` (${escHtml(h.target)})`:''}</span>
         </button>`;
       }
       return `<div class="hrow ${done?'done':''}">
-        <button class="chk" onclick="toggleHabit('${h.id}')">${done?'✓':''}</button>
+        <button class="chk" onclick="toggleHabit('${h.id}')">${done?chkIcon(15):''}</button>
         <div class="hinfo">
           <div class="hname"><span class="hname-text">${escHtml(h.name)}</span>${h.target?`<span style="font-size:11px;color:var(--muted);font-weight:400">(${escHtml(h.target)})</span>`:''}${linkBtn}</div>
           <div class="hmeta">${h.user!=='كلاهما'?`<span class="tag">${h.user}</span>`:''}</div>
@@ -2670,7 +2782,7 @@ function renderAdminCourses(){
           <button class="mvbtn" onclick="event.stopPropagation();moveCourse('${c.id}',-1)" ${gIdx===0?'disabled':''} title="لأعلى">▲</button>
           <button class="mvbtn" onclick="event.stopPropagation();moveCourse('${c.id}',1)" ${gIdx===group.length-1?'disabled':''} title="لأسفل">▼</button>
         </div>
-        <button class="admin-del" style="font-size:15px" onclick="event.stopPropagation();editCourse('${c.id}')" title="تعديل">✏️</button>
+        <button class="admin-del" style="font-size:15px;display:inline-flex" onclick="event.stopPropagation();editCourse('${c.id}')" title="تعديل"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
         <button class="admin-del" onclick="event.stopPropagation();deleteCourse('${c.id}')" title="حذف">×</button>
       </div>
     </div>
@@ -2690,18 +2802,18 @@ function renderAdminCourses(){
     <div class="frow" style="margin-bottom:6px">
       <input class="finp" id="lec-name-${c.id}" placeholder="اسم المحاضرة الجديدة" style="flex:1"/>
       <button class="btn-ghost" style="width:auto;padding:8px 14px;border-color:var(--border2)" onclick="addLecture('${c.id}')">+ إضافة</button>
-      <button class="btn-ghost" style="width:auto;padding:8px 14px;border-color:var(--border2)" onclick="addLectureAuto('${c.id}')" title="يضيف محاضرة N تلقائياً">🔢 محاضرة تلقائية</button>
+      <button class="btn-ghost" style="width:auto;padding:8px 14px;border-color:var(--border2)" onclick="addLectureAuto('${c.id}')" title="يضيف محاضرة N تلقائياً">محاضرة تلقائية</button>
     </div>
-    <div style="font-size:10px;color:var(--muted);margin:8px 0 4px">➕ إضافة دفعة واحدة (سطر لكل محاضرة)</div>
+    <div style="font-size:10px;color:var(--muted);margin:8px 0 4px">إضافة دفعة واحدة (سطر لكل محاضرة)</div>
     <div class="frow" style="margin-bottom:6px">
       <textarea class="finp" id="lec-bulk-${c.id}" placeholder="محاضرة 1&#10;محاضرة 2&#10;..." style="flex:1;min-height:56px"></textarea>
     </div>
     <div class="frow" style="margin-bottom:8px">
-      <button class="btn-ghost" style="flex:1;border-color:var(--border2)" onclick="addLecturesBulk('${c.id}')">📋 إضافة كل الأسطر دفعة واحدة</button>
+      <button class="btn-ghost" style="flex:1;border-color:var(--border2)" onclick="addLecturesBulk('${c.id}')">إضافة كل الأسطر دفعة واحدة</button>
     </div>
     <div class="frow" style="margin-bottom:10px">
       <input class="finp" id="lec-bulk-count-${c.id}" type="number" min="1" placeholder="عدد المحاضرات" style="flex:1"/>
-      <button class="btn-ghost" style="width:auto;padding:8px 14px;border-color:var(--border2)" onclick="addLecturesBulkAuto('${c.id}')">🔢 توليد دفعة تلقائياً</button>
+      <button class="btn-ghost" style="width:auto;padding:8px 14px;border-color:var(--border2)" onclick="addLecturesBulkAuto('${c.id}')">توليد دفعة تلقائياً</button>
     </div>
     <div>${c.lectures.map((l,li)=>`<div class="admin-lecture-row">
       <span style="flex:1">${escHtml(l.name)}</span>
@@ -2742,31 +2854,31 @@ function courseBlockHTML(w){
       </div>
       <div class="course-prog" style="margin:0 16px 8px"><div class="course-prog-bar" style="width:${pct}%"></div></div>
       <div class="adhkar-body" style="padding:0 16px 16px">
-        ${total?c.lectures.map(l=>{const d=isLectureDone(l.id);return `<div class="lecture-row ${d?'done':''}"><button class="lecture-chk" onclick="toggleLecture('${l.id}')">${d?'✓':''}</button><span class="lecture-name">${escHtml(l.name)}</span></div>`;}).join(''):'<div class="lempty">لا توجد محاضرات في هذا الكورس بعد</div>'}
+        ${total?c.lectures.map(l=>{const d=isLectureDone(l.id);return `<div class="lecture-row ${d?'done':''}"><button class="lecture-chk" onclick="toggleLecture('${l.id}')">${d?chkIcon(13):''}</button><span class="lecture-name">${escHtml(l.name)}</span></div>`;}).join(''):'<div class="lempty">لا توجد محاضرات في هذا الكورس بعد</div>'}
       </div>
     </div>`;
 }
 function renderLectures(){
   const el=document.getElementById('courses-list');if(!el)return;
   const my=courses.filter(c=>!c.user||c.user==='كلاهما'||c.user===currentUser);
-  if(!my.length){el.innerHTML='<div class="lempty">لا توجد كورسات — اذهب لـ «⚙ إدارة»</div>';return;}
+  if(!my.length){el.innerHTML='<div class="lempty">لا توجد كورسات — اذهب لـ «إدارة»</div>';return;}
   const withStats=my.map(c=>{const total=c.lectures.length;const done=c.lectures.filter(l=>isLectureDone(l.id)).length;return{c,total,done,complete:total>0&&done===total};});
   const incomplete=withStats.filter(w=>!w.complete);
   const completed=withStats.filter(w=>w.complete);
   const pinned=incomplete.filter(w=>w.c.pinned);
   const rest=incomplete.filter(w=>!w.c.pinned);
   let html='';
-  if(pinned.length)html+=`<div class="slabel">📌 مثبت</div>`+pinned.map(courseBlockHTML).join('');
+  if(pinned.length)html+=`<div class="slabel">مثبت</div>`+pinned.map(courseBlockHTML).join('');
   const lecturers=[...new Set(rest.map(w=>w.c.lecturer||'عام'))];
   lecturers.forEach(lect=>{
     const items=rest.filter(w=>(w.c.lecturer||'عام')===lect);
     html+=`<div class="slabel"><span class="slabel-ico">${LECTURER_ICON}</span>${escHtml(lect)}</div>`+items.map(courseBlockHTML).join('');
   });
   if(!pinned.length&&!rest.length&&completed.length){
-    html+='<div class="lempty">🎉 خلّصت كل السلاسل المتاحة!</div>';
+    html+='<div class="lempty">خلّصت كل السلاسل المتاحة!</div>';
   }
   if(completed.length){
-    html+=`<div style="text-align:center;margin:14px 0"><button class="btn-ghost" style="width:auto;padding:6px 16px" onclick="toggleShowCompletedLectures()">${showCompletedLectures?'🔽 إخفاء':'✅'} السلاسل المكتملة (${completed.length})</button></div>`;
+    html+=`<div style="text-align:center;margin:14px 0"><button class="btn-ghost" style="width:auto;padding:6px 16px" onclick="toggleShowCompletedLectures()">${showCompletedLectures?'إخفاء':'إظهار'} السلاسل المكتملة (${completed.length})</button></div>`;
     if(showCompletedLectures)html+=completed.map(courseBlockHTML).join('');
   }
   el.innerHTML=html;
@@ -2806,7 +2918,7 @@ async function importAllData(evt){
 
 async function runHealthCheck(){
   const el=document.getElementById('health-result');
-  el.textContent='⏳ جاري الفحص...';
+  el.textContent='جاري الفحص...';
   try{
     const r=await fetch('/api/health');
     const j=await r.json();
@@ -2821,13 +2933,25 @@ async function runHealthCheck(){
       if(j.table.detail)lines.push(`  التفاصيل: ${j.table.detail}`);
     }
     lines.push('');
-    lines.push('📋 الخلاصة: '+(j.diagnosis||'غير معروف'));
+    lines.push('الخلاصة: '+(j.diagnosis||'غير معروف'));
     el.textContent=lines.join('\n');
-  }catch(e){el.textContent='⚠ تعذّر تشغيل الفحص: '+e.message;}
+  }catch(e){el.textContent='تعذّر تشغيل الفحص: '+e.message;}
 }
 
 let toastTimer;
-function toast(msg,type='ok'){clearTimeout(toastTimer);const t=document.getElementById('toast');t.textContent=msg;t.className=type==='err'?'err show':type==='info'?'info show':'show';toastTimer=setTimeout(()=>t.className='',2800);}
+const TOAST_ICONS={
+  ok:svgi('<path d="M20 6 9 17l-5-5"/>'),
+  err:svgi('<circle cx="12" cy="12" r="9"/><path d="M15 9l-6 6"/><path d="M9 9l6 6"/>'),
+  info:svgi('<circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12.01" y2="8"/><line x1="12" y1="11" x2="12" y2="16"/>')
+};
+function toast(msg,type='ok'){
+  clearTimeout(toastTimer);
+  const t=document.getElementById('toast');
+  const cleanMsg=String(msg).replace(/^[\u2190-\u2BFF\u{1F000}-\u{1FFFF}\u2600-\u27BF]\s*/u,'');
+  t.innerHTML=`<span class="toast-ico">${TOAST_ICONS[type]||TOAST_ICONS.ok}</span><span>${escHtml(cleanMsg)}</span>`;
+  t.className=type==='err'?'err show':type==='info'?'info show':'show';
+  toastTimer=setTimeout(()=>t.className='',2800);
+}
 
 if('serviceWorker' in navigator)navigator.serviceWorker.register('/service-worker.js').catch(()=>{});
 
