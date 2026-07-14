@@ -51,18 +51,16 @@ body.theme-neira{
   --gold-b20:rgba(236,72,153,.2);--gold-b30:rgba(236,72,153,.3);--gold-b15:rgba(236,72,153,.15);
   --gold-b25:rgba(236,72,153,.25);--gold-b10:rgba(236,72,153,.1);--gold-b12:rgba(236,72,153,.12);
 }
-body{font-family:var(--font);color:var(--text);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;position:relative}
+body{font-family:var(--font);color:var(--text);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;position:relative;scrollbar-width:thin}
+*{scrollbar-width:thin}
 main,header,.datebar,#offline-banner{position:relative;z-index:1}
 button{font-family:var(--font);cursor:pointer}
 input,select,textarea{font-family:var(--font)}
-::-webkit-scrollbar{width:4px}
-::-webkit-scrollbar-track{background:var(--bg)}
-::-webkit-scrollbar-thumb{background:var(--border2);border-radius:10px}
 
 header{display:flex;align-items:center;justify-content:space-between;padding:0 16px;height:58px;background:linear-gradient(170deg,var(--surface-2) 0%,var(--bg) 85%);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;overflow:hidden}
 header::before{content:'';position:absolute;top:-60px;right:14%;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,var(--gold-dim),transparent 70%);pointer-events:none}
 .logo{display:flex;align-items:center;gap:10px;position:relative;z-index:1}
-.logo-icon{width:36px;height:36px;border-radius:var(--rs);background:linear-gradient(135deg,var(--gold),var(--gold-dark2));display:flex;align-items:center;justify-content:center;color:#1a0e00;box-shadow:0 4px 14px var(--gold-b25)}
+.logo-icon{width:36px;height:36px;border-radius:var(--rs);background:linear-gradient(135deg,var(--gold),var(--gold-dark2));display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 4px 14px var(--gold-b25)}
 .logo-icon svg,.gate-icon svg{width:52%;height:52%}
 #sb-icon{display:inline-flex;align-items:center;justify-content:center}
 #sb-icon svg{display:block}
@@ -83,11 +81,11 @@ header::before{content:'';position:absolute;top:-60px;right:14%;width:220px;heig
 .datebar{padding:7px 20px;background:var(--surface-2);border-bottom:1px solid var(--border);font-size:11px;color:var(--muted);display:flex;justify-content:space-between;align-items:center}
 .datebar b{color:var(--gold2);font-weight:700}
 
-#save-badge{position:fixed;bottom:78px;left:50%;transform:translateX(-50%);z-index:200;padding:4px 12px;border-radius:50px;font-size:11px;font-weight:700;border:1px solid;display:none;align-items:center;gap:5px}
-#save-badge.saving{display:flex;background:var(--gold-b12);border-color:var(--gold-b30);color:var(--gold)}
-#save-badge.saved{display:flex;background:var(--green-dim);border-color:rgba(46,204,113,.3);color:var(--green)}
-#save-badge.queued{display:flex;background:rgba(74,158,255,.14);border-color:rgba(74,158,255,.35);color:var(--blue)}
-#save-badge.err{display:flex;background:var(--red-dim);border-color:rgba(231,76,60,.3);color:var(--red)}
+#save-badge{position:fixed;bottom:78px;left:50%;transform:translateX(-50%);z-index:200;padding:4px 12px;border-radius:50px;font-size:11px;font-weight:700;border:1px solid var(--border);display:none;align-items:center;gap:5px;background:rgba(11,16,24,.72);backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%);color:var(--text)}
+#save-badge.saving{display:flex;color:var(--text)}
+#save-badge.saved{display:flex;color:var(--green)}
+#save-badge.queued{display:flex;color:var(--blue)}
+#save-badge.err{display:flex;color:var(--red)}
 #pending-badge{position:fixed;bottom:112px;left:50%;transform:translateX(-50%);z-index:200;padding:4px 12px;border-radius:50px;font-size:10.5px;font-weight:700;border:1px solid rgba(74,158,255,.35);background:rgba(74,158,255,.14);color:var(--blue);display:none;align-items:center;gap:5px}
 #offline-banner{display:none;align-items:center;justify-content:center;gap:8px;background:var(--red-dim);color:var(--red);border-bottom:1px solid rgba(231,76,60,.3);font-size:11.5px;font-weight:700;padding:7px 10px}
 #offline-banner.show{display:flex}
@@ -181,8 +179,8 @@ main{max-width:700px;margin:0 auto;padding:20px 16px 120px}
 
 .quran-block{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px;margin-bottom:20px}
 .quran-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
-.quran-title{font-size:13px;font-weight:900;color:var(--title-color);transition:color .2s}
-.title-open .quran-title{color:var(--gold)}
+.quran-title{font-size:13px;font-weight:900;color:#fff;transition:color .2s}
+.title-open .quran-title{color:#fff}
 .quran-stats{font-size:11px;color:var(--muted)}
 .quran-prog{height:5px;background:var(--border);border-radius:50px;margin-bottom:12px}
 .quran-prog-bar{height:5px;background:linear-gradient(90deg,var(--purple),#c4a0f5);border-radius:50px;transition:.4s}
@@ -197,8 +195,8 @@ main{max-width:700px;margin:0 auto;padding:20px 16px 120px}
 .fast-block.hijri-compact #hijri-cal-grid>div{aspect-ratio:auto!important;height:30px!important;font-size:10.5px!important;font-weight:700}
 .fast-block.hijri-compact #hijri-weekday-header>div{font-size:9px}
 #hijri-cal-greg{font-size:10px;color:var(--muted);text-align:center;margin-top:2px}
-.fast-title{font-size:13px;font-weight:700;color:var(--title-color);margin-bottom:12px;transition:color .2s}
-.title-open .fast-title{color:var(--gold)}
+.fast-title{font-size:13px;font-weight:700;color:#fff;margin-bottom:12px;transition:color .2s}
+.title-open .fast-title{color:#fff}
 .fast-counter{text-align:center;padding:14px;background:var(--surface);border-radius:var(--rs);margin-bottom:12px}
 .fast-num{font-size:36px;font-weight:900;color:var(--gold);line-height:1}
 .fast-lbl{font-size:11px;color:var(--muted);margin-top:3px}
@@ -224,7 +222,6 @@ main{max-width:700px;margin:0 auto;padding:20px 16px 120px}
 /* -- .fsel: single custom outline chevron, all native/browser arrows forcibly removed (fixes duplicate-arrows bug) -- */
 .fsel{-webkit-appearance:none!important;-moz-appearance:none!important;appearance:none!important;padding-right:32px;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232092FF' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M6 9l6 6 6-6'/></svg>");background-repeat:no-repeat!important;background-position:right 10px center;background-size:15px;text-indent:0.01px;text-overflow:''}
 .fsel::-ms-expand{display:none}
-body.theme-neira .fsel{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ec4899' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M6 9l6 6 6-6'/></svg>")}
 .finp:focus,.fsel:focus{border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-b10)}
 .finp::placeholder{color:var(--muted)}
 .fsel option{background:var(--surface);color:var(--text)}
@@ -275,8 +272,8 @@ textarea.finp{resize:vertical;min-height:70px;line-height:1.6}
 .adhkar-count{font-size:10.5px;color:var(--muted);background:var(--surface);border-radius:50px;padding:2px 9px;font-weight:700}
 .adhkar-del-sec{width:22px;height:22px;border-radius:7px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:15px;flex-shrink:0}
 .adhkar-del-sec:hover{background:var(--red-dim);color:var(--red)}
-.adhkar-body{display:none;padding:0 16px 16px}
-.adhkar-section.open .adhkar-body{display:block}
+.adhkar-body{max-height:0;overflow:hidden;opacity:0;padding:0 16px;transition:max-height .32s cubic-bezier(.4,0,.2,1),opacity .22s ease,padding .32s cubic-bezier(.4,0,.2,1)}
+.adhkar-section.open .adhkar-body{max-height:3000px;opacity:1;padding:0 16px 16px}
 .adhkar-item{display:flex;align-items:center;gap:8px;justify-content:space-between;background:var(--surface-3);border-radius:var(--rs);padding:10px 12px;margin-bottom:8px;font-size:12.5px;line-height:1.7}
 .adhkar-item-text{flex:1}
 .adhkar-counter-circle{width:25px;height:25px;min-width:25px;border-radius:50%;background:var(--teal-dim);color:var(--teal);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;cursor:pointer;transition:.15s;border:1px solid rgba(43,192,176,.25)}
@@ -413,7 +410,7 @@ textarea.finp{resize:vertical;min-height:70px;line-height:1.6}
 /* ── Lectures tab ── */
 .course-block{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:14px}
 .course-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-.course-title{font-size:13px;font-weight:900;color:var(--gold)}
+.course-title{font-size:13px;font-weight:900;color:#fff}
 .course-stats{font-size:11px;color:var(--muted);font-weight:700}
 .course-meta-row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:0 16px;margin-bottom:8px}
 .course-meta-actions{display:flex;align-items:center;gap:8px}
@@ -634,7 +631,7 @@ main{background:transparent!important}
 a{color:inherit;text-decoration:none}
 ::selection{background:var(--gold);color:#ffffff}
 /* -- scrollbar -- */
-::-webkit-scrollbar{width:10px}
+::-webkit-scrollbar{width:6px;height:6px}
 ::-webkit-scrollbar-track{background:#10151d}
 ::-webkit-scrollbar-thumb{background:var(--gold);border-radius:100px}
 ::-webkit-scrollbar-thumb:hover{background:var(--gold2)}
@@ -695,7 +692,7 @@ a{color:inherit;text-decoration:none}
 .admin-sec-title,.adhkar-header-title{
   font-weight:800;letter-spacing:.2px;
 }
-.course-title,.modal-title,.gate-title{color:var(--gold)}
+.modal-title,.gate-title{color:var(--gold)}
 .ptitle{letter-spacing:.6px}
 
 /* -- unify icon squares sizing rhythm -- */
@@ -2834,7 +2831,9 @@ function toggleAdminCourseOpen(id){
 function toggleCourseOpen(id){
   if(openCourses.has(id))openCourses.delete(id);else openCourses.add(id);
   try{localStorage.setItem('werd_open_courses',JSON.stringify([...openCourses]));}catch(e){}
-  renderLectures();
+  const el=document.querySelector(`.course-block[data-course-id="${id}"]`);
+  if(el){el.classList.toggle('open',openCourses.has(id));}
+  else{renderLectures();}
 }
 function courseBlockHTML(w){
   const{c,total,done}=w;const pct=total?Math.round(done/total*100):0;
@@ -2842,18 +2841,18 @@ function courseBlockHTML(w){
   const playlistBtn=c.playlistUrl?`<a href="${escHtml(c.playlistUrl)}" target="_blank" onclick="event.stopPropagation()" class="course-link-btn" title="فتح البلاي ليست">${LINK_ICON}</a>`:'';
   const pinBtn=`<span onclick="event.stopPropagation();togglePinCourse('${c.id}')" class="course-pin-btn${c.pinned?' pinned':''}" title="${c.pinned?'إلغاء التثبيت':'تثبيت هذه السلسلة'}">${pinIcon}</span>`;
   const open=openCourses.has(c.id);
-  return `<div class="course-block adhkar-section${open?' open':''}" style="padding:0">
+  return `<div class="course-block adhkar-section${open?' open':''}" data-course-id="${c.id}" style="padding:0">
       <div class="adhkar-header" style="padding:14px 16px 8px" onclick="toggleCourseOpen('${c.id}')">
         <span class="adhkar-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span>
         <span class="icon-sq i-sm i-blue">${LECTURE_ICON}</span>
-        <span class="adhkar-header-title course-title" style="color:var(--gold)">${escHtml(c.name)}${c.user&&c.user!=='كلاهما'?` <span class="tag" style="font-size:10px">${c.user}</span>`:''}</span>
+        <span class="adhkar-header-title course-title" style="color:#fff">${escHtml(c.name)}${c.user&&c.user!=='كلاهما'?` <span class="tag" style="font-size:10px">${c.user}</span>`:''}</span>
       </div>
       <div class="course-meta-row">
         <span class="course-stats">${done}/${total} (${pct}%)</span>
         <span class="course-meta-actions">${playlistBtn}${pinBtn}</span>
       </div>
       <div class="course-prog" style="margin:0 16px 8px"><div class="course-prog-bar" style="width:${pct}%"></div></div>
-      <div class="adhkar-body" style="padding:0 16px 16px">
+      <div class="adhkar-body">
         ${total?c.lectures.map(l=>{const d=isLectureDone(l.id);return `<div class="lecture-row ${d?'done':''}"><button class="lecture-chk" onclick="toggleLecture('${l.id}')">${d?chkIcon(13):''}</button><span class="lecture-name">${escHtml(l.name)}</span></div>`;}).join(''):'<div class="lempty">لا توجد محاضرات في هذا الكورس بعد</div>'}
       </div>
     </div>`;
