@@ -26,6 +26,7 @@
   --dp-blue-soft:rgba(32,146,255,.14);
   --green:#2DD36F;--green-dim:rgba(45,211,111,.13);
   --red:#FF5C5C;--red-dim:rgba(255,92,92,.13);
+  --urgent:#E1123F;--urgent-dim:rgba(225,18,63,.15);
   --blue:#4A9EFF;--purple:#9b7cf0;--purple-dim:rgba(155,124,240,.13);
   --teal:#2bc0b0;--teal-dim:rgba(43,192,176,.13);
   --orange:#F7C948;--orange-dim:rgba(247,201,72,.14);
@@ -348,6 +349,99 @@ textarea.finp{resize:vertical;min-height:70px;line-height:1.6}
 .url-row .finp:focus{border:none;box-shadow:none}
 
 .badge{display:inline-flex;padding:2px 7px;border-radius:50px;font-size:10px;font-weight:700}
+
+/* ══════════ Task system upgrade (v2) ══════════ */
+/* -- add-task form: cat row with +, tags input -- */
+.cat-row{display:flex;gap:8px;margin-bottom:8px}
+.cat-row .fsel{flex:1}
+.cat-add-btn{flex-shrink:0;width:38px;height:38px;border-radius:var(--rs);border:1.5px solid var(--border);background:var(--surface);color:var(--gold);font-size:18px;font-weight:800;display:flex;align-items:center;justify-content:center;transition:.15s}
+.cat-add-btn:hover{border-color:var(--gold);background:var(--gold-dim)}
+.cat-manage-btn{flex-shrink:0;width:38px;height:38px;border-radius:var(--rs);border:1.5px solid var(--border);background:var(--surface);color:var(--muted);display:flex;align-items:center;justify-content:center;transition:.15s}
+.cat-manage-btn:hover{border-color:var(--border2);color:var(--text2)}
+.cat-manage-btn svg{width:15px;height:15px}
+.tags-input-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--rs);padding:6px 10px;margin-bottom:8px;transition:border-color .15s}
+.tags-input-row:focus-within{border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-b10)}
+.tags-input-row input{flex:1;min-width:80px;background:transparent;border:none;outline:none;color:var(--text);font-size:13px;font-family:var(--font);padding:4px 2px}
+.tag-chip{display:inline-flex;align-items:center;gap:5px;background:var(--gold-dim);color:var(--gold);border:1px solid var(--gold-b25);border-radius:50px;padding:3px 6px 3px 9px;font-size:11px;font-weight:700;white-space:nowrap}
+.tag-chip button{background:transparent;border:none;color:inherit;font-size:14px;line-height:1;padding:0;opacity:.75;display:flex}
+.tag-chip button:hover{opacity:1}
+.tag-hint{font-size:10px;color:var(--muted);padding:0 2px 6px}
+
+/* -- profile default note removed, styling only via existing .fsel -- */
+
+/* -- priority urgent color -- */
+.prio-urgent{color:var(--urgent)}
+
+/* -- task toolbar v2: search + filters + select-all + bulk bar -- */
+.task-toolbar-v2{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px;align-items:center}
+.task-search-wrap{position:relative;flex:2;min-width:160px}
+.task-search-wrap svg{position:absolute;top:50%;right:12px;transform:translateY(-50%);width:14px;height:14px;color:var(--muted);pointer-events:none}
+#task-search-inp{width:100%;padding-right:34px}
+.task-select-all-row{display:flex;align-items:center;gap:8px;margin-bottom:10px;font-size:12px;color:var(--muted)}
+.tchk{width:19px;height:19px;min-width:19px;border-radius:6px;border:2px solid var(--border2);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.15s;flex-shrink:0;color:transparent}
+.tchk:hover{border-color:var(--gold)}
+.tchk.on{background:var(--gold);border-color:var(--gold);color:#1a0e00}
+.tchk svg{width:12px;height:12px}
+.icon-btn-pill{display:inline-flex;align-items:center;gap:6px;background:var(--surface);border:1.5px solid var(--border);border-radius:50px;padding:6px 13px;font-size:11.5px;font-weight:700;color:var(--text2);transition:.15s}
+.icon-btn-pill:hover{border-color:var(--border2)}
+.icon-btn-pill.active{border-color:var(--gold);background:var(--gold-dim);color:var(--gold)}
+.icon-btn-pill svg{width:13px;height:13px}
+
+/* -- bulk action bar -- */
+#bulk-bar{display:none;background:linear-gradient(135deg,var(--gold-dim),rgba(32,146,255,.06));border:1.5px solid var(--gold-b30);border-radius:var(--r);padding:12px;margin-bottom:14px;animation:slideDown .22s var(--ease,ease)}
+#bulk-bar.show{display:block}
+.bulk-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;font-size:12.5px;font-weight:800;color:var(--gold)}
+.bulk-hdr button{background:transparent;border:none;color:var(--muted);font-size:12px;font-weight:700}
+.bulk-hdr button:hover{color:var(--text)}
+.bulk-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:7px;margin-bottom:8px}
+.bulk-grid .fsel,.bulk-grid .finp{width:100%;font-size:12px;padding:8px 10px}
+.bulk-actions-row{display:flex;flex-wrap:wrap;gap:7px}
+.bulk-btn{flex:1;min-width:100px;padding:8px 10px;border-radius:var(--rs);border:1.5px solid var(--border);background:var(--surface);color:var(--text2);font-size:11.5px;font-weight:700;transition:.15s;display:inline-flex;align-items:center;justify-content:center;gap:5px}
+.bulk-btn:hover{border-color:var(--border2);transform:translateY(-1px)}
+.bulk-btn.bulk-danger{color:var(--red);border-color:rgba(255,92,92,.3)}
+.bulk-btn.bulk-danger:hover{background:var(--red-dim)}
+.bulk-btn.bulk-ok{color:var(--green);border-color:rgba(45,211,111,.3)}
+.bulk-btn.bulk-ok:hover{background:var(--green-dim)}
+.bulk-btn svg{width:13px;height:13px}
+
+/* -- redesigned task card -- */
+.task-card2{position:relative;display:flex;align-items:flex-start;gap:10px;background:linear-gradient(145deg,var(--card),var(--card2));border:1px solid var(--border);border-radius:16px;padding:13px 14px 13px 10px;margin-bottom:9px;transition:transform .18s var(--ease,ease),border-color .18s,box-shadow .18s,opacity .25s;animation:taskIn .28s var(--ease,ease)}
+.task-card2::before{content:'';position:absolute;top:10px;bottom:10px;right:0;width:3.5px;border-radius:4px;background:var(--pr-clr,transparent)}
+.task-card2:hover{border-color:var(--border2);box-shadow:0 8px 22px rgba(0,0,0,.22);transform:translateY(-1px)}
+.task-card2.archived-card{opacity:.68}
+.task-card2.removing{animation:taskOut .22s var(--ease,ease) forwards}
+@keyframes taskIn{from{opacity:0;transform:translateY(-6px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes taskOut{to{opacity:0;transform:translateX(18px) scale(.96);margin-bottom:0;max-height:0}}
+@keyframes slideDown{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+.task-card2-main{flex:1;min-width:0}
+.task-card2-title{font-size:13.5px;font-weight:700;line-height:1.5;margin-bottom:6px;display:flex;align-items:flex-start;gap:8px}
+.task-card2.done .task-card2-title{color:var(--muted);text-decoration:line-through}
+.task-card2-meta{display:flex;gap:5px;flex-wrap:wrap}
+.task-card2-actions{display:flex;flex-direction:column;gap:4px;align-items:center}
+.tc-prio-badge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px 2px 6px;border-radius:50px;font-size:10px;font-weight:800}
+.tag.tag-cat{color:var(--gold)}
+@media (max-width:480px){
+  .bulk-grid{grid-template-columns:repeat(2,1fr)}
+  .task-toolbar-v2{flex-direction:column;align-items:stretch}
+  .task-search-wrap{flex:1}
+}
+
+/* -- undo snackbar -- */
+#undo-snackbar{position:fixed;bottom:78px;left:50%;transform:translateX(-50%) translateY(20px);z-index:210;display:flex;align-items:center;gap:14px;background:rgba(20,24,32,.96);backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%);border:1px solid var(--border2);border-radius:50px;padding:9px 10px 9px 18px;font-size:12.5px;color:var(--text);box-shadow:0 10px 30px rgba(0,0,0,.4);opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}
+#undo-snackbar.show{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+#undo-snackbar button{background:var(--gold-dim);border:1px solid var(--gold-b30);color:var(--gold);font-size:11.5px;font-weight:800;padding:6px 14px;border-radius:50px;white-space:nowrap;transition:.15s}
+#undo-snackbar button:hover{background:var(--gold);color:#1a0e00}
+
+/* -- category manager modal -- */
+.cat-manage-row{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--border);border-radius:var(--rs);padding:8px 10px;margin-bottom:6px}
+.cat-manage-row span{flex:1;font-size:12.5px;font-weight:600}
+.cat-manage-row.builtin{opacity:.6}
+.cat-manage-row.builtin span::after{content:' (افتراضية)';font-size:10px;color:var(--muted);font-weight:400}
+.cat-manage-actions{display:flex;gap:4px}
+
+/* -- archive toggle -- */
+.tc-restore-btn{background:transparent;border:none;color:var(--green);font-size:12px;padding:2px 4px}
+.tc-restore-btn:hover{color:#fff}
 .badge-gold{background:var(--gold-dim);color:var(--gold);border:1px solid var(--gold-b20)}
 .badge-muted{background:var(--surface);color:var(--muted);border:1px solid var(--border)}
 
@@ -822,11 +916,15 @@ a{color:inherit;text-decoration:none}
       <div class="fast-title name-with-icon"><span class="icon-sq i-sm i-red"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M8 14l2 2 4-4"/></svg></span>مهامي</div>
       <div class="frow">
         <input class="finp" id="task-text-inp" placeholder="اكتب المهمة..." style="flex:2" onkeydown="if(event.key==='Enter'){event.preventDefault();addTask()}"/>
-        <input class="finp" id="task-date-inp" type="date" style="flex:1" title="التاريخ (اختياري)"/>
+        <input class="finp" id="task-date-inp" type="datetime-local" style="flex:1" title="التاريخ والوقت (اختياري)"/>
       </div>
       <div class="url-row">
         <span style="color:var(--muted);display:inline-flex"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></span>
         <input class="finp" id="task-link-inp" type="url" placeholder="لينك (اختياري) — https://..."/>
+      </div>
+      <div class="tags-input-row" id="task-tags-wrap" onclick="document.getElementById('task-tags-inp').focus()">
+        <span id="task-tags-chips"></span>
+        <input id="task-tags-inp" placeholder="أضف وسم واضغط Enter..." onkeydown="onTagInputKeydown(event,'task')"/>
       </div>
       <div class="frow">
         <select class="fsel" id="task-recur-inp" style="flex:1" onchange="onTaskRecurChange(this.value,'task-recur-weekday-inp')">
@@ -841,34 +939,35 @@ a{color:inherit;text-decoration:none}
         </select>
       </div>
       <div class="frow">
-        <input class="finp" id="task-reminder-inp" type="datetime-local" style="flex:1" title="تذكير (اختياري)"/>
         <select class="fsel" id="task-priority-inp" style="flex:1">
           <option value="">بدون أولوية</option>
+          <option value="urgent">عاجلة</option>
           <option value="high">عالية</option>
           <option value="medium">متوسطة</option>
           <option value="low">منخفضة</option>
         </select>
-      </div>
-      <div class="frow">
-        <select class="fsel" id="task-cat-inp" style="flex:1">
-          <option value="">بدون ربط بقسم</option>
-          <option value="قرآن">قرآن</option>
-          <option value="أذكار">أذكار</option>
-          <option value="صلاة">صلاة</option>
-          <option value="صوم">صوم</option>
-          <option value="تحميل">تحميل</option>
-          <option value="مراجعة">مراجعة</option>
-          <option value="أخرى">أخرى</option>
-        </select>
         <select class="fsel" id="task-user-inp" style="flex:1">
           <option value="كلاهما">كلاهما</option>
-          <option value="محمد">محمد فقط</option>
+          <option value="محمد" selected>محمد فقط</option>
           <option value="نيرة">نيرة فقط</option>
         </select>
+      </div>
+      <div class="cat-row">
+        <select class="fsel" id="task-cat-inp"></select>
+        <button type="button" class="cat-add-btn" onclick="promptAddCategory()" title="إضافة فئة مخصصة">+</button>
+        <button type="button" class="cat-manage-btn" onclick="openCatManager()" title="إدارة الفئات"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 13a7.6 7.6 0 0 0 0-2l2-1.5-2-3.4-2.4 1a7.5 7.5 0 0 0-1.7-1L15 3h-6l-.3 2.6a7.5 7.5 0 0 0-1.7 1l-2.4-1-2 3.4L4.6 11a7.6 7.6 0 0 0 0 2l-2 1.5 2 3.4 2.4-1a7.5 7.5 0 0 0 1.7 1L9 21h6l.3-2.6a7.5 7.5 0 0 0 1.7-1l2.4 1 2-3.4z"/></svg></button>
       </div>
       <button class="btn-primary" onclick="addTask()" style="margin-bottom:4px">+ إضافة مهمة</button>
     </div>
 
+    <div class="task-toolbar-v2">
+      <div class="task-search-wrap">
+        <input class="finp" id="task-search-inp" placeholder="بحث في المهام والوسوم..." oninput="setTaskSearch(this.value)"/>
+        <span>${ICON.search}</span>
+      </div>
+      <button type="button" class="icon-btn-pill" id="notif-perm-btn" onclick="requestNotifPermission()" title="تفعيل إشعارات المتصفح"><span>${ICON.bell}</span>تفعيل الإشعارات</button>
+      <button type="button" class="icon-btn-pill" id="archive-toggle-btn" onclick="toggleArchiveView()" title="عرض الأرشيف"><span>${ICON.archiveIco}</span>الأرشيف</button>
+    </div>
     <div class="task-toolbar">
       <select class="fsel" id="task-sort-inp" onchange="setTaskSort(this.value)" title="ترتيب">
         <option value="date">ترتيب: التاريخ</option>
@@ -882,8 +981,39 @@ a{color:inherit;text-decoration:none}
         <option value="priority">تجميع حسب الأولوية</option>
         <option value="user">تجميع حسب البروفايل</option>
       </select>
+      <select class="fsel" id="task-prio-filter-inp" onchange="setTaskPrioFilter(this.value)" title="فلترة حسب الأولوية">
+        <option value="">كل الأولويات</option>
+        <option value="urgent">عاجلة فقط</option>
+        <option value="high">عالية فقط</option>
+        <option value="medium">متوسطة فقط</option>
+        <option value="low">منخفضة فقط</option>
+      </select>
     </div>
     <div class="task-filters" id="task-filters"></div>
+    <div class="task-select-all-row" id="task-select-all-row" style="display:none">
+      <button class="tchk" id="task-select-all-chk" onclick="toggleSelectAllTasks()">${ICON.check}</button>
+      <span>تحديد الكل</span>
+    </div>
+    <div id="bulk-bar">
+      <div class="bulk-hdr"><span id="bulk-count-lbl">0 محدد</span><button onclick="clearTaskSelection()">إلغاء التحديد</button></div>
+      <div class="bulk-grid">
+        <select class="fsel" id="bulk-priority-inp"><option value="">-- الأولوية --</option><option value="urgent">عاجلة</option><option value="high">عالية</option><option value="medium">متوسطة</option><option value="low">منخفضة</option><option value="__clear__">بدون أولوية</option></select>
+        <select class="fsel" id="bulk-cat-inp"></select>
+        <select class="fsel" id="bulk-user-inp"><option value="">-- البروفايل --</option><option value="كلاهما">كلاهما</option><option value="محمد">محمد فقط</option><option value="نيرة">نيرة فقط</option></select>
+        <input class="finp" id="bulk-date-inp" type="datetime-local" title="تغيير التاريخ والوقت"/>
+        <input class="finp" id="bulk-tags-inp" placeholder="وسوم (افصل بفاصلة)"/>
+      </div>
+      <div class="bulk-actions-row">
+        <button class="bulk-btn" onclick="bulkApplyPriority()">${ICON.check} تطبيق الأولوية</button>
+        <button class="bulk-btn" onclick="bulkApplyCat()">${ICON.check} تطبيق الفئة</button>
+        <button class="bulk-btn" onclick="bulkApplyUser()">${ICON.check} تطبيق البروفايل</button>
+        <button class="bulk-btn" onclick="bulkApplyDate()">${ICON.check} تطبيق التاريخ</button>
+        <button class="bulk-btn" onclick="bulkAddTags()">+ إضافة الوسوم</button>
+        <button class="bulk-btn" onclick="bulkRemoveTags()">− حذف الوسوم</button>
+        <button class="bulk-btn bulk-ok" onclick="bulkFinishTasks()">${ICON.check} إنهاء الكل</button>
+        <button class="bulk-btn bulk-danger" onclick="bulkDeleteTasks()">${ICON.trash} حذف الكل</button>
+      </div>
+    </div>
     <div id="tasks-list"></div>
   </div>
 
@@ -1187,22 +1317,17 @@ a{color:inherit;text-decoration:none}
       <input class="finp" id="et-link" type="url" placeholder="لينك (اختياري) — https://..."/>
     </div>
     <div class="frow">
-      <input class="finp" id="et-date" type="date" style="flex:1" title="التاريخ (اختياري)"/>
-      <input class="finp" id="et-reminder" type="datetime-local" style="flex:1" title="تذكير (اختياري)"/>
+      <input class="finp" id="et-date" type="datetime-local" style="flex:1" title="التاريخ والوقت (اختياري)"/>
+    </div>
+    <div class="tags-input-row" id="et-tags-wrap" onclick="document.getElementById('et-tags-inp').focus()">
+      <span id="et-tags-chips"></span>
+      <input id="et-tags-inp" placeholder="أضف وسم واضغط Enter..." onkeydown="onTagInputKeydown(event,'et')"/>
     </div>
     <div class="frow">
-      <select class="fsel" id="et-cat" style="flex:1">
-        <option value="">بدون ربط بقسم</option>
-        <option value="قرآن">قرآن</option>
-        <option value="أذكار">أذكار</option>
-        <option value="صلاة">صلاة</option>
-        <option value="صوم">صوم</option>
-        <option value="تحميل">تحميل</option>
-        <option value="مراجعة">مراجعة</option>
-        <option value="أخرى">أخرى</option>
-      </select>
+      <select class="fsel" id="et-cat" style="flex:1"></select>
       <select class="fsel" id="et-priority" style="flex:1">
         <option value="">بدون أولوية</option>
+        <option value="urgent">عاجلة</option>
         <option value="high">عالية</option>
         <option value="medium">متوسطة</option>
         <option value="low">منخفضة</option>
@@ -1242,6 +1367,18 @@ a{color:inherit;text-decoration:none}
     </div>
   </div>
 </div>
+
+<div class="modal-overlay" id="cat-manager-modal" style="display:none">
+  <div class="modal-box">
+    <div class="modal-hdr"><div class="modal-title">إدارة الفئات</div><button class="modal-x" onclick="closeCatManager()">×</button></div>
+    <div style="margin-bottom:10px">
+      <button class="btn-primary" onclick="promptAddCategory()" style="margin-bottom:0">+ فئة مخصصة جديدة</button>
+    </div>
+    <div id="cat-manager-list"></div>
+  </div>
+</div>
+
+<div id="undo-snackbar"><span id="undo-snackbar-text"></span><button id="undo-snackbar-btn">تراجع</button></div>
 
 <script>
 /* ── Custom confirm/prompt (replaces native browser dialogs) ── */
@@ -2015,6 +2152,10 @@ const ICON={
   check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>',
   edit:'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>',
   trash:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>',
+  tagIco:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41 13.42 20.58a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><circle cx="7" cy="7" r="1.4" fill="currentColor" stroke="none"/></svg>',
+  restore:'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 3v5h5"/></svg>',
+  archiveIco:'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="4" rx="1"/><path d="M4 8v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"/><path d="M10 12h4"/></svg>',
+  search:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>',
   cat:{
     'قرآن':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>',
     'أذكار':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="12" r="2"/><circle cx="12" cy="7" r="2"/><circle cx="18" cy="12" r="2"/><circle cx="12" cy="17" r="2"/></svg>',
@@ -2022,13 +2163,94 @@ const ICON={
     'صوم':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>',
     'تحميل':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>',
     'مراجعة':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2.1l4 4-4 4"/><path d="M3 12.2v-2a4 4 0 0 1 4-4h12.8"/><path d="M7 21.9l-4-4 4-4"/><path d="M21 11.8v2a4 4 0 0 1-4 4H4.2"/></svg>',
-    'أخرى':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.9 6.9L22 9.2l-5.5 4.8L18 21l-6-3.6L6 21l1.5-7-5.5-4.8 7.1-1.3z"/></svg>'
+    'أخرى':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.9 6.9L22 9.2l-5.5 4.8L18 21l-6-3.6L6 21l1.5-7-5.5-4.8 7.1-1.3z"/></svg>',
+    'درس':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.1 2.7 3 6 3s6-1.9 6-3v-5"/></svg>',
+    'شخصي':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',
+    'عمل':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>'
   }
 };
-const TASK_CATS=['قرآن','أذكار','صلاة','صوم','تحميل','مراجعة','أخرى'];
-const PRIO_CLR={high:'var(--red)',medium:'var(--orange)',low:'var(--green)'};
-const PRIO_LBL={high:'عالية',medium:'متوسطة',low:'منخفضة'};
-let taskFilterCat='الكل',taskSortMode='date',taskGroupMode='none';
+// ── الفئات: افتراضية (غير قابلة للحذف/التعديل) + مخصصة (يضيفها المستخدم) ──
+const TASK_CATS_DEFAULT=['تحميل','مراجعة','قرآن','درس','شخصي','عمل','أخرى'];
+let customCategories=[]; // تُحمّل من apiGet('taskCategories')
+function allTaskCats(){return[...TASK_CATS_DEFAULT,...customCategories];}
+function catIconOf(c){return ICON.cat[c]||ICON.tagIco;}
+async function saveCategories(){await apiSet('taskCategories',customCategories);}
+function isDefaultCat(c){return TASK_CATS_DEFAULT.includes(c);}
+async function addCustomCategory(name,{silent}={}){
+  name=(name||'').trim();
+  if(!name)return false;
+  if(allTaskCats().includes(name)){if(!silent)toast('الفئة موجودة بالفعل','err');return false;}
+  customCategories.push(name);
+  await saveCategories();
+  renderAllCatSelects();
+  return true;
+}
+async function renameCustomCategory(oldName,newName){
+  newName=(newName||'').trim();
+  if(!newName||isDefaultCat(oldName))return;
+  if(allTaskCats().includes(newName)&&newName!==oldName){toast('الاسم مستخدم بالفعل','err');return;}
+  const idx=customCategories.indexOf(oldName);if(idx<0)return;
+  customCategories[idx]=newName;
+  tasks.forEach(t=>{if(t.cat===oldName)t.cat=newName;});
+  await Promise.all([saveCategories(),saveTasks()]);
+  renderAllCatSelects();renderTasksTab();renderTodayTasks();renderCatManager();
+  toast('✓ تم التعديل');
+}
+async function deleteCustomCategory(name){
+  if(isDefaultCat(name))return;
+  if(!await customConfirm(`حذف فئة "${name}"؟ سيتم إلغاء ربطها بالمهام الحالية.`))return;
+  customCategories=customCategories.filter(c=>c!==name);
+  tasks.forEach(t=>{if(t.cat===name)t.cat=null;});
+  await Promise.all([saveCategories(),saveTasks()]);
+  renderAllCatSelects();renderTasksTab();renderTodayTasks();renderCatManager();
+  toast('✓ تم الحذف','info');
+}
+function catSelectOptionsHTML(selectedVal){
+  let html='<option value="">بدون ربط بقسم</option>';
+  html+=allTaskCats().map(c=>`<option value="${escHtml(c)}" ${selectedVal===c?'selected':''}>${escHtml(c)}</option>`).join('');
+  return html;
+}
+function renderAllCatSelects(){
+  ['task-cat-inp','et-cat','bulk-cat-inp'].forEach(id=>{
+    const sel=document.getElementById(id);if(!sel)return;
+    const cur=sel.value;
+    sel.innerHTML=catSelectOptionsHTML('');
+    if(allTaskCats().includes(cur)||cur==='')sel.value=cur;
+  });
+}
+async function promptAddCategory(){
+  const name=await customPrompt('اسم الفئة المخصصة الجديدة:');
+  if(name)await addCustomCategory(name);
+}
+function openCatManager(){
+  renderCatManager();
+  document.getElementById('cat-manager-modal').style.display='flex';
+}
+function closeCatManager(){document.getElementById('cat-manager-modal').style.display='none';}
+function renderCatManager(){
+  const el=document.getElementById('cat-manager-list');if(!el)return;
+  let html=TASK_CATS_DEFAULT.map(c=>`<div class="cat-manage-row builtin"><span style="display:inline-flex;align-items:center;gap:6px"><span style="display:inline-flex;width:13px;height:13px">${catIconOf(c)}</span>${escHtml(c)}</span></div>`).join('');
+  if(customCategories.length){
+    html+=customCategories.map(c=>`<div class="cat-manage-row">
+      <span style="display:inline-flex;align-items:center;gap:6px"><span style="display:inline-flex;width:13px;height:13px">${catIconOf(c)}</span>${escHtml(c)}</span>
+      <div class="cat-manage-actions">
+        <button class="admin-del" style="font-size:12px" onclick="renameCatPrompt('${escHtml(c).replace(/'/g,"\\'")}')" title="تعديل">${ICON.edit}</button>
+        <button class="admin-del" onclick="deleteCustomCategory('${escHtml(c).replace(/'/g,"\\'")}')" title="حذف">${ICON.trash}</button>
+      </div>
+    </div>`).join('');
+  }else{
+    html+='<div class="lempty" style="padding:10px 0">لا توجد فئات مخصصة بعد</div>';
+  }
+  el.innerHTML=html;
+}
+async function renameCatPrompt(oldName){
+  const name=await customPrompt('اسم الفئة الجديد:',oldName);
+  if(name)await renameCustomCategory(oldName,name);
+}
+const PRIO_CLR={urgent:'var(--urgent)',high:'var(--red)',medium:'var(--orange)',low:'var(--green)'};
+const PRIO_LBL={urgent:'عاجلة',high:'عالية',medium:'متوسطة',low:'منخفضة'};
+let taskFilterCat='الكل',taskSortMode='date',taskGroupMode='none',taskSearchQ='',taskPrioFilter='',taskViewMode='active';
+let selectedTaskIds=new Set();
 function onTaskRecurChange(val,weekdaySelId){
   const wd=document.getElementById(weekdaySelId);if(wd)wd.style.display=val==='weekly'?'':'none';
 }
@@ -2049,42 +2271,101 @@ function recurLabel(recur){
   if(recur.type==='monthly')return'شهري';
   return'';
 }
+// ── دمج التاريخ والوقت في حقل واحد: "YYYY-MM-DDTHH:mm" → {date, reminder} ──
+function splitDateTime(val){
+  if(!val)return{date:null,reminder:null};
+  return{date:val.slice(0,10),reminder:val};
+}
+function combinedDateTimeValue(t){
+  if(!t.date)return'';
+  return t.reminder||(t.date+'T00:00');
+}
+// ── إدارة الـ Tags داخل نماذج الإضافة/التعديل (chips) ──
+let _formTags={task:[],et:[]};
+function renderTagChips(prefix){
+  const el=document.getElementById(prefix+'-tags-chips');if(!el)return;
+  el.innerHTML=_formTags[prefix].map((tg,i)=>`<span class="tag-chip">${escHtml(tg)}<button type="button" onclick="removeFormTag('${prefix}',${i})">×</button></span>`).join('');
+}
+function removeFormTag(prefix,i){_formTags[prefix].splice(i,1);renderTagChips(prefix);}
+function onTagInputKeydown(e,prefix){
+  const inp=e.target;
+  if(e.key==='Enter'||e.key===','){
+    e.preventDefault();
+    const v=inp.value.trim().replace(/,$/,'');
+    if(v&&!_formTags[prefix].includes(v)){_formTags[prefix].push(v);renderTagChips(prefix);}
+    inp.value='';
+  }else if(e.key==='Backspace'&&!inp.value&&_formTags[prefix].length){
+    _formTags[prefix].pop();renderTagChips(prefix);
+  }
+}
 async function addTask(){
   const inp=document.getElementById('task-text-inp'),dateInp=document.getElementById('task-date-inp');
   const recurSel=document.getElementById('task-recur-inp'),wdSel=document.getElementById('task-recur-weekday-inp'),catSel=document.getElementById('task-cat-inp');
-  const linkInp=document.getElementById('task-link-inp'),remInp=document.getElementById('task-reminder-inp');
+  const linkInp=document.getElementById('task-link-inp');
   const prioSel=document.getElementById('task-priority-inp'),userSel=document.getElementById('task-user-inp');
   const text=inp.value.trim();
-  // التاريخ اختياري تمامًا — لو مش محدد، المهمة بتفضل من غير تاريخ في زر المهام فقط
-  const date=dateInp.value||null;
+  // التاريخ والوقت اختياريان تمامًا معًا — حقل واحد فقط (task-date-inp)
+  const{date,reminder}=splitDateTime(dateInp.value||'');
   if(!text)return toast('اكتب المهمة الأول','err');
   const recurType=recurSel?recurSel.value:'';
   const recur=(recurType&&date)?{type:recurType,weekday:recurType==='weekly'?parseInt(wdSel.value,10):null}:null;
   const cat=catSel?catSel.value:'';
   const link=linkInp&&linkInp.value.trim()?linkInp.value.trim():null;
-  const reminder=remInp&&remInp.value?remInp.value:null;
   const priority=prioSel?prioSel.value||null:null;
-  const assignedTo=userSel?userSel.value:'كلاهما';
-  tasks.push({id:'t'+Date.now(),text,date,done:false,ts:Date.now(),recur,cat:cat||null,link,reminder,reminded:false,priority,assignedTo,dlStatus:cat==='تحميل'?'idle':null});
-  inp.value='';dateInp.value='';linkInp.value='';remInp.value='';
-  if(recurSel)recurSel.value='';if(wdSel)wdSel.style.display='none';if(catSel)catSel.value='';if(prioSel)prioSel.value='';if(userSel)userSel.value='كلاهما';
+  const assignedTo=userSel?userSel.value:'محمد';
+  const tags=[..._formTags.task];
+  tasks.push({id:'t'+Date.now(),text,date,done:false,ts:Date.now(),recur,cat:cat||null,link,reminder,reminded:false,priority,assignedTo,tags,archived:false,doneAt:null,dlStatus:cat==='تحميل'?'idle':null});
+  inp.value='';dateInp.value='';linkInp.value='';
+  _formTags.task=[];renderTagChips('task');
+  if(recurSel)recurSel.value='';if(wdSel)wdSel.style.display='none';if(catSel)catSel.value='';if(prioSel)prioSel.value='';if(userSel)userSel.value='محمد';
   await saveTasks();renderTasksTab();renderTodayTasks();toast('✓ تمت الإضافة');
 }
+// ── إنهاء المهمة: تُنقل تلقائيًا إلى الأرشيف بدل الحذف النهائي ──
 async function toggleTask(id){
   const idx=tasks.findIndex(x=>x.id===id);if(idx<0)return;
   const t=tasks[idx];
   pushLog('tasks',t.text,true);
   if(t.recur&&t.date){
     const nd=nextRecurDate(t.date,t.recur);
-    if(nd)tasks.push({...t,id:'t'+Date.now()+Math.random().toString(36).slice(2,6),date:nd,done:false,ts:Date.now(),reminded:false,dlStatus:t.cat==='تحميل'?'idle':null});
+    if(nd)tasks.push({...t,id:'t'+Date.now()+Math.random().toString(36).slice(2,6),date:nd,done:false,archived:false,doneAt:null,ts:Date.now(),reminded:false,dlStatus:t.cat==='تحميل'?'idle':null});
   }
-  // بمجرد ما تتعلّم كمكتملة، تختفي فورًا من زر المهام
-  tasks.splice(idx,1);
-  await saveTasks();await saveLog();renderTasksTab();renderTodayTasks();toast('✓ تم إنجاز المهمة');
+  t.done=true;t.archived=true;t.doneAt=Date.now();
+  selectedTaskIds.delete(id);
+  await saveTasks();await saveLog();renderTasksTab();renderTodayTasks();toast('✓ تم إنجاز المهمة ونقلها للأرشيف');
+}
+async function restoreTask(id){
+  const t=tasks.find(x=>x.id===id);if(!t)return;
+  t.archived=false;t.done=false;t.doneAt=null;
+  await saveTasks();renderTasksTab();renderTodayTasks();toast('✓ تم الاستعادة من الأرشيف');
+}
+// ── حذف مع Undo ──
+let _undoTimer=null;
+function showUndoSnackbar(msg,onUndo){
+  clearTimeout(_undoTimer);
+  const el=document.getElementById('undo-snackbar');if(!el)return;
+  document.getElementById('undo-snackbar-text').textContent=msg;
+  const btn=document.getElementById('undo-snackbar-btn');
+  btn.onclick=()=>{el.classList.remove('show');clearTimeout(_undoTimer);onUndo&&onUndo();};
+  el.classList.add('show');
+  _undoTimer=setTimeout(()=>el.classList.remove('show'),6000);
 }
 async function deleteTask(id){
-  tasks=tasks.filter(x=>x.id!==id);
-  await saveTasks();renderTasksTab();renderTodayTasks();toast('✓ تم الحذف','info');
+  const idx=tasks.findIndex(x=>x.id===id);if(idx<0)return;
+  const removed=tasks[idx],removedIdx=idx;
+  tasks.splice(idx,1);selectedTaskIds.delete(id);
+  await saveTasks();renderTasksTab();renderTodayTasks();
+  showUndoSnackbar('تم حذف المهمة',async()=>{
+    tasks.splice(Math.min(removedIdx,tasks.length),0,removed);
+    await saveTasks();renderTasksTab();renderTodayTasks();toast('✓ تم استرجاع المهمة');
+  });
+}
+async function deleteTaskPermanent(id){
+  if(!await customConfirm('حذف المهمة نهائيًا من الأرشيف؟'))return;
+  const idx=tasks.findIndex(x=>x.id===id);if(idx<0)return;
+  const removed=tasks[idx];
+  tasks.splice(idx,1);
+  await saveTasks();renderTasksTab();
+  showUndoSnackbar('تم الحذف النهائي',async()=>{tasks.push(removed);await saveTasks();renderTasksTab();});
 }
 async function setDownloadStatus(id,status){
   const t=tasks.find(x=>x.id===id);if(!t)return;
@@ -2096,13 +2377,14 @@ function editTaskOpen(id){
   const t=tasks.find(x=>x.id===id);if(!t)return;
   _editingTaskId=id;
   document.getElementById('et-text').value=t.text;
-  document.getElementById('et-date').value=t.date||'';
+  document.getElementById('et-date').value=combinedDateTimeValue(t);
   document.getElementById('et-link').value=t.link||'';
-  document.getElementById('et-reminder').value=t.reminder||'';
+  renderAllCatSelects();
   document.getElementById('et-cat').value=t.cat||'';
   document.getElementById('et-priority').value=t.priority||'';
   document.getElementById('et-user').value=t.assignedTo||'كلاهما';
   document.getElementById('et-recur').value=t.recur?t.recur.type:'';
+  _formTags.et=[...(t.tags||[])];renderTagChips('et');
   const wd=document.getElementById('et-recur-weekday');
   wd.style.display=(t.recur&&t.recur.type==='weekly')?'':'none';
   if(t.recur&&t.recur.type==='weekly')wd.value=t.recur.weekday??0;
@@ -2112,55 +2394,85 @@ function closeEditTask(){document.getElementById('edit-task-modal').style.displa
 async function saveEditTask(){
   const t=tasks.find(x=>x.id===_editingTaskId);if(!t)return closeEditTask();
   const text=document.getElementById('et-text').value.trim();if(!text)return toast('اكتب نص المهمة','err');
-  const date=document.getElementById('et-date').value||null;
+  const{date,reminder}=splitDateTime(document.getElementById('et-date').value||'');
   const link=document.getElementById('et-link').value.trim()||null;
-  const reminder=document.getElementById('et-reminder').value||null;
   const cat=document.getElementById('et-cat').value;
   const priority=document.getElementById('et-priority').value||null;
   const assignedTo=document.getElementById('et-user').value;
   const recurType=document.getElementById('et-recur').value;
   const wd=document.getElementById('et-recur-weekday').value;
   t.text=text;t.date=date;t.link=link;t.reminder=reminder;t.reminded=false;t.priority=priority;t.assignedTo=assignedTo;
+  t.tags=[..._formTags.et];
   t.cat=cat||null;if(t.cat==='تحميل'&&!t.dlStatus)t.dlStatus='idle';if(t.cat!=='تحميل')t.dlStatus=null;
   t.recur=(recurType&&date)?{type:recurType,weekday:recurType==='weekly'?parseInt(wd,10):null}:null;
   await saveTasks();closeEditTask();renderTasksTab();renderTodayTasks();toast('✓ تم حفظ التعديلات');
 }
 function taskItemHTML(t,showDate){
+  const archivedMode=!!t.archived;
   const prioClr=t.priority?PRIO_CLR[t.priority]:'transparent';
   const prioTag=t.priority?`<span class="tag" style="color:${prioClr};display:inline-flex;align-items:center;gap:4px"><span class="prio-dot" style="--pr-clr:${prioClr}"></span>${PRIO_LBL[t.priority]}</span>`:'';
-  const catIcon=t.cat&&ICON.cat[t.cat]?`<span style="display:inline-flex;width:10px;height:10px">${ICON.cat[t.cat]}</span>`:'';
-  const catTag=t.cat?`<span class="tag" style="color:var(--gold);display:inline-flex;align-items:center;gap:4px">${catIcon}${escHtml(t.cat)}</span>`:'';
+  const catIcon=t.cat?`<span style="display:inline-flex;width:10px;height:10px">${catIconOf(t.cat)}</span>`:'';
+  const catTag=t.cat?`<span class="tag tag-cat" style="display:inline-flex;align-items:center;gap:4px">${catIcon}${escHtml(t.cat)}</span>`:'';
   const recurTag=t.recur?`<span class="tag" style="display:inline-flex;align-items:center;gap:4px">${ICON.recur}${recurLabel(t.recur)}</span>`:'';
-  const userTag=t.assignedTo&&t.assignedTo!=='كلاهما'?`<span class="tag">${t.assignedTo}</span>`:'';
+  const userTag=t.assignedTo&&t.assignedTo!=='كلاهما'?`<span class="tag">${escHtml(t.assignedTo)}</span>`:'';
   const linkTag=t.link?`<a class="task-link" href="${escHtml(t.link)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${ICON.link} لينك</a>`:'';
-  const remTag=t.reminder?`<span class="tag" style="display:inline-flex;align-items:center;gap:4px">${ICON.bell}${new Date(t.reminder).toLocaleString('ar-EG',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'})}</span>`:'';
-  const dateTag=(showDate&&t.date)?`<span class="tag" style="color:${t.date<TODAY()?'var(--red)':'var(--muted)'}">${taskDueLabel(t.date)}</span>`:(showDate?`<span class="tag">بدون تاريخ</span>`:'');
-  const dlRow=t.cat==='تحميل'?`<div class="dl-status" onclick="event.stopPropagation()">
+  const tagsTags=(t.tags&&t.tags.length)?t.tags.map(tg=>`<span class="tag">#${escHtml(tg)}</span>`).join(''):'';
+  let dateTag='';
+  if(showDate){
+    if(t.date){
+      const label=t.reminder?new Date(t.reminder).toLocaleString('ar-EG',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}):taskDueLabel(t.date);
+      const overdue=(t.date<TODAY())&&!archivedMode;
+      dateTag=`<span class="tag" style="color:${overdue?'var(--red)':'var(--muted)'};display:inline-flex;align-items:center;gap:4px">${ICON.bell}${label}</span>`;
+    }else{
+      dateTag='<span class="tag">بدون تاريخ</span>';
+    }
+  }
+  const dlRow=(t.cat==='تحميل'&&!archivedMode)?`<div class="dl-status" onclick="event.stopPropagation()">
       <button class="dl-btn ${t.dlStatus==='idle'||!t.dlStatus?'active-idle':''}" onclick="setDownloadStatus('${t.id}','idle')" title="لم يبدأ">لم يبدأ</button>
       <button class="dl-btn ${t.dlStatus==='downloading'?'active-downloading':''}" onclick="setDownloadStatus('${t.id}','downloading')" title="جاري التحميل">${ICON.spin} جاري التحميل</button>
       <button class="dl-btn ${t.dlStatus==='done'?'active-done':''}" onclick="setDownloadStatus('${t.id}','done')" title="تم التحميل">${ICON.check} تم التحميل</button>
     </div>`:'';
-  return `<div class="hrow task-row" style="--pr-clr:${prioClr}">
-    <button class="chk" onclick="toggleTask('${t.id}')" title="إنهاء المهمة">${ICON.check}</button>
-    <div class="hinfo"><div class="hname"><span class="hname-text">${escHtml(t.text)}</span></div><div class="hmeta">${dateTag}${remTag}${catTag}${recurTag}${userTag}${prioTag}${linkTag}</div>${dlRow}</div>
-    <button class="admin-del" style="font-size:12px" onclick="editTaskOpen('${t.id}')" title="تعديل">${ICON.edit}</button>
-    <button class="admin-del" onclick="deleteTask('${t.id}')" title="حذف">${ICON.trash}</button>
+  const checkbox=!archivedMode?`<button class="tchk ${selectedTaskIds.has(t.id)?'on':''}" onclick="event.stopPropagation();toggleTaskSelect('${t.id}')" title="تحديد">${ICON.check}</button>`:'';
+  const actions=archivedMode
+    ?`<button class="tc-restore-btn" onclick="restoreTask('${t.id}')" title="استعادة">${ICON.restore}</button>
+       <button class="admin-del" onclick="deleteTaskPermanent('${t.id}')" title="حذف نهائي">${ICON.trash}</button>`
+    :`<button class="chk" onclick="toggleTask('${t.id}')" title="إنهاء المهمة">${ICON.check}</button>
+       <button class="admin-del" style="font-size:12px" onclick="editTaskOpen('${t.id}')" title="تعديل">${ICON.edit}</button>
+       <button class="admin-del" onclick="deleteTask('${t.id}')" title="حذف">${ICON.trash}</button>`;
+  return `<div class="task-card2 ${archivedMode?'archived-card done':''}" style="--pr-clr:${prioClr}" data-task-id="${t.id}">
+    ${checkbox}
+    <div class="task-card2-main">
+      <div class="task-card2-title"><span class="hname-text">${escHtml(t.text)}</span></div>
+      <div class="hmeta">${dateTag}${catTag}${recurTag}${userTag}${prioTag}${tagsTags}${linkTag}</div>
+      ${dlRow}
+    </div>
+    <div class="task-card2-actions">${actions}</div>
   </div>`;
 }
-function myTasks(){return tasks.filter(t=>!t.assignedTo||t.assignedTo==='كلاهما'||t.assignedTo===currentUser);}
+function myTasksAll(){return tasks.filter(t=>!t.assignedTo||t.assignedTo==='كلاهما'||t.assignedTo===currentUser);}
+function myTasksActive(){return myTasksAll().filter(t=>!t.archived);}
+function myTasksArchived(){return myTasksAll().filter(t=>t.archived);}
 function renderTodayTasks(){
   const el=document.getElementById('today-tasks-card');if(!el)return;
-  const todays=myTasks().filter(t=>t.date===TODAY());
+  const todays=myTasksActive().filter(t=>t.date===TODAY());
   if(!todays.length){el.innerHTML='';return;}
   el.innerHTML=`<div class="slabel"><span>مهام اليوم</span></div>`+todays.map(t=>taskItemHTML(t,false)).join('');
 }
 function setTaskFilterCat(c){taskFilterCat=c;renderTasksTab();}
 function setTaskSort(v){taskSortMode=v;renderTasksTab();}
 function setTaskGroup(v){taskGroupMode=v;renderTasksTab();}
+function setTaskSearch(v){taskSearchQ=(v||'').trim().toLowerCase();renderTasksTab();}
+function setTaskPrioFilter(v){taskPrioFilter=v;renderTasksTab();}
+function toggleArchiveView(){
+  taskViewMode=taskViewMode==='active'?'archived':'active';
+  selectedTaskIds.clear();
+  renderTasksTab();
+}
 function sortTasks(list){
   const arr=[...list];
-  if(taskSortMode==='date')arr.sort((a,b)=>{if(!a.date&&!b.date)return b.ts-a.ts;if(!a.date)return 1;if(!b.date)return -1;return a.date.localeCompare(b.date);});
-  else if(taskSortMode==='priority'){const w={high:0,medium:1,low:2,null:3};arr.sort((a,b)=>(w[a.priority]??3)-(w[b.priority]??3));}
+  const w={urgent:0,high:1,medium:2,low:3,null:4};
+  if(taskSortMode==='date')arr.sort((a,b)=>{if(!a.date&&!b.date)return b.ts-a.ts;if(!a.date)return 1;if(!b.date)return -1;return(a.reminder||a.date).localeCompare(b.reminder||b.date);});
+  else if(taskSortMode==='priority')arr.sort((a,b)=>(w[a.priority]??4)-(w[b.priority]??4));
   else if(taskSortMode==='added')arr.sort((a,b)=>b.ts-a.ts);
   else if(taskSortMode==='alpha')arr.sort((a,b)=>a.text.localeCompare(b.text,'ar'));
   return arr;
@@ -2174,19 +2486,147 @@ function groupTasks(list){
 }
 function renderTaskFilters(){
   const el=document.getElementById('task-filters');if(!el)return;
-  const cats=['الكل',...TASK_CATS];
+  const cats=['الكل',...allTaskCats()];
   el.innerHTML=cats.map(c=>{
     const active=taskFilterCat===c?'active':'';
-    const ic=c==='الكل'?'':`<span style="display:inline-flex;width:13px;height:13px">${ICON.cat[c]||''}</span>`;
-    return `<button class="tf-pill ${active}" onclick="setTaskFilterCat('${c}')">${ic}${escHtml(c)}</button>`;
+    const ic=c==='الكل'?'':`<span style="display:inline-flex;width:13px;height:13px">${catIconOf(c)}</span>`;
+    const safe=escHtml(c).replace(/'/g,"\\'");
+    return `<button class="tf-pill ${active}" onclick="setTaskFilterCat('${safe}')">${ic}${escHtml(c)}</button>`;
   }).join('');
+}
+// ── تحديد المهام (Bulk selection) ──
+let _lastRenderedTaskList=[];
+function toggleTaskSelect(id){
+  if(selectedTaskIds.has(id))selectedTaskIds.delete(id);else selectedTaskIds.add(id);
+  renderTasksTab();
+}
+function clearTaskSelection(){selectedTaskIds.clear();renderTasksTab();}
+function toggleSelectAllTasks(){
+  const list=_lastRenderedTaskList||[];
+  const allSelected=list.length>0&&list.every(t=>selectedTaskIds.has(t.id));
+  if(allSelected)list.forEach(t=>selectedTaskIds.delete(t.id));
+  else list.forEach(t=>selectedTaskIds.add(t.id));
+  renderTasksTab();
+}
+function selectedTasksArr(){return tasks.filter(t=>selectedTaskIds.has(t.id));}
+async function bulkApplyPriority(){
+  const v=document.getElementById('bulk-priority-inp').value;
+  if(!v)return toast('اختر الأولوية أولاً','err');
+  const val=v==='__clear__'?null:v;
+  selectedTasksArr().forEach(t=>t.priority=val);
+  await saveTasks();renderTasksTab();renderTodayTasks();toast('✓ تم تحديث الأولوية للمحدد');
+}
+async function bulkApplyCat(){
+  const v=document.getElementById('bulk-cat-inp').value;
+  selectedTasksArr().forEach(t=>{t.cat=v||null;if(t.cat==='تحميل'&&!t.dlStatus)t.dlStatus='idle';if(t.cat!=='تحميل')t.dlStatus=null;});
+  await saveTasks();renderTasksTab();renderTodayTasks();toast('✓ تم تحديث الفئة للمحدد');
+}
+async function bulkApplyUser(){
+  const v=document.getElementById('bulk-user-inp').value;
+  if(!v)return toast('اختر البروفايل أولاً','err');
+  selectedTasksArr().forEach(t=>t.assignedTo=v);
+  await saveTasks();renderTasksTab();renderTodayTasks();toast('✓ تم تحديث البروفايل للمحدد');
+}
+async function bulkApplyDate(){
+  const val=document.getElementById('bulk-date-inp').value;
+  const{date,reminder}=splitDateTime(val);
+  selectedTasksArr().forEach(t=>{t.date=date;t.reminder=reminder;t.reminded=false;});
+  await saveTasks();renderTasksTab();renderTodayTasks();toast('✓ تم تحديث التاريخ والوقت للمحدد');
+}
+async function bulkAddTags(){
+  const raw=document.getElementById('bulk-tags-inp').value.trim();
+  if(!raw)return toast('اكتب وسمًا أولاً','err');
+  const tgs=raw.split(',').map(s=>s.trim()).filter(Boolean);
+  selectedTasksArr().forEach(t=>{t.tags=Array.from(new Set([...(t.tags||[]),...tgs]));});
+  document.getElementById('bulk-tags-inp').value='';
+  await saveTasks();renderTasksTab();renderTodayTasks();toast('✓ تمت إضافة الوسوم للمحدد');
+}
+async function bulkRemoveTags(){
+  const raw=document.getElementById('bulk-tags-inp').value.trim();
+  if(!raw)return toast('اكتب وسمًا أولاً','err');
+  const tgs=raw.split(',').map(s=>s.trim()).filter(Boolean);
+  selectedTasksArr().forEach(t=>{t.tags=(t.tags||[]).filter(tg=>!tgs.includes(tg));});
+  document.getElementById('bulk-tags-inp').value='';
+  await saveTasks();renderTasksTab();renderTodayTasks();toast('✓ تم حذف الوسوم من المحدد');
+}
+async function bulkFinishTasks(){
+  const arr=selectedTasksArr();if(!arr.length)return;
+  if(!await customConfirm(`إنهاء ${arr.length} مهمة ونقلها للأرشيف؟`,false))return;
+  arr.forEach(t=>{
+    pushLog('tasks',t.text,true);
+    if(t.recur&&t.date){
+      const nd=nextRecurDate(t.date,t.recur);
+      if(nd)tasks.push({...t,id:'t'+Date.now()+Math.random().toString(36).slice(2,6),date:nd,done:false,archived:false,doneAt:null,ts:Date.now(),reminded:false,dlStatus:t.cat==='تحميل'?'idle':null});
+    }
+    t.done=true;t.archived=true;t.doneAt=Date.now();
+  });
+  selectedTaskIds.clear();
+  await Promise.all([saveTasks(),saveLog()]);
+  renderTasksTab();renderTodayTasks();toast('✓ تم إنهاء المهام المحددة ونقلها للأرشيف');
+}
+async function bulkDeleteTasks(){
+  const arr=selectedTasksArr();if(!arr.length)return;
+  if(!await customConfirm(`حذف ${arr.length} مهمة؟`))return;
+  const ids=new Set(arr.map(t=>t.id));
+  const removed=tasks.filter(t=>ids.has(t.id));
+  tasks=tasks.filter(t=>!ids.has(t.id));
+  selectedTaskIds.clear();
+  await saveTasks();renderTasksTab();renderTodayTasks();
+  showUndoSnackbar(`تم حذف ${removed.length} مهمة`,async()=>{
+    tasks.push(...removed);await saveTasks();renderTasksTab();renderTodayTasks();toast('✓ تم استرجاع المهام');
+  });
+}
+// ── إشعارات المتصفح ──
+function updateNotifBtnState(){
+  const btn=document.getElementById('notif-perm-btn');if(!btn)return;
+  if(!('Notification' in window)){btn.style.display='none';return;}
+  if(Notification.permission==='granted'){btn.classList.add('active');btn.innerHTML=`<span>${ICON.bell}</span>الإشعارات مفعّلة`;}
+  else if(Notification.permission==='denied'){btn.innerHTML=`<span>${ICON.bell}</span>الإشعارات محظورة`;}
+  else{btn.innerHTML=`<span>${ICON.bell}</span>تفعيل الإشعارات`;}
+}
+async function requestNotifPermission(){
+  if(!('Notification' in window))return toast('المتصفح لا يدعم الإشعارات','err');
+  if(Notification.permission==='granted')return toast('الإشعارات مفعّلة بالفعل');
+  const perm=await Notification.requestPermission();
+  updateNotifBtnState();
+  if(perm==='granted')toast('✓ تم تفعيل الإشعارات');
+  else if(perm==='denied')toast('تم رفض إذن الإشعارات من المتصفح','err');
 }
 function renderTasksTab(){
   const el=document.getElementById('tasks-list');if(!el)return;
   renderTaskFilters();
-  let list=myTasks();
+  updateNotifBtnState();
+  const archiveBtn=document.getElementById('archive-toggle-btn');
+  if(archiveBtn)archiveBtn.classList.toggle('active',taskViewMode==='archived');
+
+  let list=taskViewMode==='archived'?myTasksArchived():myTasksActive();
   if(taskFilterCat&&taskFilterCat!=='الكل')list=list.filter(t=>t.cat===taskFilterCat);
-  if(!list.length){el.innerHTML='<div class="lempty">لا توجد مهام مطابقة — أضف مهمة من فوق أو غيّر الفلتر</div>';return;}
+  if(taskPrioFilter)list=list.filter(t=>t.priority===taskPrioFilter);
+  if(taskSearchQ){
+    list=list.filter(t=>{
+      const hay=(t.text+' '+(t.cat||'')+' '+(t.tags||[]).join(' ')).toLowerCase();
+      return hay.includes(taskSearchQ);
+    });
+  }
+  _lastRenderedTaskList=list;
+
+  const selRow=document.getElementById('task-select-all-row');
+  const bulkBar=document.getElementById('bulk-bar');
+  if(taskViewMode==='archived'){
+    if(selRow)selRow.style.display='none';
+    if(bulkBar)bulkBar.classList.remove('show');
+  }else{
+    if(selRow)selRow.style.display=list.length?'flex':'none';
+    const allSelected=list.length>0&&list.every(t=>selectedTaskIds.has(t.id));
+    const selAllChk=document.getElementById('task-select-all-chk');
+    if(selAllChk)selAllChk.classList.toggle('on',allSelected);
+    if(bulkBar){
+      bulkBar.classList.toggle('show',selectedTaskIds.size>0);
+      const lbl=document.getElementById('bulk-count-lbl');if(lbl)lbl.textContent=selectedTaskIds.size+' محدد';
+    }
+  }
+
+  if(!list.length){el.innerHTML=`<div class="lempty">${taskViewMode==='archived'?'لا توجد مهام في الأرشيف':'لا توجد مهام مطابقة — أضف مهمة من فوق أو غيّر الفلتر'}</div>`;return;}
   list=sortTasks(list);
   const groups=groupTasks(list);
   let html='';
@@ -2200,7 +2640,7 @@ function renderTasksTab(){
 setInterval(()=>{
   const now=Date.now();let changed=false;
   tasks.forEach(t=>{
-    if(t.reminder&&!t.reminded&&new Date(t.reminder).getTime()<=now){
+    if(!t.archived&&t.reminder&&!t.reminded&&new Date(t.reminder).getTime()<=now){
       t.reminded=true;changed=true;
       toast('⏰ تذكير: '+t.text,'info');
       if(window.Notification&&Notification.permission==='granted')new Notification('وِرد — تذكير',{body:t.text});
