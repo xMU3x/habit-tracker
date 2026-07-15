@@ -862,6 +862,37 @@ a{color:inherit;text-decoration:none}
   .fast-num{font-size:30px}
   .logo-sub{display:none}
 }
+
+/* ══════ تعديلات نظام المهام (Checkbox / Skip / نافذة الإضافة) ══════ */
+/* checkbox إنهاء المهمة: انتقل خارج البطاقة إلى يمينها، بحجم أصغر ومتسق مع تصميم المهام */
+.task-row>.chk{width:24px;height:24px;min-width:24px;font-size:11px;margin-top:14px}
+.task-row>.chk svg{width:11px;height:11px}
+.task-card2-actions .chk{display:none} /* احتياطًا: لا مكان لـ chk داخل صف الإجراءات بعد النقل */
+
+/* زر Skip: نفس نمط أزرار الإجراءات (تعديل/حذف) بدون لون تحذيري */
+.task-skip-btn{font-size:13px}
+.task-skip-btn:hover{color:var(--gold)}
+.task-skip-btn.disabled,.task-skip-btn:disabled{opacity:.3;cursor:not-allowed;pointer-events:none}
+
+/* ══════ إعادة تصميم نافذة إضافة مهمة: عنوان بعرض كامل + Grid منظم (3 عناصر لكل صف) ══════ */
+.task-add-panel .task-add-title{margin-bottom:12px}
+.task-add-panel .task-add-title .finp{width:100%;font-size:14.5px;padding:12px 14px}
+.task-add-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px;align-items:start}
+.task-add-cell{display:flex;flex-direction:column;gap:6px;min-width:0}
+.task-add-cell.span-all{grid-column:1/-1}
+.task-add-grid .finp,.task-add-grid .fsel{width:100%;flex:none}
+.task-add-link-wrap{display:flex;align-items:center;gap:6px;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--rs);padding:0 10px;transition:border-color .15s}
+.task-add-link-wrap:focus-within{border-color:var(--gold)}
+.task-add-link-wrap .finp{border:none;background:transparent;padding:9px 4px;box-shadow:none}
+.task-add-cat-wrap{display:flex;gap:8px}
+.task-add-cat-wrap .fsel{flex:1}
+@media (max-width:720px){
+  .task-add-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:480px){
+  .task-add-grid{grid-template-columns:1fr}
+  .task-add-cell.span-all{grid-column:auto}
+}
 </style>
 </head>
 <body class="dark-mode">
@@ -934,52 +965,64 @@ a{color:inherit;text-decoration:none}
     <div id="today-tasks-card"></div><div id="today-fasting-card"></div><div id="habits-list"><div class="spinner"></div></div><div id="nafl-block"></div></div>
 
   <div id="tab-tasks" style="display:none">
-    <div class="fast-block">
+    <div class="fast-block task-add-panel">
       <div class="fast-title name-with-icon"><span class="icon-sq i-sm i-red"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M8 14l2 2 4-4"/></svg></span>مهامي</div>
-      <div class="frow">
-        <input class="finp" id="task-text-inp" placeholder="اكتب المهمة..." style="flex:2" onkeydown="if(event.key==='Enter'){event.preventDefault();addTask()}"/>
-        <input class="finp" id="task-date-inp" type="datetime-local" style="flex:1" title="التاريخ والوقت (اختياري)"/>
+      <div class="task-add-title">
+        <input class="finp" id="task-text-inp" placeholder="إضافة مهمة..." onkeydown="if(event.key==='Enter'){event.preventDefault();addTask()}"/>
       </div>
-      <div class="url-row">
-        <span style="color:var(--muted);display:inline-flex"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></span>
-        <input class="finp" id="task-link-inp" type="url" placeholder="لينك (اختياري) — https://..."/>
+      <div class="task-add-grid">
+        <div class="task-add-cell">
+          <input class="finp" id="task-date-inp" type="datetime-local" title="التاريخ والوقت (اختياري)"/>
+        </div>
+        <div class="task-add-cell">
+          <div class="task-add-link-wrap">
+            <span style="color:var(--muted);display:inline-flex"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></span>
+            <input class="finp" id="task-link-inp" type="url" placeholder="إضافة لينك"/>
+          </div>
+        </div>
+        <div class="task-add-cell">
+          <select class="fsel" id="task-recur-inp" onchange="onTaskRecurChange(this.value,'task-recur-weekday-inp')">
+            <option value="">بدون تكرار</option>
+            <option value="daily">يومي</option>
+            <option value="weekly">أسبوعي (يوم معيّن)</option>
+            <option value="monthly">شهري</option>
+          </select>
+          <select class="fsel" id="task-recur-weekday-inp" style="display:none">
+            <option value="0">الأحد</option><option value="1">الاثنين</option><option value="2">الثلاثاء</option>
+            <option value="3">الأربعاء</option><option value="4">الخميس</option><option value="5">الجمعة</option><option value="6">السبت</option>
+          </select>
+        </div>
+        <div class="task-add-cell">
+          <select class="fsel" id="task-priority-inp">
+            <option value="">بدون أولوية</option>
+            <option value="urgent">عاجلة</option>
+            <option value="high">عالية</option>
+            <option value="medium">متوسطة</option>
+            <option value="low">منخفضة</option>
+          </select>
+        </div>
+        <div class="task-add-cell">
+          <div class="task-add-cat-wrap">
+            <select class="fsel" id="task-cat-inp"></select>
+            <button type="button" class="cat-add-btn" onclick="promptAddCategory()" title="إضافة فئة مخصصة">+</button>
+            <button type="button" class="cat-manage-btn" onclick="openCatManager()" title="إدارة الفئات"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 13a7.6 7.6 0 0 0 0-2l2-1.5-2-3.4-2.4 1a7.5 7.5 0 0 0-1.7-1L15 3h-6l-.3 2.6a7.5 7.5 0 0 0-1.7 1l-2.4-1-2 3.4L4.6 11a7.6 7.6 0 0 0 0 2l-2 1.5 2 3.4 2.4-1a7.5 7.5 0 0 0 1.7 1L9 21h6l.3-2.6a7.5 7.5 0 0 0 1.7-1l2.4 1 2-3.4z"/></svg></button>
+          </div>
+        </div>
+        <div class="task-add-cell">
+          <select class="fsel" id="task-user-inp">
+            <option value="كلاهما">كلاهما</option>
+            <option value="محمد" selected>محمد فقط</option>
+            <option value="نيرة">نيرة فقط</option>
+          </select>
+        </div>
+        <div class="task-add-cell span-all">
+          <div class="tags-input-row" id="task-tags-wrap" onclick="document.getElementById('task-tags-inp').focus()">
+            <span id="task-tags-chips"></span>
+            <input id="task-tags-inp" placeholder="أضف وسم واضغط Enter..." onkeydown="onTagInputKeydown(event,'task')"/>
+          </div>
+        </div>
       </div>
-      <div class="tags-input-row" id="task-tags-wrap" onclick="document.getElementById('task-tags-inp').focus()">
-        <span id="task-tags-chips"></span>
-        <input id="task-tags-inp" placeholder="أضف وسم واضغط Enter..." onkeydown="onTagInputKeydown(event,'task')"/>
-      </div>
-      <div class="frow">
-        <select class="fsel" id="task-recur-inp" style="flex:1" onchange="onTaskRecurChange(this.value,'task-recur-weekday-inp')">
-          <option value="">بدون تكرار</option>
-          <option value="daily">يومي</option>
-          <option value="weekly">أسبوعي (يوم معيّن)</option>
-          <option value="monthly">شهري</option>
-        </select>
-        <select class="fsel" id="task-recur-weekday-inp" style="flex:1;display:none">
-          <option value="0">الأحد</option><option value="1">الاثنين</option><option value="2">الثلاثاء</option>
-          <option value="3">الأربعاء</option><option value="4">الخميس</option><option value="5">الجمعة</option><option value="6">السبت</option>
-        </select>
-      </div>
-      <div class="frow">
-        <select class="fsel" id="task-priority-inp" style="flex:1">
-          <option value="">بدون أولوية</option>
-          <option value="urgent">عاجلة</option>
-          <option value="high">عالية</option>
-          <option value="medium">متوسطة</option>
-          <option value="low">منخفضة</option>
-        </select>
-        <select class="fsel" id="task-user-inp" style="flex:1">
-          <option value="كلاهما">كلاهما</option>
-          <option value="محمد" selected>محمد فقط</option>
-          <option value="نيرة">نيرة فقط</option>
-        </select>
-      </div>
-      <div class="cat-row">
-        <select class="fsel" id="task-cat-inp"></select>
-        <button type="button" class="cat-add-btn" onclick="promptAddCategory()" title="إضافة فئة مخصصة">+</button>
-        <button type="button" class="cat-manage-btn" onclick="openCatManager()" title="إدارة الفئات"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 13a7.6 7.6 0 0 0 0-2l2-1.5-2-3.4-2.4 1a7.5 7.5 0 0 0-1.7-1L15 3h-6l-.3 2.6a7.5 7.5 0 0 0-1.7 1l-2.4-1-2 3.4L4.6 11a7.6 7.6 0 0 0 0 2l-2 1.5 2 3.4 2.4-1a7.5 7.5 0 0 0 1.7 1L9 21h6l.3-2.6a7.5 7.5 0 0 0 1.7-1l2.4 1 2-3.4z"/></svg></button>
-      </div>
-      <button class="btn-primary" onclick="addTask()" style="margin-bottom:4px">+ إضافة مهمة</button>
+      <button class="btn-primary" onclick="addTask()" style="margin-bottom:0">+ إضافة مهمة</button>
     </div>
 
     <div class="task-toolbar-v2">
@@ -1336,7 +1379,7 @@ a{color:inherit;text-decoration:none}
     <div style="margin-bottom:8px"><input class="finp" id="et-text" placeholder="نص المهمة" style="width:100%"/></div>
     <div class="url-row">
       <span style="color:var(--muted);display:inline-flex"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></span>
-      <input class="finp" id="et-link" type="url" placeholder="لينك (اختياري) — https://..."/>
+      <input class="finp" id="et-link" type="url" placeholder="إضافة لينك"/>
     </div>
     <div class="frow">
       <input class="finp" id="et-date" type="datetime-local" style="flex:1" title="التاريخ والوقت (اختياري)"/>
@@ -2198,6 +2241,7 @@ const ICON={
   restore:'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 3v5h5"/></svg>',
   archiveIco:'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="4" rx="1"/><path d="M4 8v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"/><path d="M10 12h4"/></svg>',
   search:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>',
+  skip:'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 4 15 12 5 20 5 4" fill="currentColor" stroke="none"/><line x1="19" y1="5" x2="19" y2="19"/></svg>',
   cat:{
     'قرآن':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>',
     'أذكار':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="12" r="2"/><circle cx="12" cy="7" r="2"/><circle cx="18" cy="12" r="2"/><circle cx="12" cy="17" r="2"/></svg>',
@@ -2402,6 +2446,20 @@ async function restoreTask(id){
   t.archived=false;t.done=false;t.doneAt=null;t.completedBy=[];
   await saveTasks();renderTasksTab();renderTodayTasks();toast('✓ تم الاستعادة من الأرشيف');
 }
+// ── تخطي موعد المهمة الحالي: للمهام المتكررة فقط — ينقل التاريخ مباشرة للموعد التالي حسب إعدادات التكرار،
+// دون اعتبار المهمة منجزة (لا يُلمس completedBy/done/archived). المهام غير المتكررة: الزر معطّل ولا يحدث شيء ──
+async function skipTask(id){
+  const t=tasks.find(x=>x.id===id);if(!t)return;
+  if(!t.recur||!t.date)return; // غير متكررة — لا تغيير
+  const nd=nextRecurDate(t.date,t.recur);
+  if(!nd)return;
+  if(t.reminder){
+    const timePart=t.reminder.slice(10); // يحافظ على نفس التوقيت المحدد مسبقًا مع اليوم الجديد
+    t.reminder=nd+timePart;
+  }
+  t.date=nd;t.reminded=false;
+  await saveTasks();renderTasksTab();renderTodayTasks();toast('⏭ تم تخطي الموعد للمهمة التالية');
+}
 // ── حذف مع Undo ──
 let _undoTimer=null;
 function showUndoSnackbar(msg,onUndo){
@@ -2509,14 +2567,20 @@ function taskItemHTML(t,showDate,selectable){
   // ── Checkbox التحديد الجماعي: يظهر خارج البطاقة، فقط داخل تبويب المهام، وليس في اليوم/الرئيسية ──
   const outsideSelectChk=(selectable&&!archivedMode)?`<button class="tchk-side ${selectedTaskIds.has(t.id)?'on':''}" onclick="event.stopPropagation();toggleTaskSelect('${t.id}')" title="تحديد">${ICON.check}</button>`:'';
   const myDone=taskDoneByUser(t,currentUser);
+  // ── checkbox إنهاء المهمة: عنصر مستقل على يمين البطاقة (وليس ضمن صف الإجراءات) ──
+  const doneChk=archivedMode?'':`<button class="chk ${myDone?'mine-done':''}" onclick="toggleTask('${t.id}')" title="${myDone?'إلغاء إنجازك للمهمة':'إنهاء المهمة'}">${ICON.check}</button>`;
+  // ── زر Skip: يعمل فقط مع المهام المتكررة ذات تاريخ، وإلا يكون معطّلاً ──
+  const skippable=!!(t.recur&&t.date);
+  const skipBtn=archivedMode?'':`<button class="admin-del task-skip-btn ${skippable?'':'disabled'}" ${skippable?'':'disabled'} onclick="skipTask('${t.id}')" title="${skippable?'تخطي إلى الموعد التالي':'تخطي غير متاح — المهمة غير متكررة'}">${ICON.skip}</button>`;
   const actions=archivedMode
     ?`<button class="tc-restore-btn" onclick="restoreTask('${t.id}')" title="استعادة">${ICON.restore}</button>
        <button class="admin-del" onclick="deleteTaskPermanent('${t.id}')" title="حذف نهائي">${ICON.trash}</button>`
-    :`<button class="chk ${myDone?'mine-done':''}" onclick="toggleTask('${t.id}')" title="${myDone?'إلغاء إنجازك للمهمة':'إنهاء المهمة'}">${ICON.check}</button>
-       <button class="admin-del" style="font-size:12px" onclick="editTaskOpen('${t.id}')" title="تعديل">${ICON.edit}</button>
+    :`<button class="admin-del" style="font-size:12px" onclick="editTaskOpen('${t.id}')" title="تعديل">${ICON.edit}</button>
+       ${skipBtn}
        <button class="admin-del" onclick="deleteTask('${t.id}')" title="حذف">${ICON.trash}</button>`;
   return `<div class="task-row">
     ${outsideSelectChk}
+    ${doneChk}
     <div class="task-card2 ${archivedMode?'archived-card done':''}" style="--pr-clr:${prioClr}" data-task-id="${t.id}">
       <div class="task-card2-main">
         <div class="task-card2-title"><span class="hname-text">${escHtml(t.text)}</span></div>
@@ -2542,7 +2606,11 @@ function recomputeTaskDoneState(t){
   else if(!fullyDone&&t.archived){t.archived=false;t.done=false;t.doneAt=null;}
 }
 function myTasksAll(){return tasks.filter(t=>!t.assignedTo||t.assignedTo==='كلاهما'||t.assignedTo===currentUser);}
-function myTasksActive(){return myTasksAll().filter(t=>!t.archived);}
+// ── المهام المشتركة (مخصصة لأكثر من شخص): بمجرد أن ينهي المستخدم الحالي نصيبه، تختفي من عرضه هو فقط،
+// وتبقى ظاهرة لدى باقي المكلفين بها حتى ينهوها جميعًا (عندها تُنقل تلقائيًا للأرشيف للجميع) ──
+function myTasksActive(){
+  return myTasksAll().filter(t=>!t.archived&&!(isTaskShared(t)&&taskDoneByUser(t,currentUser)&&!isTaskFullyDone(t)));
+}
 function myTasksArchived(){return myTasksAll().filter(t=>t.archived);}
 function renderTodayTasks(){
   const el=document.getElementById('today-tasks-card');if(!el)return;
