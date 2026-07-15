@@ -241,13 +241,57 @@ textarea.finp{resize:vertical;min-height:70px;line-height:1.6}
 .ptitle-btn{font-size:11px;background:transparent;border:1.5px solid var(--border);color:var(--muted);padding:3px 9px;border-radius:50px;transition:.15s}
 .ptitle-btn:hover{border-color:var(--red);color:var(--red)}
 /* ── بانل "تقدم اليوم" ── */
-.today-progress-mini{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:11px 15px;margin-bottom:16px}
-.tpm-ring{position:relative;width:50px;height:50px;flex-shrink:0}
-.tpm-ring svg{transform:rotate(-90deg);width:100%;height:100%}
-.tpm-ring-pct{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:800;color:var(--gold)}
-.tpm-text{flex:1;min-width:0}
-.tpm-title{font-size:12px;font-weight:700;color:var(--text2)}
-.tpm-sub{font-size:11px;color:var(--muted);margin-top:2px}
+.today-dashboard{position:relative;overflow:hidden;background:linear-gradient(145deg,rgba(32,146,255,.12),rgba(255,255,255,.035) 38%,rgba(255,255,255,.02));border:1px solid var(--border2);border-radius:28px;padding:16px;margin-bottom:18px;box-shadow:0 24px 70px rgba(0,0,0,.28);animation:fadeSlideIn .32s var(--ease-fast,ease) both}
+.today-dashboard::before{content:'';position:absolute;inset:-120px -90px auto auto;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,var(--gold-b25),transparent 68%);pointer-events:none}
+.today-dashboard::after{content:'';position:absolute;left:-120px;bottom:-160px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(74,158,255,.12),transparent 70%);pointer-events:none}
+.dash-head{position:relative;z-index:1;display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:14px}
+.dash-kicker{font-size:11px;font-weight:800;color:var(--gold);letter-spacing:.8px;text-transform:uppercase;margin-bottom:3px}
+.dash-title{font-size:22px;font-weight:900;line-height:1.25;color:#fff}
+.dash-sub{font-size:11.5px;color:var(--muted);margin-top:4px}
+.dash-live{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--gold-b30);background:var(--gold-dim);color:var(--gold);border-radius:999px;padding:6px 10px;font-size:10.5px;font-weight:800;white-space:nowrap}
+.dash-live-dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 0 0 rgba(45,211,111,.42);animation:dashPulse 1.8s infinite}
+@keyframes dashPulse{70%{box-shadow:0 0 0 9px rgba(45,211,111,0)}100%{box-shadow:0 0 0 0 rgba(45,211,111,0)}}
+.dash-main{position:relative;z-index:1;display:grid;grid-template-columns:180px 1fr;gap:14px;align-items:stretch}
+.dash-ring-card{background:rgba(11,16,24,.48);border:1px solid var(--border);border-radius:24px;padding:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:188px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.dash-ring{position:relative;width:132px;height:132px}
+.dash-ring svg{width:100%;height:100%;transform:rotate(-90deg);filter:drop-shadow(0 10px 22px var(--gold-b20))}
+.dash-ring-bg{fill:none;stroke:rgba(255,255,255,.08);stroke-width:12}
+.dash-ring-fg{fill:none;stroke:var(--gold);stroke-width:12;stroke-linecap:round;stroke-dasharray:339.292;stroke-dashoffset:339.292;transition:stroke-dashoffset .75s cubic-bezier(.2,.8,.2,1)}
+.dash-ring-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.dash-ring-pct{font-size:28px;font-weight:900;color:#fff;line-height:1}
+.dash-ring-label{font-size:10px;color:var(--muted);margin-top:5px;font-weight:700}
+.dash-ring-meta{font-size:11px;color:var(--text2);margin-top:12px;text-align:center}
+.dash-stats-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.dash-stat{position:relative;overflow:hidden;background:rgba(255,255,255,.045);border:1px solid var(--border);border-radius:20px;padding:13px;min-height:92px;transition:transform .18s ease,border-color .18s ease,background .18s ease;animation:dashCardIn .38s var(--ease-fast,ease) both}
+.dash-stat:hover{transform:translateY(-2px);border-color:var(--border2);background:rgba(255,255,255,.06)}
+.dash-stat:nth-child(2){animation-delay:.03s}.dash-stat:nth-child(3){animation-delay:.06s}.dash-stat:nth-child(4){animation-delay:.09s}.dash-stat:nth-child(5){animation-delay:.12s}.dash-stat:nth-child(6){animation-delay:.15s}
+@keyframes dashCardIn{from{opacity:0;transform:translateY(8px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+.dash-stat-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}
+.dash-stat-icon{width:30px;height:30px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:var(--gold-dim);color:var(--gold)}
+.dash-stat-icon svg{width:16px;height:16px}
+.dash-stat-status{font-size:9.5px;font-weight:800;color:var(--muted);background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:999px;padding:2px 7px;white-space:nowrap}
+.dash-stat-num{font-size:24px;font-weight:900;color:#fff;line-height:1}
+.dash-stat-label{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.4}
+.dash-stat.good .dash-stat-icon{background:var(--green-dim);color:var(--green)}
+.dash-stat.warn .dash-stat-icon{background:var(--orange-dim);color:var(--orange)}
+.dash-stat.cold .dash-stat-icon{background:rgba(74,158,255,.14);color:var(--blue)}
+.dash-sections{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.dash-panel{background:rgba(11,16,24,.46);border:1px solid var(--border);border-radius:22px;padding:14px;min-width:0}
+.dash-panel-title{font-size:12px;font-weight:900;color:var(--text);margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.dash-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.dash-action{border:1px solid var(--border);background:rgba(255,255,255,.04);color:var(--text2);border-radius:15px;padding:10px 8px;font-size:11.5px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:7px;transition:transform .15s,border-color .15s,background .15s,color .15s}
+.dash-action:hover{transform:translateY(-1px);border-color:var(--gold);background:var(--gold-dim);color:var(--gold)}
+.dash-action svg{width:14px;height:14px}
+.dash-timeline{display:flex;flex-direction:column;gap:8px}
+.dash-timeline-item{position:relative;display:flex;gap:9px;align-items:flex-start;background:rgba(255,255,255,.035);border:1px solid var(--border);border-radius:15px;padding:9px 10px;animation:fadeSlideIn .28s var(--ease-fast,ease) both}
+.dash-timeline-dot{width:9px;height:9px;border-radius:50%;background:var(--gold);margin-top:5px;box-shadow:0 0 0 4px var(--gold-dim);flex-shrink:0}
+.dash-timeline-text{font-size:11.5px;color:var(--text2);line-height:1.45;min-width:0}
+.dash-timeline-meta{font-size:10px;color:var(--muted);margin-top:2px}
+.dash-empty{border:1px dashed var(--border);border-radius:16px;padding:14px;text-align:center;color:var(--muted);font-size:11.5px;line-height:1.6;background:rgba(255,255,255,.025)}
+.dash-skeleton{position:relative;overflow:hidden;background:rgba(255,255,255,.055);border-radius:14px;min-height:18px}
+.dash-skeleton::after{content:'';position:absolute;inset:0;transform:translateX(100%);background:linear-gradient(90deg,transparent,rgba(255,255,255,.12),transparent);animation:dashSkel 1.25s infinite}
+@keyframes dashSkel{100%{transform:translateX(-100%)}}
+.dash-skel-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
 
 .lentry{padding:8px 0;border-bottom:1px solid var(--border);font-size:12px}
 .lentry:last-child{border-bottom:none}
@@ -564,7 +608,7 @@ body{-webkit-font-smoothing:antialiased;letter-spacing:-.005em}
 
 /* -- premium card surface: soft gradient + large diffuse shadow -- */
 .panel,.quran-block,.fast-block,.admin-section,.adhkar-section,
-.course-block,.modal-box,#admin-lock,.today-progress-mini{
+.course-block,.modal-box,#admin-lock,.today-dashboard{
   background:linear-gradient(180deg,rgba(27,32,42,.96),rgba(20,24,33,.95));
   box-shadow:0 20px 60px rgba(0,0,0,.35);
   position:relative;
@@ -574,7 +618,7 @@ body{-webkit-font-smoothing:antialiased;letter-spacing:-.005em}
 .modal-box{border-radius:30px;box-shadow:0 24px 80px rgba(0,0,0,.5);overflow-x:hidden;overflow-y:auto}
 #gate-screen .gate-box{border-radius:30px}
 
-.panel>*,.quran-block>*,.fast-block>*,.admin-section>*,.course-block>*,#admin-lock>*,.adhkar-section>*,.modal-box>*,.today-progress-mini>*{position:relative;z-index:1}
+.panel>*,.quran-block>*,.fast-block>*,.admin-section>*,.course-block>*,#admin-lock>*,.adhkar-section>*,.modal-box>*,.today-dashboard>*{position:relative;z-index:1}
 
 /* -- list rows: crisp card, gentle lift + blue-tinted border on hover -- */
 .hrow,.admin-habit-row,.fday,.course-meta-row,.admin-course-block{
@@ -704,12 +748,12 @@ header,
 main{background:transparent!important}
 /* -- panels: corner glow + refreshed radius, matched to this app's real card classes -- */
 .panel,.quran-block,.fast-block,.admin-section,.adhkar-section,
-.course-block,.modal-box,#admin-lock,.today-progress-mini{
+.course-block,.modal-box,#admin-lock,.today-dashboard{
   border-radius:24px;
 }
 .panel::after,.quran-block::after,.fast-block::after,.admin-section::after,
 .adhkar-section::after,.course-block::after,.modal-box::after,#admin-lock::after,
-.today-progress-mini::after{
+.today-dashboard::after{
     content:"";
     position:absolute;
     width:300px;
@@ -744,7 +788,7 @@ a{color:inherit;text-decoration:none}
 
 /* -- unify every card-like surface on one consistent radius/shadow/hover language -- */
 .panel,.quran-block,.fast-block,.admin-section,.adhkar-section,
-.course-block,.modal-box,#admin-lock,.today-progress-mini,
+.course-block,.modal-box,#admin-lock,.today-dashboard,
 .hrow,.admin-habit-row,.admin-course-block,.fday,.mat-choice-btn{
   border-radius:var(--r-lg);
 }
@@ -821,7 +865,7 @@ a{color:inherit;text-decoration:none}
 /* -- gentle entrance for freshly-rendered cards/rows (subtle, not exaggerated) -- */
 @keyframes fadeSlideIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 .panel,.quran-block,.fast-block,.admin-section,.course-block,.adhkar-section,
-.today-progress-mini,#admin-lock{animation:fadeSlideIn .28s var(--ease-fast) both}
+.today-dashboard,#admin-lock{animation:fadeSlideIn .28s var(--ease-fast) both}
 
 /* -- responsive: tablet + small phone refinements (visual only) -- */
 @media (max-width:768px){
@@ -894,16 +938,27 @@ a{color:inherit;text-decoration:none}
   </div>
 
   <div id="tab-today">
-    <div class="today-progress-mini">
-      <div class="tpm-ring">
-        <svg width="50" height="50" viewBox="0 0 106 106">
-          <circle cx="53" cy="53" r="44" fill="none" stroke="var(--border)" stroke-width="10"/>
-          <circle id="ring-c" cx="53" cy="53" r="44" fill="none" stroke="var(--gold)" stroke-width="10"
-            stroke-dasharray="276" stroke-dashoffset="276" stroke-linecap="round"
-            style="transition:stroke-dashoffset .5s ease"/>
-        </svg>
-        <div class="tpm-ring-pct" id="ring-pct">0%</div>
+    <div id="today-dashboard" class="today-dashboard">
+      <div class="dash-head">
+        <div>
+          <div class="dash-kicker">Dashboard</div>
+          <div class="dash-title">لوحة اليوم</div>
+          <div class="dash-sub">جاري تحميل بياناتك من Supabase...</div>
+        </div>
+        <div class="dash-live"><span class="dash-live-dot"></span>Supabase</div>
       </div>
+      <div class="dash-main">
+        <div class="dash-ring-card">
+          <div class="dash-skeleton" style="width:132px;height:132px;border-radius:50%"></div>
+          <div class="dash-skeleton" style="width:110px;margin-top:12px"></div>
+        </div>
+        <div class="dash-skel-grid">
+          <div class="dash-skeleton" style="height:92px"></div><div class="dash-skeleton" style="height:92px"></div>
+          <div class="dash-skeleton" style="height:92px"></div><div class="dash-skeleton" style="height:92px"></div>
+          <div class="dash-skeleton" style="height:92px"></div><div class="dash-skeleton" style="height:92px"></div>
+        </div>
+      </div>
+    </div>
       <div class="tpm-text">
         <div class="tpm-title">تقدم اليوم</div>
         <div class="tpm-sub" id="ring-sub">0 من 0 مكتملة</div>
@@ -3025,6 +3080,140 @@ function renderAdminHabits(){
   }).join('');
 }
 
+const DASH_RING_LEN=339.292;
+const QURAN_JUZ_PAGE_STARTS=[1,22,42,62,82,102,121,142,162,182,201,222,242,262,282,302,322,342,362,382,402,422,442,462,482,502,522,542,562,582,605];
+let _dashboardPastRecordsCache=null;
+let _dashboardStreakRun=0;
+function dashIcon(path){return svgi(path);}
+function dashTab(tab){
+  const btn=[...document.querySelectorAll('.tab')].find(b=>b.getAttribute('onclick')?.includes(`'${tab}'`));
+  if(btn)setTab(tab,btn);
+}
+function myHabitsForDashboard(){
+  return habits.filter(h=>h.user==='كلاهما'||h.user===currentUser);
+}
+function habitStatsForRecords(arr,date=TODAY()){
+  const list=Array.isArray(arr)?arr:[];
+  let total=0,done=0;
+  myHabitsForDashboard().forEach(h=>{
+    if(h.prayers){
+      total+=PRAYERS.length;
+      done+=PRAYERS.filter(p=>list.find(r=>r.date===date&&r.habitId===h.id+'__'+p&&r.user===currentUser)?.done).length;
+    }else{
+      total+=1;
+      if(list.find(r=>r.date===date&&r.habitId===h.id&&r.user===currentUser)?.done)done+=1;
+    }
+  });
+  return{total,done,pct:total?Math.round(done/total*100):0};
+}
+function quranDashboardStats(){
+  const uq=quranData[currentUser]||{};
+  const doneJuz=Array.from({length:JUZ_COUNT},(_,i)=>i+1).filter(j=>!!uq[j]);
+  const pages=doneJuz.reduce((sum,j)=>sum+(QURAN_JUZ_PAGE_STARTS[j]-QURAN_JUZ_PAGE_STARTS[j-1]),0);
+  return{doneJuz:doneJuz.length,pages};
+}
+function adhkarDashboardStats(){
+  const items=adhkarSections.flatMap(s=>Array.isArray(s.items)?s.items:[]);
+  const counted=items.filter(it=>Number(it.count)>0);
+  const done=counted.filter(it=>(it.remaining??it.count)<=0).length;
+  return{items:items.length,counted:counted.length,done};
+}
+function fastingDashboardStats(){
+  const fd=fastDays.find(d=>d.date===TODAY()&&(!d.assignedTo||d.assignedTo==='كلاهما'||d.assignedTo===currentUser));
+  if(!fd)return{exists:false,done:false,label:'لا يوجد صيام اليوم'};
+  const cb=Array.isArray(fd.checkedBy)?fd.checkedBy:(fd.checked?['محمد']:[]);
+  return{exists:true,done:cb.includes(currentUser),label:fd.type||'صيام اليوم',checkedBy:cb};
+}
+async function dashboardPastRecords(){
+  if(_dashboardPastRecordsCache)return _dashboardPastRecordsCache;
+  const keys=[];
+  for(let i=1;i<=30;i++){const d=new Date();d.setDate(d.getDate()-i);keys.push(localDateStr(d));}
+  const results=await Promise.all(keys.map(k=>apiGet('records-'+k)));
+  _dashboardPastRecordsCache={keys,results};
+  return _dashboardPastRecordsCache;
+}
+async function currentCompletionStreak(){
+  const todayStats=habitStatsForRecords(records,TODAY());
+  if(!(todayStats.total>0&&todayStats.done===todayStats.total))return 0;
+  let streak=1;
+  const past=await dashboardPastRecords();
+  for(let i=0;i<past.keys.length;i++){
+    const arr=Array.isArray(past.results[i])?past.results[i]:[];
+    const s=habitStatsForRecords(arr,past.keys[i]);
+    if(s.total>0&&s.done===s.total)streak++;
+    else break;
+  }
+  return streak;
+}
+function dashStatHTML({cls='',icon,num,label,status}) {
+  return `<div class="dash-stat ${cls}">
+    <div class="dash-stat-top"><span class="dash-stat-icon">${icon}</span><span class="dash-stat-status">${escHtml(status)}</span></div>
+    <div class="dash-stat-num">${escHtml(String(num))}</div>
+    <div class="dash-stat-label">${escHtml(label)}</div>
+  </div>`;
+}
+function dashboardTimelineHTML(){
+  const todays=activityLog.filter(l=>l.user===currentUser&&l.date===TODAY()).slice(0,5);
+  if(!todays.length)return '<div class="dash-empty">لا يوجد نشاط مسجل اليوم بعد. أول إنجاز هتعمله هيظهر هنا تلقائيًا.</div>';
+  return `<div class="dash-timeline">${todays.map(l=>`<div class="dash-timeline-item">
+    <span class="dash-timeline-dot"></span>
+    <div class="dash-timeline-text"><div>${escHtml(l.desc||l.type||'نشاط')}</div><div class="dash-timeline-meta">${escHtml(l.time||'')} · ${l.done?'تم':'تم التراجع'}</div></div>
+  </div>`).join('')}</div>`;
+}
+function dashboardActionsHTML(){
+  return `<div class="dash-actions">
+    <button class="dash-action" onclick="dashTab('tasks')">${dashIcon('<rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 14l2 2 4-4"/>')}المهام</button>
+    <button class="dash-action" onclick="dashTab('quran')">${dashIcon('<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>')}القرآن</button>
+    <button class="dash-action" onclick="dashTab('adhkar')">${dashIcon('<circle cx="6" cy="12" r="2"/><circle cx="12" cy="7" r="2"/><circle cx="18" cy="12" r="2"/><circle cx="12" cy="17" r="2"/>')}الأذكار</button>
+    <button class="dash-action" onclick="dashTab('fasting')">${dashIcon('<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>')}الصيام</button>
+  </div>`;
+}
+function renderDashboard(){
+  const el=document.getElementById('today-dashboard');if(!el)return;
+  const userAtRender=currentUser,runId=++_dashboardStreakRun;
+  const hs=habitStatsForRecords(records,TODAY());
+  const q=quranDashboardStats();
+  const a=adhkarDashboardStats();
+  const f=fastingDashboardStats();
+  const todaysTasks=myTasksActive().filter(t=>t.date===TODAY()).length;
+  const ringOffset=DASH_RING_LEN-(hs.pct/100)*DASH_RING_LEN;
+  const adhkarNum=a.counted?`${a.done}/${a.counted}`:a.items;
+  const adhkarLabel=a.counted?'عدادات أذكار مكتملة':'أذكار متاحة';
+  const fastingNum=f.exists?(f.done?'✓':'1'):'0';
+  const fastingLabel=f.exists?(f.done?'تم تسجيل الصيام':'صيام متاح للتسجيل'):f.label;
+  el.innerHTML=`<div class="dash-head">
+    <div><div class="dash-kicker">Today Summary</div><div class="dash-title">أهلًا ${escHtml(currentUser)}، دي لوحة يومك</div><div class="dash-sub">كل الأرقام محسوبة من بيانات Supabase المحفوظة فعليًا.</div></div>
+    <div class="dash-live"><span class="dash-live-dot"></span>Live data</div>
+  </div>
+  <div class="dash-main">
+    <div class="dash-ring-card">
+      <div class="dash-ring">
+        <svg viewBox="0 0 132 132"><circle class="dash-ring-bg" cx="66" cy="66" r="54"/><circle class="dash-ring-fg" cx="66" cy="66" r="54" style="stroke-dashoffset:${ringOffset}"/></svg>
+        <div class="dash-ring-center"><div class="dash-ring-pct">${hs.pct}%</div><div class="dash-ring-label">Daily completion</div></div>
+      </div>
+      <div class="dash-ring-meta">${hs.done} من ${hs.total} مكتملة اليوم</div>
+    </div>
+    <div class="dash-stats-grid">
+      ${dashStatHTML({cls:hs.pct>=100?'good':hs.pct>0?'warn':'',icon:dashIcon('<path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>'),num:hs.pct+'%',label:'نسبة إنجاز اليوم',status:'Completion'})}
+      ${dashStatHTML({cls:todaysTasks?'cold':'',icon:dashIcon('<rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 14l2 2 4-4"/>'),num:todaysTasks,label:'مهام مستحقة اليوم',status:'Tasks'})}
+      ${dashStatHTML({cls:q.pages?'good':'',icon:dashIcon('<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>'),num:q.pages,label:`صفحة قرآن من ${q.doneJuz} جزء مكتمل`,status:'Quran'})}
+      ${dashStatHTML({cls:a.counted&&a.done===a.counted?'good':a.items?'cold':'',icon:dashIcon('<circle cx="6" cy="12" r="2"/><circle cx="12" cy="7" r="2"/><circle cx="18" cy="12" r="2"/><circle cx="12" cy="17" r="2"/>'),num:adhkarNum,label:adhkarLabel,status:'Adhkar'})}
+      ${dashStatHTML({cls:f.done?'good':f.exists?'warn':'',icon:dashIcon('<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>'),num:fastingNum,label:fastingLabel,status:'Fasting'})}
+      ${dashStatHTML({cls:'cold',icon:dashIcon('<path d="M8 17l4 4 4-4"/><path d="M12 12v9"/><path d="M20.88 18.09A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.29"/>'),num:'…',label:'جاري حساب الستريك من سجلات الأيام السابقة',status:'Streak'})}
+    </div>
+  </div>
+  <div class="dash-sections">
+    <div class="dash-panel"><div class="dash-panel-title"><span>Quick Actions</span><span class="dash-stat-status">اختصارات</span></div>${dashboardActionsHTML()}</div>
+    <div class="dash-panel"><div class="dash-panel-title"><span>Activity Timeline</span><span class="dash-stat-status">${activityLog.filter(l=>l.user===currentUser&&l.date===TODAY()).length}</span></div>${dashboardTimelineHTML()}</div>
+  </div>`;
+  currentCompletionStreak().then(streak=>{
+    if(runId!==_dashboardStreakRun||userAtRender!==currentUser)return;
+    const statsGrid=el.querySelector('.dash-stats-grid');if(!statsGrid)return;
+    const cards=[...statsGrid.children];const last=cards[cards.length-1];if(!last)return;
+    last.outerHTML=dashStatHTML({cls:streak?'good':'',icon:dashIcon('<path d="M8 17l4 4 4-4"/><path d="M12 12v9"/><path d="M20.88 18.09A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.29"/>'),num:streak,label:'يوم مكتمل على التوالي',status:'Streak'});
+  });
+}
+
 function renderProgress(){
   const my=habits.filter(h=>h.user==='كلاهما'||h.user===currentUser);let total=0,done=0;
   my.forEach(h=>{if(h.prayers){total+=PRAYERS.length;done+=PRAYERS.filter(p=>getPrayerRec(h.id,p,currentUser)?.done).length;}else{total+=1;if(getRec(h.id,currentUser)?.done)done+=1;}});
@@ -3034,6 +3223,7 @@ function renderProgress(){
   if(pctEl)pctEl.textContent=pct+'%';
   const subEl=document.getElementById('ring-sub');if(subEl)subEl.textContent=`${done} من ${total} مكتملة`;
   const badge=document.getElementById('today-pct-badge');if(badge)badge.textContent=pct+'%';
+  renderDashboard();
 }
 
 function renderTodayFasting(){
