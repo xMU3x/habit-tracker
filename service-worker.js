@@ -1,7 +1,7 @@
 // =============================================
 // SERVICE WORKER — وِرد PWA
 // =============================================
-const SW_VERSION = 'v1.1.0';
+const SW_VERSION = 'v1.2.0';
 const CACHE_NAME = `werd-cache-${SW_VERSION}`;
 const OFFLINE_PAGE = '/offline.html';
 
@@ -11,6 +11,7 @@ const PRECACHE_URLS = [
   '/index.html',
   '/offline.html',
   '/manifest.json',
+  '/favicon.ico',
   '/icons/icon-72.png',
   '/icons/icon-96.png',
   '/icons/icon-128.png',
@@ -19,6 +20,12 @@ const PRECACHE_URLS = [
   '/icons/icon-192.png',
   '/icons/icon-384.png',
   '/icons/icon-512.png',
+  '/icons/favicon-16x16.png',
+  '/icons/favicon-32x32.png',
+  '/icons/favicon-48x48.png',
+  '/icons/favicon-192x192.png',
+  '/icons/favicon-512x512.png',
+  '/icons/apple-touch-icon.png',
   'https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap'
 ];
 

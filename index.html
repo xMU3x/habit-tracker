@@ -8,6 +8,14 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <meta name="apple-mobile-web-app-title" content="وِرد"/>
 <link rel="manifest" href="/manifest.json"/>
+<!-- ── Favicon (مأخوذة من شعار الموقع الحالي دون أي تعديل على تصميمه) ── -->
+<link rel="icon" href="/favicon.ico" sizes="any"/>
+<link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png"/>
+<link rel="icon" type="image/png" sizes="48x48" href="/icons/favicon-48x48.png"/>
+<link rel="icon" type="image/png" sizes="192x192" href="/icons/favicon-192x192.png"/>
+<link rel="icon" type="image/png" sizes="512x512" href="/icons/favicon-512x512.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png"/>
 <title>وِرد — العادات اليومية</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -404,6 +412,20 @@ textarea.finp{resize:vertical;min-height:70px;line-height:1.6}
 .bulk-btn.bulk-ok:hover{background:var(--green-dim)}
 .bulk-btn svg{width:13px;height:13px}
 
+/* -- صف المهمة: يحتوي الـ checkbox الخارجي بجانب البطاقة + البطاقة نفسها -- */
+.task-row{display:flex;align-items:flex-start;gap:7px;margin-bottom:9px}
+.task-row .task-card2{flex:1;min-width:0;margin-bottom:0}
+/* checkbox صغير خارج البطاقة، يظهر فقط داخل تبويب المهام عند الحاجة للتحديد الجماعي */
+.tchk-side{width:15px;height:15px;min-width:15px;border-radius:5px;border:1.6px solid var(--border2);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.15s;flex-shrink:0;color:transparent;margin-top:15px;padding:0}
+.tchk-side:hover{border-color:var(--gold)}
+.tchk-side.on{background:var(--gold);border-color:var(--gold);color:#1a0e00}
+.tchk-side svg{width:9px;height:9px}
+/* حالة كل بروفايل بالنسبة للمهام المشتركة */
+.task-user-status{font-size:10.5px;font-weight:700}
+.task-user-status.us-done{color:var(--green);background:var(--green-dim);border-color:rgba(45,211,111,.25)}
+.task-user-status.us-pending{color:var(--muted);background:var(--surface)}
+/* زر إنهاء المهمة عند إنجاز المستخدم الحالي لجزئه (مهمة مشتركة لم تكتمل بعد للجميع) */
+.task-card2 .chk.mine-done{border-color:var(--green);background:var(--green-dim);color:var(--green)}
 /* -- redesigned task card -- */
 .task-card2{position:relative;display:flex;align-items:flex-start;gap:10px;background:linear-gradient(145deg,var(--card),var(--card2));border:1px solid var(--border);border-radius:16px;padding:13px 14px 13px 10px;margin-bottom:9px;transition:transform .18s var(--ease,ease),border-color .18s,box-shadow .18s,opacity .25s;animation:taskIn .28s var(--ease,ease)}
 .task-card2::before{content:'';position:absolute;top:10px;bottom:10px;right:0;width:3.5px;border-radius:4px;background:var(--pr-clr,transparent)}
@@ -1630,6 +1652,12 @@ async function loadData(){
     dlStatus:t.cat==='تحميل'?'idle':null,
     ...t
   }));
+  // ترحيل المهام القديمة: إضافة completedBy (حالة إنجاز مستقلة لكل بروفايل) بدون كسر البيانات القديمة
+  tasks.forEach(t=>{
+    if(!Array.isArray(t.completedBy)){
+      t.completedBy=t.done?taskAssignees(t):[];
+    }
+  });
   // ترحيل أي فئات قديمة غير موجودة ضمن الفئات الافتراضية الجديدة إلى قائمة الفئات المخصصة تلقائيًا
   let catsChanged=false;
   tasks.forEach(t=>{
@@ -2332,28 +2360,46 @@ async function addTask(){
   const priority=prioSel?prioSel.value||null:null;
   const assignedTo=userSel?userSel.value:'محمد';
   const tags=[..._formTags.task];
-  tasks.push({id:'t'+Date.now(),text,date,done:false,ts:Date.now(),recur,cat:cat||null,link,reminder,reminded:false,priority,assignedTo,tags,archived:false,doneAt:null,dlStatus:cat==='تحميل'?'idle':null});
+  tasks.push({id:'t'+Date.now(),text,date,done:false,ts:Date.now(),recur,cat:cat||null,link,reminder,reminded:false,priority,assignedTo,tags,archived:false,doneAt:null,completedBy:[],dlStatus:cat==='تحميل'?'idle':null});
   inp.value='';dateInp.value='';linkInp.value='';
   _formTags.task=[];renderTagChips('task');
   if(recurSel)recurSel.value='';if(wdSel)wdSel.style.display='none';if(catSel)catSel.value='';if(prioSel)prioSel.value='';if(userSel)userSel.value='محمد';
   await saveTasks();renderTasksTab();renderTodayTasks();toast('✓ تمت الإضافة');
 }
 // ── إنهاء المهمة: تُنقل تلقائيًا إلى الأرشيف بدل الحذف النهائي ──
+// للمهام المشتركة (مخصصة لأكثر من بروفايل): كل بروفايل له حالة إنجاز مستقلة داخل completedBy،
+// ولا تُعتبر المهمة مكتملة/تُنقل للأرشيف إلا بعد أن ينجزها جميع الأشخاص المخصص لهم
 async function toggleTask(id){
   const idx=tasks.findIndex(x=>x.id===id);if(idx<0)return;
   const t=tasks[idx];
-  pushLog('tasks',t.text,true);
-  if(t.recur&&t.date){
-    const nd=nextRecurDate(t.date,t.recur);
-    if(nd)tasks.push({...t,id:'t'+Date.now()+Math.random().toString(36).slice(2,6),date:nd,done:false,archived:false,doneAt:null,ts:Date.now(),reminded:false,dlStatus:t.cat==='تحميل'?'idle':null});
+  if(!Array.isArray(t.completedBy))t.completedBy=t.done?taskAssignees(t):[];
+  const assignees=taskAssignees(t);
+  const alreadyDoneByMe=t.completedBy.includes(currentUser);
+  if(alreadyDoneByMe){
+    // إلغاء إنجاز المستخدم الحالي فقط (لا يؤثر على إنجاز باقي المكلفين بالمهمة)
+    t.completedBy=t.completedBy.filter(u=>u!==currentUser);
+    t.done=false;t.archived=false;t.doneAt=null;
+    pushLog('tasks',t.text,false);
+    await saveTasks();await saveLog();renderTasksTab();renderTodayTasks();toast('تم إلغاء إنجازك للمهمة');
+    return;
   }
-  t.done=true;t.archived=true;t.doneAt=Date.now();
+  t.completedBy.push(currentUser);
+  pushLog('tasks',t.text,true);
+  const fullyDone=assignees.every(u=>t.completedBy.includes(u));
+  if(fullyDone){
+    if(t.recur&&t.date){
+      const nd=nextRecurDate(t.date,t.recur);
+      if(nd)tasks.push({...t,id:'t'+Date.now()+Math.random().toString(36).slice(2,6),date:nd,done:false,archived:false,doneAt:null,completedBy:[],ts:Date.now(),reminded:false,dlStatus:t.cat==='تحميل'?'idle':null});
+    }
+    t.done=true;t.archived=true;t.doneAt=Date.now();
+  }
   selectedTaskIds.delete(id);
-  await saveTasks();await saveLog();renderTasksTab();renderTodayTasks();toast('✓ تم إنجاز المهمة ونقلها للأرشيف');
+  await saveTasks();await saveLog();renderTasksTab();renderTodayTasks();
+  toast(fullyDone?'✓ تم إنجاز المهمة ونقلها للأرشيف':'✓ تم تسجيل إنجازك، بانتظار باقي المكلفين بالمهمة');
 }
 async function restoreTask(id){
   const t=tasks.find(x=>x.id===id);if(!t)return;
-  t.archived=false;t.done=false;t.doneAt=null;
+  t.archived=false;t.done=false;t.doneAt=null;t.completedBy=[];
   await saveTasks();renderTasksTab();renderTodayTasks();toast('✓ تم الاستعادة من الأرشيف');
 }
 // ── حذف مع Undo ──
@@ -2423,9 +2469,10 @@ async function saveEditTask(){
   t.tags=[..._formTags.et];
   t.cat=cat||null;if(t.cat==='تحميل'&&!t.dlStatus)t.dlStatus='idle';if(t.cat!=='تحميل')t.dlStatus=null;
   t.recur=(recurType&&date)?{type:recurType,weekday:recurType==='weekly'?parseInt(wd,10):null}:null;
+  recomputeTaskDoneState(t);
   await saveTasks();closeEditTask();renderTasksTab();renderTodayTasks();toast('✓ تم حفظ التعديلات');
 }
-function taskItemHTML(t,showDate){
+function taskItemHTML(t,showDate,selectable){
   const archivedMode=!!t.archived;
   const prioClr=t.priority?PRIO_CLR[t.priority]:'transparent';
   const prioTag=t.priority?`<span class="tag" style="color:${prioClr};display:inline-flex;align-items:center;gap:4px"><span class="prio-dot" style="--pr-clr:${prioClr}"></span>${PRIO_LBL[t.priority]}</span>`:'';
@@ -2445,27 +2492,54 @@ function taskItemHTML(t,showDate){
       dateTag='<span class="tag">بدون تاريخ</span>';
     }
   }
+  // ── حالة الإنجاز لكل بروفايل بالنسبة للمهام المشتركة (مخصصة لأكثر من شخص) ──
+  let sharedStatusRow='';
+  if(isTaskShared(t)){
+    const chips=taskAssignees(t).map(u=>{
+      const done=taskDoneByUser(t,u);
+      return `<span class="tag task-user-status ${done?'us-done':'us-pending'}">${escHtml(u)}: ${done?'✓ منجز':'قيد الانتظار'}</span>`;
+    }).join('');
+    sharedStatusRow=`<div class="hmeta" style="margin-top:5px">${chips}</div>`;
+  }
   const dlRow=(t.cat==='تحميل'&&!archivedMode)?`<div class="dl-status" onclick="event.stopPropagation()">
       <button class="dl-btn ${t.dlStatus==='idle'||!t.dlStatus?'active-idle':''}" onclick="setDownloadStatus('${t.id}','idle')" title="لم يبدأ">لم يبدأ</button>
       <button class="dl-btn ${t.dlStatus==='downloading'?'active-downloading':''}" onclick="setDownloadStatus('${t.id}','downloading')" title="جاري التحميل">${ICON.spin} جاري التحميل</button>
       <button class="dl-btn ${t.dlStatus==='done'?'active-done':''}" onclick="setDownloadStatus('${t.id}','done')" title="تم التحميل">${ICON.check} تم التحميل</button>
     </div>`:'';
-  const checkbox=!archivedMode?`<button class="tchk ${selectedTaskIds.has(t.id)?'on':''}" onclick="event.stopPropagation();toggleTaskSelect('${t.id}')" title="تحديد">${ICON.check}</button>`:'';
+  // ── Checkbox التحديد الجماعي: يظهر خارج البطاقة، فقط داخل تبويب المهام، وليس في اليوم/الرئيسية ──
+  const outsideSelectChk=(selectable&&!archivedMode)?`<button class="tchk-side ${selectedTaskIds.has(t.id)?'on':''}" onclick="event.stopPropagation();toggleTaskSelect('${t.id}')" title="تحديد">${ICON.check}</button>`:'';
+  const myDone=taskDoneByUser(t,currentUser);
   const actions=archivedMode
     ?`<button class="tc-restore-btn" onclick="restoreTask('${t.id}')" title="استعادة">${ICON.restore}</button>
        <button class="admin-del" onclick="deleteTaskPermanent('${t.id}')" title="حذف نهائي">${ICON.trash}</button>`
-    :`<button class="chk" onclick="toggleTask('${t.id}')" title="إنهاء المهمة">${ICON.check}</button>
+    :`<button class="chk ${myDone?'mine-done':''}" onclick="toggleTask('${t.id}')" title="${myDone?'إلغاء إنجازك للمهمة':'إنهاء المهمة'}">${ICON.check}</button>
        <button class="admin-del" style="font-size:12px" onclick="editTaskOpen('${t.id}')" title="تعديل">${ICON.edit}</button>
        <button class="admin-del" onclick="deleteTask('${t.id}')" title="حذف">${ICON.trash}</button>`;
-  return `<div class="task-card2 ${archivedMode?'archived-card done':''}" style="--pr-clr:${prioClr}" data-task-id="${t.id}">
-    ${checkbox}
-    <div class="task-card2-main">
-      <div class="task-card2-title"><span class="hname-text">${escHtml(t.text)}</span></div>
-      <div class="hmeta">${dateTag}${catTag}${recurTag}${userTag}${prioTag}${tagsTags}${linkTag}</div>
-      ${dlRow}
+  return `<div class="task-row">
+    ${outsideSelectChk}
+    <div class="task-card2 ${archivedMode?'archived-card done':''}" style="--pr-clr:${prioClr}" data-task-id="${t.id}">
+      <div class="task-card2-main">
+        <div class="task-card2-title"><span class="hname-text">${escHtml(t.text)}</span></div>
+        <div class="hmeta">${dateTag}${catTag}${recurTag}${userTag}${prioTag}${tagsTags}${linkTag}</div>
+        ${sharedStatusRow}
+        ${dlRow}
+      </div>
+      <div class="task-card2-actions">${actions}</div>
     </div>
-    <div class="task-card2-actions">${actions}</div>
   </div>`;
+}
+// ── المهام المشتركة: كل بروفايل مخصص له المهمة له حالة إنجاز مستقلة ──
+const TASK_ALL_PROFILES=['محمد','نيرة'];
+function taskAssignees(t){return(!t.assignedTo||t.assignedTo==='كلاهما')?TASK_ALL_PROFILES.slice():[t.assignedTo];}
+function isTaskShared(t){return taskAssignees(t).length>1;}
+function taskDoneByUser(t,user){return Array.isArray(t.completedBy)&&t.completedBy.includes(user);}
+function isTaskFullyDone(t){return taskAssignees(t).every(u=>taskDoneByUser(t,u));}
+// عند تغيير تخصيص المهمة (بروفايل واحد/كلاهما) يُعاد حساب حالة الإنجاز/الأرشفة لتبقى متسقة
+function recomputeTaskDoneState(t){
+  if(!Array.isArray(t.completedBy))t.completedBy=[];
+  const fullyDone=isTaskFullyDone(t);
+  if(fullyDone&&!t.archived){t.archived=true;t.done=true;t.doneAt=t.doneAt||Date.now();}
+  else if(!fullyDone&&t.archived){t.archived=false;t.done=false;t.doneAt=null;}
 }
 function myTasksAll(){return tasks.filter(t=>!t.assignedTo||t.assignedTo==='كلاهما'||t.assignedTo===currentUser);}
 function myTasksActive(){return myTasksAll().filter(t=>!t.archived);}
@@ -2543,7 +2617,7 @@ async function bulkApplyCat(){
 async function bulkApplyUser(){
   const v=document.getElementById('bulk-user-inp').value;
   if(!v)return toast('اختر البروفايل أولاً','err');
-  selectedTasksArr().forEach(t=>t.assignedTo=v);
+  selectedTasksArr().forEach(t=>{t.assignedTo=v;recomputeTaskDoneState(t);});
   await saveTasks();renderTasksTab();renderTodayTasks();toast('✓ تم تحديث البروفايل للمحدد');
 }
 async function bulkApplyDate(){
@@ -2571,17 +2645,26 @@ async function bulkRemoveTags(){
 async function bulkFinishTasks(){
   const arr=selectedTasksArr();if(!arr.length)return;
   if(!await customConfirm(`إنهاء ${arr.length} مهمة ونقلها للأرشيف؟`,false))return;
+  let allFullyDone=true;
   arr.forEach(t=>{
+    if(!Array.isArray(t.completedBy))t.completedBy=t.done?taskAssignees(t):[];
+    if(!t.completedBy.includes(currentUser))t.completedBy.push(currentUser);
     pushLog('tasks',t.text,true);
-    if(t.recur&&t.date){
-      const nd=nextRecurDate(t.date,t.recur);
-      if(nd)tasks.push({...t,id:'t'+Date.now()+Math.random().toString(36).slice(2,6),date:nd,done:false,archived:false,doneAt:null,ts:Date.now(),reminded:false,dlStatus:t.cat==='تحميل'?'idle':null});
+    const fullyDone=taskAssignees(t).every(u=>t.completedBy.includes(u));
+    if(fullyDone){
+      if(t.recur&&t.date){
+        const nd=nextRecurDate(t.date,t.recur);
+        if(nd)tasks.push({...t,id:'t'+Date.now()+Math.random().toString(36).slice(2,6),date:nd,done:false,archived:false,doneAt:null,completedBy:[],ts:Date.now(),reminded:false,dlStatus:t.cat==='تحميل'?'idle':null});
+      }
+      t.done=true;t.archived=true;t.doneAt=Date.now();
+    }else{
+      allFullyDone=false;
     }
-    t.done=true;t.archived=true;t.doneAt=Date.now();
   });
   selectedTaskIds.clear();
   await Promise.all([saveTasks(),saveLog()]);
-  renderTasksTab();renderTodayTasks();toast('✓ تم إنهاء المهام المحددة ونقلها للأرشيف');
+  renderTasksTab();renderTodayTasks();
+  toast(allFullyDone?'✓ تم إنهاء المهام المحددة ونقلها للأرشيف':'✓ تم تسجيل إنجازك؛ بعض المهام بانتظار باقي المكلفين بها');
 }
 async function bulkDeleteTasks(){
   const arr=selectedTasksArr();if(!arr.length)return;
@@ -2651,7 +2734,7 @@ function renderTasksTab(){
   let html='';
   groups.forEach(g=>{
     if(g.label)html+=`<div class="slabel">${escHtml(g.label)} — ${g.items.length}</div>`;
-    html+=g.items.map(t=>taskItemHTML(t,true)).join('');
+    html+=g.items.map(t=>taskItemHTML(t,true,true)).join('');
   });
   el.innerHTML=html;
 }
