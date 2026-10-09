@@ -155,6 +155,42 @@ details.ad{background:var(--surf);border:1px solid var(--line);border-radius:20p
 .snack{position:fixed;inset:auto 16px calc(var(--nav) + env(safe-area-inset-bottom,0px) + 16px);z-index:60;max-width:608px;margin:0 auto;background:#322A2D;color:#F7EEF0;padding:14px 16px;border-radius:14px;font-size:14px;opacity:0;transform:translateY(12px);pointer-events:none;transition:opacity .25s var(--e),transform .3s var(--ee)}
 .snack.on{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* ===== Liquid Glass / edge-to-edge system ===== */
+:root{--glass:rgba(255,255,255,.68);--glass-strong:rgba(255,255,255,.84);--glass-line:rgba(255,255,255,.66);--glass-shadow:0 12px 34px rgba(17,35,26,.10),inset 0 1px 0 rgba(255,255,255,.76);--glass-filter:blur(24px) saturate(165%)}
+:root[data-eff="dark"]{--glass:rgba(25,39,32,.70);--glass-strong:rgba(25,39,32,.86);--glass-line:rgba(255,255,255,.10);--glass-shadow:0 12px 34px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.06)}
+html,body{width:100%;overscroll-behavior:none}
+body{background:radial-gradient(110% 48% at 50% 0%,color-mix(in srgb,var(--pc) 42%,transparent),transparent 76%),var(--bg)}
+.app{max-width:none;width:100%;inset:0}
+.sb{background:color-mix(in srgb,var(--bg) 54%,transparent);backdrop-filter:blur(18px) saturate(155%);-webkit-backdrop-filter:blur(18px) saturate(155%)}
+.page{padding-inline:clamp(16px,3.5vw,32px);padding-top:calc(env(safe-area-inset-top,0px) + 14px);padding-bottom:calc(var(--nav) + env(safe-area-inset-bottom,0px) + 28px)}
+.card,.row-i,.pt,.tile,.sum,.hb,.cd,.row-i,.sub .sc,.sc2,.sum .add input,.sum .add select,.sum textarea,.ad,.sheet .panel{
+ background:color-mix(in srgb,var(--surf) 76%,transparent);border-color:color-mix(in srgb,var(--line) 66%,transparent);
+ box-shadow:var(--glass-shadow);backdrop-filter:var(--glass-filter);-webkit-backdrop-filter:var(--glass-filter);
+ transition:background-color .28s var(--e),border-color .28s var(--e),box-shadow .28s var(--e),transform .22s var(--e)
+}
+.card:active,.tile:active,.row-i:active,.pt:active{transform:scale(.992)}
+.card .ic,.ic{box-shadow:inset 0 1px 0 rgba(255,255,255,.32)}
+.hero{border:1px solid rgba(255,255,255,.22);box-shadow:0 18px 44px rgba(12,35,24,.18),inset 0 1px 0 rgba(255,255,255,.24);position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;background:linear-gradient(135deg,rgba(255,255,255,.16),transparent 42%,rgba(255,255,255,.035))}
+.pray{border:1px solid rgba(255,255,255,.16);box-shadow:0 16px 34px rgba(0,0,0,.13),inset 0 1px 0 rgba(255,255,255,.12)}
+.nav{inset-inline:0;width:100%;max-width:none;padding:0}
+.nav nav{width:100%;max-width:none;padding-inline:clamp(8px,2.5vw,24px);gap:6px;background:color-mix(in srgb,var(--surf) 70%,transparent);border:1px solid color-mix(in srgb,var(--line) 70%,transparent);border-bottom:0;border-radius:26px 26px 0 0;box-shadow:0 -8px 30px rgba(10,25,17,.08),inset 0 1px 0 rgba(255,255,255,.55);backdrop-filter:var(--glass-filter);-webkit-backdrop-filter:var(--glass-filter)}
+.ni{border-radius:22px}
+.ni[aria-selected="true"] .pill{box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 5px 18px rgba(20,50,35,.10)}
+.ni:active{transform:scale(.97)}
+button,.fb,.chip,.sc,.pc,.x{transition:background-color .24s var(--e),color .24s var(--e),border-color .24s var(--e),transform .22s var(--e)}
+button:active{transform:scale(.985)}
+.add input,.add select,.ta,.sum input{background:color-mix(in srgb,var(--surf) 78%,transparent);border-color:color-mix(in srgb,var(--line) 68%,transparent);backdrop-filter:var(--glass-filter);-webkit-backdrop-filter:var(--glass-filter)}
+.fb{box-shadow:0 8px 20px color-mix(in srgb,var(--pri) 18%,transparent),inset 0 1px 0 rgba(255,255,255,.18)}
+.sheet,.modal,.scrim{backdrop-filter:blur(12px) saturate(130%);-webkit-backdrop-filter:blur(12px) saturate(130%)}
+#scrim,.scrim{background:rgba(5,12,8,.30)}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+ .card,.row-i,.pt,.tile,.sum,.hb,.cd,.sc2,.nav nav{background:var(--surf);box-shadow:0 6px 20px rgba(0,0,0,.07)}
+}
+@media(min-width:760px){.page{padding-inline:clamp(28px,5vw,72px)}.grid2{gap:16px}.card{padding:20px}}
+@media(prefers-reduced-motion:reduce){.card,.tile,.row-i,.pt,.ni,button{transition:none!important;animation:none!important}}
+
 </style>
 </head>
 <body>
