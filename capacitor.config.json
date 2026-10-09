@@ -1,0 +1,12 @@
+{
+  "appId": "com.werd.habittracker",
+  "appName": "وِرد",
+  "webDir": "www",
+  "backgroundColor": "#FBFBF9",
+  "server": {
+    "androidScheme": "https"
+  },
+  "android": {
+    "allowMixedContent": false
+  }
+}
