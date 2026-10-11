@@ -97,7 +97,7 @@ Future<int?> _autoVal(Map<String, dynamic> c, String p) async {
   return null;
 }
 
-Future<List<ChalItem>> chalPick(String p) async {
+Future<List<Map<String, dynamic>>> chalPick(String p) async {
   final all = (await data.challenges()).where((c) => c['period'] == p).toList();
   return seededPick(all, periodKey(p), p == 'day' ? 5 : p == 'week' ? 3 : 2);
 }
