@@ -1,0 +1,62 @@
+import 'dart:convert';
+import 'package:flutter/services.dart' show rootBundle;
+import 'store.dart';
+import 'util.dart';
+
+/// بيانات القرآن والأذكار والتحديات من ملفات المشروع الأصلية (assets/data).
+class Data {
+  Map<String, dynamic>? _azkar, _quran, _chal;
+
+  Future<Map<String, dynamic>> _load(String n) async => jsonDecode(await rootBundle.loadString('assets/data/$n.json')) as Map<String, dynamic>;
+
+  Future<List<Map<String, dynamic>>> categories() async {
+    _azkar ??= await _load('azkar');
+    return (_azkar!['categories'] as List).cast<Map<String, dynamic>>();
+  }
+
+  Future<Map<String, dynamic>> quran() async => _quran ??= await _load('quran');
+  Future<List<Map<String, dynamic>>> challenges() async {
+    _chal ??= await _load('challenges');
+    return (_chal!['challenges'] as List).cast<Map<String, dynamic>>();
+  }
+
+  /// آية: [surah, ayah, text, juz, page, hizbQuarter, sajda]
+  Future<List> ayahs() async => (await quran())['ayahs'] as List;
+  Future<List> surahs() async => (await quran())['surahs'] as List;
+  Future<String> surahName(int n) async => ((await surahs())[n - 1][1] as String).replaceFirst(RegExp(r'^سُورَةُ\s*'), '');
+}
+
+final Data data = Data();
+
+// ---------- النشاط والسلسلة ----------
+void touchActivity() => store.upd('activity', {'days': {}}, (a) {
+      a['days'] ??= {};
+      final d = a['days'] as Map;
+      d[todayKey()] = ((d[todayKey()] as num?) ?? 0) + 1;
+    });
+
+({int cur, int best}) streak() {
+  final a = store.getMap('activity', {'days': {}});
+  final days = (a['days'] as Map?) ?? {};
+  var d = DateTime.now();
+  var n = 0;
+  if (days[dkey(d)] == null) d = d.subtract(const Duration(days: 1));
+  while (days[dkey(d)] != null) {
+    n++;
+    d = d.subtract(const Duration(days: 1));
+  }
+  final b = ((a['best'] as num?) ?? 0).toInt();
+  return (cur: n, best: n > b ? n : b);
+}
+
+Map<String, dynamic> quranState() => store.getMap('quran', {'fav': [], 'marks': [], 'hl': {}, 'last': 1, 'pagesRead': {}});
+int pagesToday() => (((quranState()['pagesRead'] as Map?) ?? {})[todayKey()] as num?)?.toInt() ?? 0;
+void addPages(int n) {
+  store.upd('quran', {}, (q) {
+    q['pagesRead'] ??= {};
+    final p = q['pagesRead'] as Map;
+    final cur = (p[todayKey()] as num?)?.toInt() ?? 0;
+    p[todayKey()] = (cur + n) < 0 ? 0 : cur + n;
+  });
+  touchActivity();
+}
