@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
-"""يعدّل مشروع android المُولَّد بواسطة `flutter create` ليناسب الاعتماديات:
-- تفعيل core library desugaring (مطلوب لـ flutter_local_notifications).
-يعمل مع Gradle بصيغة Kotlin (.kts) أو Groovy. يفشل بوضوح إن لم يجد الأنماط المتوقعة."""
+"""Patch generated Android Gradle files for desugaring and compatible JVM targets."""
 import pathlib
 import re
 import sys
@@ -33,9 +31,8 @@ else:
 
 f.write_text(s, encoding="utf8")
 
-# Flutter may generate Java 11 compile tasks while older plugins (e.g. flutter_timezone)
-# default Kotlin compilation to JVM 1.8. Align Kotlin compilation for all Android
-# subprojects with Java 11 to prevent Gradle target validation failures.
+# Align Kotlin compilation with Java 11. Use the modern compilerOptions DSL for
+# Kotlin Gradle plugin versions where deprecated kotlinOptions is a build error.
 root_kts = pathlib.Path("android/build.gradle.kts")
 if root_kts.exists():
     root = root_kts.read_text(encoding="utf8")
@@ -45,8 +42,8 @@ if root_kts.exists():
 \n// Keep Kotlin bytecode compatible with Android Java compileOptions (Java 11).
 subprojects {
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-        kotlinOptions {
-            jvmTarget = "11"
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11)
         }
     }
 }
