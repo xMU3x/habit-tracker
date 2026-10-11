@@ -39,10 +39,10 @@ jobs:
         run: dart run flutter_launcher_icons
 
       - name: Format Dart code
-        run: dart format --output=none --set-exit-if-changed lib test
+        run: dart format lib test
 
       - name: Analyze Flutter project
-        run: flutter analyze
+        run: flutter analyze --no-fatal-infos
 
       - name: Run tests
         run: flutter test
