@@ -32,4 +32,38 @@ else:
     sys.exit("patch_gradle: لم يُعثر على android/app/build.gradle(.kts) — شغّل tool/setup_android.sh أولًا")
 
 f.write_text(s, encoding="utf8")
-print(f"patched {f}")
+
+# Flutter may generate Java 11 compile tasks while older plugins (e.g. flutter_timezone)
+# default Kotlin compilation to JVM 1.8. Align Kotlin compilation for all Android
+# subprojects with Java 11 to prevent Gradle target validation failures.
+root_kts = pathlib.Path("android/build.gradle.kts")
+if root_kts.exists():
+    root = root_kts.read_text(encoding="utf8")
+    marker = "tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>()"
+    if marker not in root:
+        root += """
+\n// Keep Kotlin bytecode compatible with Android Java compileOptions (Java 11).
+subprojects {
+    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+        kotlinOptions {
+            jvmTarget = "11"
+        }
+    }
+}
+"""
+        root_kts.write_text(root, encoding="utf8")
+elif pathlib.Path("android/build.gradle").exists():
+    root_groovy = pathlib.Path("android/build.gradle")
+    root = root_groovy.read_text(encoding="utf8")
+    marker = "tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile)"
+    if marker not in root:
+        root += """
+\n// Keep Kotlin bytecode compatible with Android Java compileOptions (Java 11).
+subprojects {
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+        kotlinOptions { jvmTarget = '11' }
+    }
+}
+"""
+        root_groovy.write_text(root, encoding="utf8")
+print(f"patched {f} and Kotlin JVM target")
